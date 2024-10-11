@@ -1,0 +1,27 @@
+
+<%try{%>
+    <input type="hidden" id="CompayName" value="<%=Business.CompayName%>">
+    <input type="hidden" id="Tel" value="<%=Business.Tel%>">
+    <input type="hidden" id="email" value="<%=Business.email%>">
+    <input type="hidden" id="Address" value="<%=Business.Address%>">
+    <input type="hidden" id="CompanyCity" value="<%=Business.CompanyCity%>">
+    <input type="hidden" id="InvoicePolicy" value="<%=Business.InvoicePolicy%>">
+    <input type="hidden" id="zip" value="<%=Business.CompayZip%>">
+    <input type="hidden" id="ShopAddress" value="<%=Business.ShopAddress%>">
+  <% }catch(e){%>
+
+<% } %>
+
+<script>
+    // ------
+  // invoice write up
+  // ------
+  const Tel = document.getElementById('Tel').value
+  const CompanyName = document.getElementById('CompayName').value
+  const email = document.getElementById('email').value
+  const Address = document.getElementById('Address').value
+  const CompanyCity = document.getElementById('CompanyCity').value
+  const InvoicePolicy = document.getElementById('InvoicePolicy').value
+  const zip = document.getElementById('zip').value
+  const ShopAddress = document.getElementById('ShopAddress').value
+</script>

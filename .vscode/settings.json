@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/22e41c39-6f4e-40de-985b-8289ab875980/resourceGroups/DefaultResourceGroup-CCAN/providers/Microsoft.Web/sites/tojecBade",
+    "appService.deploySubpath": "."
+}

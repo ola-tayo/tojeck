@@ -1,0 +1,1 @@
+**** declear all Static files here files here ****

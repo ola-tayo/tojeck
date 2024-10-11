@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>BADE || <%= invoice.InvoiceStatus %>/<%= invoice.InvoiceNumber%></title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <link rel="icon" type="image/x-icon" href="https://allchannels.com.ng/BADES.jpg">
+        <!-- Bootstrap CSS v5.2.1 -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="/sale.css" />
+        <%-include('../partials/Notification.ejs')%> 
+        <%-include('../partials/invoiceWriteup.ejs')%>
+    </head>
+
+    <body>
+        <header>
+            <!-- place navbar here -->
+             <nav class="dash navbar navbar-light bg-dark fixed-top">
+                <div class="container-fluid">
+                  <a class="navbar-brand"  href="/api/v1/POS/Van?van=<%= van._id%>" title="Dashboard">
+                    <img width="30" height="30" src="https://img.icons8.com/stickers/100/dashboard-layout.png" alt="dashboard-layout"/>
+                    <b>S/<%= invoice.InvoiceStatus.substring(0.3).toUpperCase()%>/<%= invoice.InvoiceNumber%></b>
+                    
+                  </a>
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar"
+                        aria-controls="offcanvasNavbar"
+                    >
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div
+                        class="offcanvas offcanvas-end"
+                        tabindex="-1"
+                        id="offcanvasNavbar"
+                        aria-labelledby="offcanvasNavbarLabel"
+                    >
+                        <div class="dash offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                                Menu
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close text-reset"
+                                data-bs-dismiss="offcanvas"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="offcanvas-body">
+                          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <div class="list-group " >
+                            <%-include('../partials/USER.ejs')%>
+                            <%if(user._id.toString() === van.Driver.toString()){%>
+                              <li class="nav-item">
+                                  <a
+                                  class="list-group-item list-group-item-action"
+                                      aria-current="page"
+                                      href="/api/v1/Mycustomers?Mycustomers=<%= van._id%>"
+                                      >
+                                      <img width="30" height="30" src="https://img.icons8.com/color/48/shop.png" alt="shop"/>
+                                      My Customers</a
+                                  >
+                              </li>
+                              <li class="nav-item">
+                                <a
+                                    class="list-group-item list-group-item-action"
+                                    aria-current="page"
+                                    href="/api/v1/New/Invoice?van=<%= van._id%>"
+                                    >
+                                    <img width="30" height="30" src="https://img.icons8.com/plasticine/100/invoice-1.png" alt="invoice-1"/>
+                                    New Invoice</a>
+                            </li>
+                              <% } %>
+                              <li class="nav-item">
+                                  <a class="list-group-item list-group-item-action " href="/api/v1/Myproducts?Myproducts=<%= van._id%>">
+                                    <img width="30" height="30" src="https://img.icons8.com/pastel-glyph/64/move-by-trolley.png" alt="move-by-trolley"/>
+                                    Inventory</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="list-group-item list-group-item-action " href="/api/v1/POS/Van?van=<%= van._id%>">
+                                  <img width="25" height="25" src="https://img.icons8.com/stickers/100/dashboard-layout.png" alt="dashboard-layout"/>
+                                  Dashboard</a>
+                            </li>
+                              <li class="nav-item dropdown">
+                                  <a
+                                      class="nav-link dropdown-toggle"
+                                      href="#"
+                                      id="dropdownId"
+                                      data-bs-toggle="dropdown"
+                                      aria-haspopup="true"
+                                      aria-expanded="false"
+                                      >More</a
+                                  >
+                                  <div
+                                      class="dropdown-menu"
+                                      aria-labelledby="dropdownId"
+                                  >
+                                      <a class="dropdown-item"  href="/api/v1/Todays/Visit?van=<%= van._id%>"
+                                          >
+                                          <img width="30" height="30" src="https://img.icons8.com/fluency/48/route.png" alt="route"/>
+                                          Todays Route</a
+                                      >
+                                      <a class="dropdown-item" href="#"
+                                          >
+                                          <img width="30" height="30" src="https://img.icons8.com/doodle/48/season-sale.png" alt="season-sale"/>
+                                          Calender</a
+                                      >
+                                      <% if ( van.Manager.toString() === user._id.toString() || user.isAdmin) { %>
+
+                                      <a class="dropdown-item" href="/api/v1/van/Settings?van=<%= van._id%>"
+                                          >
+                                          <img width="30" height="30" src="https://img.icons8.com/cotton/64/settings--v1.png" alt="settings--v1"/>
+                                          Settings</a
+                                      >
+                                      <% } %>
+                                  </div>
+                              </li>
+                              </div>
+                          </ul>
+                            <form class="d-flex">
+                                <input
+                                    class="form-control me-2"
+                                    type="search"
+                                    placeholder="Search"
+                                    aria-label="Search"
+                                />
+                                <button class="btn btn-outline-success" type="submit">
+                                    Search
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+             </nav>
+             
+        </header>
+        <main class="pt-4 container-fluid mt-4  p-3 bg-light " style="height: 100dvh;" >
+          <div  class=" box mt-5 mb-5  "  >
+            <form id="invoiceForm" class="" >
+              <div class="d-flex justify-content-between align-content-center gap-2">
+                <img  height="80" width="80" src="/logo.jpg" class="rounded "/>
+                <b><%= Business.CompayName %></b>
+              </div>
+              <br>
+              <div class="page" style="page-break-after: always" id="id" data-id="">
+        
+                  <div class="intro-form">
+                    <div class="intro-form-item-border d-flex flex-column gap-3">
+                      
+                      <div class="col-md-6">
+                        <!-- <label for="Customer" class="form-label">Customer</label> -->
+                        <input type="hidden" id="Customer" data-van="<%= van._id %>" requied value="<%= invoice.customerName%>" disabled list="customerList" name="referenceNo" class="form-control border" placeholder="<%= invoice.customerName%> Order" required/>
+                      </div>
+                      
+                      <div class="col-md-7  border p-2 rounded bg-dark-subtle shadow">
+                        <label for="AccountNumber" class="form-label">Customer Information</label><br>
+                        <!-- display customer infomation here -->
+                         <h6><%= customer.name.toUpperCase() %></h6>
+                        <small class="text-muted" ><span
+                            class="badge bg-primary"
+                            >Address: </span
+                        >
+                        <%= customer.state %></small><br>
+                        <input type="hidden" id="customerAddress" value=" <%= customer.state %>">
+                        <small class="text-muted" id="phone"><span
+                          class="badge bg-primary"
+                          >Tel:</span
+                        >
+                         <%=  customer.phone %></small><br>
+                        <small class="text-muted"><span
+                            class="badge bg-primary"
+                            >Email:</span
+                        >
+                         <%= customer.Email %></small><br>
+                        <small class="text-muted"><span
+                            class="badge bg-primary"
+                            >Balance:</span
+                        >
+                         ₦<%=customer.Balance %>
+                         </small>
+                         <br>
+                        <hr>
+                         <h5 class="text-muted"><span
+                            class="badge bg-success"
+                            >Invoice Value</span
+                        >
+                        <br>
+                         ₦<%=invoice.TotalPrice %></h5>
+                         <input type="hidden" id="Grandtotal" value="<%=invoice.TotalPrice  %>">
+                         <small class="text-muted" id="words"></small>
+                         
+                      </div> 
+                      <br>
+                    </div>
+                   
+                  </div>
+        
+                <div
+                  class="table-responsive"
+                >
+                  <table
+                    class="table table-striped table-hover table-borderless table-dark align-middle shadow rounded"
+                  >
+                    <thead class="table-light">
+                      <caption id="Invoice_number" class="d-flex justify-content-between gap-3 align-content-center">
+                        <!-- product selector -->
+                        <span class="col-md-6" onclick="GeneratePdf()">
+                          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAALgklEQVR4nO2de1BT+RX
+                          Hf9q103b6Gqfb6R/bsY+Z/tHuTmdq/2h8rFFwwHZd7e7qijNr1XV8VDewkAvyUJZV8UFYQEEeC75QYQMIiEgdRCIiuIL4YgkLCAhEgkDIvYQ35HR+10juTW4gvG5e98x8Bww3i
+                          Tmf/H7nd87vcRESTDDBBBNMMMEEoyhqOUmS6SRJqkiSHKUoCuxZJEmOkiTZRlHUZYqiljoNQQB4gyTJeFs7mJo5oFj8WZCjmzPAoAxqb2+/AgA/QI7cTdnaidQsS6lU5oWGhs5Hjmg
+                          4ZtjagdQc6OHDhxkIoXnI0QwHcNMPExeTBW7LfEAskti13Jb5QOTxNBw7OKGUl5cnI0czrtGU+7uf29zZ4ikIQ7HUUkpKSqKQIxnXh7C1g8XTUPypbE4gJEnqFQrFIeQsQIAg7FJjBGEG5
+                          WzyNU4oWq1WX1hYSCBHMEcFAhxAVi7xhvRLhZagjBUVFX2G7N2cCYjYACVLXswJpaenZ6SgoGArsmdzNiBikQRWLfWB63l3LUEZzM3N3YDs1ZwRiFgkoUeKxUWVnFC6u7v7s7KyPJE9mrMCE
+                          Ysk4CH2g7LSx5xQXr58Scnl8mXI3syZgYhFEljjRkDVAyUnFLVarUlNTf0bsidzdiBikQTe99wP1U8bLEHpTE9PfxvZi7kCELFIAuvWBIGyppETikqlepGWlvZHZA/mKkDEIglsWHcAnjW0cEJ
+                          paWlpSkpKesvWPFwKiFgkgc0fhcHzZhUnlKamplqZTPYrAQjBHxCsrZvD4YWqgxNKfX39o5iYmJ8LLYTgDwjWzm0noKOjixNKbW1tWWRk5I+FLouYeyArGL9LdkdDZ2c3J5TKysochBD/U8GuFkPE
+                          JvLZexK6uzWcUCIiIiQIIX6ngl0diFgkgUAiEXp6tFytpAwh9HcBCGEdkA1i71mDEnH0ElfS2I0Q8kII/VpoIcTkQO7t8Js1KLgYyTWHYgDC3yI8R+6yYIbSm3R7XL4wAFkvACH4j0MTANkkACHsCo
+                          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"
+                            height="30"
+                            width="30"
+                          >
+                        </span>
+                        <% if (van.Driver.toString() === user._id.toString()) { %>
+                        <div class="col-md-6  <% if (invoice.InvoiceStatus !== 'order') { %>
+                          d-none
+                          <% } %>">
+                            <label for=""></label>
+                            <button class="btn btn-success" 
+                            <% if (invoice.InvoiceStatus !== 'order'  || invoice.orders.length < 1 ) { %>
+                                disabled
+                               <% } %>
+                            >Generate Invoice</button>
+                        </div>  
+                        <% } %>
+
+                        <% if (van.Driver.toString() === user._id.toString()) { %>
+                        <div class="col-md-6 <% if (invoice.InvoiceStatus !== 'invoice'  || invoice.orders.length < 1 ) { %>
+                          d-none
+                         <% } %>">
+                          <label for=""></label>
+                          <span class="btn btn-danger "  onclick=" CancelInvoice()"
+                          >Cancel Invoice</span>
+                      </div> 
+                      <% } %>
+
+
+                      <% if (van.Driver.toString() === user._id.toString()) { %>
+                        <div class="col-md-6 <% if (invoice.InvoiceStatus !== 'order' ) { %>
+                          d-none
+                         <% } %>">
+                          <label for=""></label>
+                          <span class="btn btn-info "  id="delete" 
+                          >Delete <%=invoice.InvoiceStatus %></span>
+                      </div> 
+                      <% } %>
+                      <!-- ends here -->
+                       
+                      </caption>
+                      <tr>
+                        <th class="<% if (invoice.InvoiceStatus !== 'order'  || van.Driver.toString() !== user._id.toString()) { %>
+                          d-none
+                         <% } %>"></th>
+                        <th>product</th>
+                        <!-- <th class="<% if (invoice.InvoiceStatus === 'order' ) { %>
+                          d-none
+                         <% } %>"></th> -->
+                        <th class="<% if (invoice.InvoiceStatus !== 'order' ) { %>
+                          d-none
+                         <% } %>">Forecast</th>
+                        <th>promo</th>
+                        <th>price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody" class="table-group-divider">
+                        <% if (invoice.orders.length > 0 ) { %>
+                         <% invoice.orders.forEach(element => { %>
+                            <tr
+                            class="" name=""
+                          >
+                          <td class="<% if (invoice.InvoiceStatus !== 'order' || van.Driver.toString() !== user._id.toString() ) { %>
+                            d-none
+                           <% } %>" title="Delete <%=element.product.productName  %>" >
+                            <svg name="remove-btn" data-deleteId="<%= element._id %>" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill text-danger" viewBox="0 0 16 16">
+                              <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+                            </svg>
+                            </td>
+                            <td scope="row"><%= element.product.productName %></td>
+                            <!-- <td class="<% if (invoice.InvoiceStatus === 'order' ) { %>
+                              d-none
+                             <% } %>"><%= element.tracibility %></td> -->
+                            <td class="<% if (invoice.InvoiceStatus !== 'order' ) { %>
+                              d-none
+                             <% } %>"><%= element.product.Qty %></td>
+                            <td><%= element.product.promotion %></td>
+                            <td><%= element.product.priceListPrice %></td>
+                            <% if (van.Driver.toString() === user._id.toString()) { %>
+                            <td>
+                                <input type="number" style="width: 40px; font-weight: bolder;" data-qtyAvail="<%= element.product.Qty %>" name="orderTr" data-orderId="<%= element._id %>" value="<%= element.purchasedQty %>"
+                                <% if (invoice.InvoiceStatus !== 'order'  ) { %>
+                                 disabled 
+                                <% }%>
+                                >
+                            </td>
+                            <% }else{%>
+                              <td><%= element.purchasedQty %></td>
+                            <% } %>
+                            <td><%= element.total %></td>
+                           
+                          </tr>  
+                         <% }) %>
+                         
+                        <% } %>
+                     
+                    </tbody>
+
+                    <tfoot>
+                     <span
+                      class="badge bg-success m-2"
+                      > S/<%= invoice.InvoiceStatus.substring(0.3).toUpperCase()%>/<%= invoice.InvoiceNumber%></span
+                     >
+                     <span
+                     class="badge bg-danger"
+                     > <%= invoice.InvoiceDate.toString().substring(0,15)%></span
+                    >
+                    </tfoot>
+                    <br>
+                  </table>
+                  <!-- datalist product -->
+                <% if (van.Driver.toString() === user._id.toString()) { %>
+
+                <div class="col-md-6 mb-5 border shadow p-2 rounded bg-info-subtle  <% if (invoice.InvoiceStatus !== 'order' ) { %>
+                    d-none
+                   <% } %>">
+                    <label for="products" class="form-label"><b>Product List</b></label>
+                    <input type="text" id="products" data-van="<%= van._id %>" list="productsACD" name="referenceNo" class="form-control border" placeholder="Search Product List" 
+                    />
+                    <datalist id="productsACD" >
+                     <option selected disabled >choose...</option>
+                    <% if (van.Cart.length > 0) { %>
+                      <!-- filtere through the van cart and return product whose qty is greater than 0 and status is true -->
+                        <% van.Cart.forEach(element => { %>
+                          <% if (element.status === true && element.Qty > 0) { %>
+                            <option value="<%= element.productCode %>"><%= element.productName %></option> 
+                          <% } %>
+                        <% }) %>
+                    <%}%>
+                    </datalist>
+                </div>
+                <% } %>
+                <!-- ends here -->
+            </div>
+                
+            <input type="text" disabled readonly hidden   id="ref" value="<%= invoice._id%>">
+               
+
+            </div>
+                
+              </div>
+             
+            </form>
+             
+          </div>
+        </main>
+        <!-- Bootstrap JavaScript Libraries -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+        ></script>
+        <!-- add moment script -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+        <!-- add jspdf script -->
+        <script src="https://unpkg.com/jspdf-invoice-template@1.4.0/dist/index.js"></script>
+        <script>
+          // get Customer field from form 
+          const customerInput = document.getElementById('products')
+        //   ref is the invoice number
+          const ref = document.getElementById('ref').value;
+          customerInput.addEventListener('change',async(e)=>{
+            plsWait(true);
+            if(e.target.value !== ""){
+              // send a request to the back end to create a new invoice
+              const endPoint = `/api/v1/van_Product/?code=${e.target.value}&van=${customerInput.dataset.van}&invoice=${ref}`
+              const res = await fetch(endPoint,{
+                method:'GET',
+                headers:{'Content-Type': 'application/json'}
+              })
+              
+              const data = await res.json()
+              if(data.error){
+                serverError(data.error)
+                plsWait(false);
+              }else{
+                ShowServerResponse(data.message)
+                location.reload();
+              }
+            }else{
+              serverError('You should provide a valid product code')
+            };
+          })
+
+          //update qty purchased on database server
+          const orderInputs = document.querySelectorAll('input[name="orderTr"]')
+          orderInputs.forEach(input=>{
+            input.addEventListener('change',async(e)=>{
+              plsWait(true);
+              if(e.target.value > 0 && e.target.value <= input.dataset.qtyavail ){
+                const endPoint = `/api/v1/van_Product/update_order_qty/${input.dataset.orderid}?order_id=${ref}`
+              const res = await fetch(endPoint,{
+                method:'PUT',
+                headers:{'Content-Type': 'application/json'},
+                body:JSON.stringify({purchasedQty:e.target.value})
+              })
+              const data = await res.json()
+                if(data.error){
+                    serverError(data.error)
+                    plsWait(false);
+                    }else{
+                    ShowServerResponse(data.message)
+                    location.reload();
+                }
+              }else{
+                serverError('You should provide a valid quantity')
+                plsWait(false);
+                e.target.value =  0
+              }
+            })
+          })
+
+        //   submit for to back end 
+        const invoiceForm = document.querySelector('#invoiceForm')
+        invoiceForm.addEventListener('submit',async(e)=>{
+          e.preventDefault()
+          plsWait(true)
+          //add seweetalert to show Amount collected field
+          addAmountReceived()
+        },{once:true})
+
+        //remove item prom orderd list 
+        const removeBtns = document.getElementsByName('remove-btn')
+       //for loop 
+        for(let i = 0; i < removeBtns.length; i++){
+          removeBtns[i].addEventListener('click',async(e)=>{
+            plsWait(true)
+            const endPoint = `/api/v1/remove_item?line=${removeBtns[i].dataset.deleteid}&invoice=${ref}`
+            const res = await fetch(endPoint,{
+              method:'DELETE',
+              headers:{'Content-Type': 'application/json'}
+            })
+            const data = await res.json()
+            if(data.error){
+                serverError(data.error)
+                plsWait(false);
+            }else{
+                ShowServerResponse(data.message)
+                location.reload();
+            }
+          })
+        }
+
+        //delete order that isnt cancelled from database
+        const deleteBtn = document.getElementById('delete')
+        deleteBtn.addEventListener('click',async(e)=>{
+          plsWait(true)
+          const endPoint = `/api/v1/delete_order?invoice=${ref}&user=<%=user._id%>`
+          const res = await fetch(endPoint,{
+            method:'DELETE',
+            headers:{'Content-Type': 'application/json'}
+          })
+          const data = await res.json()
+          if(data.error){
+              serverError(data.error)
+              plsWait(false);
+          }else{
+              ShowServerResponse(data.message)
+              location.href = '/api/v1/POS/Van?van=<%=van._id%>'
+          }
+        })
+
+        let Inwords
+
+        //generate pdf invoice
+        const GeneratePdf = async ()=>{
+          // plsWait(true)
+          const res = await fetch(`/api/v1/Retail/invoice/pdf/${ref}`,{
+            method:'GET',
+            headers:{'Content-Type': 'application/json'}
+          })
+          const response = await res.json()
+          // return
+          var pdfObject = await jsPDFInvoiceTemplate.default( {
+              outputType: jsPDFInvoiceTemplate.OutputType.Save,
+              returnJsPDFDocObject: true,
+              fileName: `${response.customerName}`,
+              orientationLandscape: false,
+              compress: true,
+              logo: {
+              src: "/logo.jpg",
+              type: 'JPG', //optional, when src= data:uri (nodejs case)
+              width: 26.66, //aspect ratio = width/height
+              height: 26.66,
+              margin: {
+                  top: 0, //negative or positive num, from the current position
+                  left: 0 //negative or positive num, from the current position
+              }
+              },
+              stamp: {
+                inAllPages: true, //by default = false, just in the last page
+                src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
+                type: 'JPG', //optional, when src= data:uri (nodejs case)
+                width: 20, //aspect ratio = width/height
+                height: 20,
+                margin: {
+                    top: 0, //negative or positive num, from the current position
+                    left: 0 //negative or positive num, from the current position
+                }
+              },
+              business: {
+              name: CompanyName.toUpperCase(),
+              address: `${Address.toUpperCase()},`,
+              email: `${email.toUpperCase()}`,
+              email_1: `(${zip}) ${Tel},`,
+              phone: `${ShopAddress}.`,
+              website: "",
+              },
+              contact: {
+              label:`DUPLICATE COPY.`,
+              name: `${response.customerName.toUpperCase()}`,
+              address: `Van Reference: "${response.vanRefNumber}"`,
+              phone: `Address:${document.getElementById('customerAddress').value}`,
+              email: `${document.getElementById('phone').innerText}`,
+              otherInfo:``,
+              },
+              invoice: {
+              label:`${response.InvoiceStatus.toUpperCase()}/`,
+              num: `${response.InvoiceNumber.toUpperCase()}` ,
+              invDate: `Invoice Date:${response.InvoiceDate}`,
+              invGenDate:`Printed at:${moment().format('DD/MM/YYYY')}` ,
+              headerBorder: true,
+              tableBodyBorder: true,
+              additionalRows:true,
+              header: [
+                {
+                  title: "#",
+                  style: {
+                    width: 10
+                  }
+                },{
+                  title: "Product",
+                  style: {
+                    width: 40
+                  }
+                },
+                { title: "Promo"},
+                { title: "P-Sum"},
+                { title: "Price"},
+                { title: " QTY "},
+                { title: "Vat"},
+                { title: "Total",style:{
+                  width:30
+                }}
+                
+              ],
+              table: response.orders.map((ord,index)=>{
+              
+                return [index +1,ord.product.productName,ord.product.promotion.$numberDecimal,
+                ord.purchasedQty *ord.product.promotion.$numberDecimal,ord.product.priceListPrice.$numberDecimal,
+                ord.purchasedQty,ord.product.vat.$numberDecimal,ord.total.$numberDecimal
+              ]
+              }),
+              additionalRows: [{
+                  col1: 'Total:',
+                  col2: '',
+                  col3: 'ALL',
+                  style: {
+                      fontSize: 14 //optional, default 12
+                  }
+              },
+              {
+                  col1: 'VAT:',
+                  col2: '20',
+                  col3: '%',
+                  style: {
+                      fontSize: 10 //optional, default 12
+                  }
+              },
+              {
+                  col1: 'SubTotal:',
+                  col2: '116,199.90',
+                  col3: 'ALL',
+                  style: {
+                      fontSize: 10 //optional, default 12
+                  }
+              }],
+              invDescLabel: `TOTAL :NGN${response.TotalPrice.$numberDecimal}`,
+              invDesc: `(${Inwords}), Payment Registered: NGN${response.payment.map(pay =>{return parseInt( pay.Amount.$numberDecimal)}).reduce((total , currentValue) => {return total + currentValue},0)}`,
+              invTotal: "Customer Signature and Date",
+              },
+              footer: {
+              text: InvoicePolicy ,
+              },
+              pageEnable: true,
+              pageLabel: "BADE ",
+              }); //returns number of pages created
+        }
+
+
+        const Grandtotal = document.getElementById('Grandtotal').value
+      
+          function test(n) {
+          if (n < 0)
+            return false;
+         single_digit = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine']
+         double_digit = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen']
+         below_hundred = ['Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety']
+        if (n === 0) return 'Zero'
+        function translate(n) {
+          word = ""
+          if (n < 10) {
+            word = single_digit[n] + ' '
+          }
+          else if (n < 20) {
+            word = double_digit[n - 10] + ' '
+          }
+          else if (n < 100) {
+            rem = translate(n % 10)
+            word = below_hundred[(n - n % 10) / 10 - 2] + ' ' + rem
+          }
+          else if (n < 1000) {
+            word = single_digit[Math.trunc(n / 100)] + ' Hundred ' + translate(n % 100)
+          }
+          else if (n < 1000000) {
+            word = translate(parseInt(n / 1000)).trim() + ' Thousand ' + translate(n % 1000)
+          }
+          else if (n < 1000000000) {
+            word = translate(parseInt(n / 1000000)).trim() + ' Million ' + translate(n % 1000000)
+          }
+          else {
+            word = translate(parseInt(n / 1000000000)).trim() + ' Billion ' + translate(n % 1000000000)
+          }
+          return word
+        }
+         result = translate(n) 
+        return result.trim()+'.'
+      }
+      document.getElementById('words').innerHTML = `${test(parseInt(Grandtotal))} Naira only.`;
+      Inwords =  `${test(parseInt(Grandtotal))} Naira only.`
+        
+
+        </script>
+    </body>
+</html>

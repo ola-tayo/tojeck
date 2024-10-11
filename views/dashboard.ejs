@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Nova+Square&display=swap" rel="stylesheet">
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+  <%-include('./partials/head.ejs')%>
+  <%-include('./partials/inactive.ejs')%>
+  <style>
+    * {
+  box-sizing: border-box;
+  font-family: 'Dancing Script', cursive;
+  font-family: 'Nova Square', sans-serif;
+}
+
+.card {
+  /* background: hsla(0, 8%, 14%, 0.575); */
+  width: 100px ;
+  aspect-ratio: 4 / 3;
+  position: relative;
+  transition: background 0.1s;
+/* From https://css.glass */
+background: rgba(255, 255, 255, 0);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(3.3px);
+-webkit-backdrop-filter: blur(3.3px);
+border: 2px solid rgba(255, 255, 255, 0.33);
+}
+
+.card:hover {
+  --active: 1;
+}
+
+.card:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+  radial-gradient(circle at calc(var(--x) * 1px) calc(var(--y) * 1px), hsl(0 0% 100% / 0.15), transparent 15vmin);
+  background-attachment: fixed;
+  opacity: var(--active, 0);
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.card:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at calc(var(--x) * 1px) calc(var(--y) * 1px), hsl(0 0% 100% / 0.5), transparent 15vmin),
+    transparent;
+  background-attachment: fixed;
+  pointer-events: none;
+  mask:
+    linear-gradient(white, white) 50% 0 / 100% 4px no-repeat,
+    linear-gradient(white, white) 50% 100% / 100% 4px no-repeat,
+    linear-gradient(white, white) 0 50% / 4px 100% no-repeat,
+    linear-gradient(white, white) 100% 50% / 4px 100% no-repeat;
+}
+
+span {
+  font-family: sans-serif, system-ui;
+  position: absolute;
+  bottom: 0.65rem;
+  right: 0.65rem;
+  font-weight: bold;
+  font-size: 2rem;
+  color: hsl(0 0% 100%);
+}
+
+.notification {
+  height: fit-content;
+  width: 40%;
+  background-color: #020000a2;
+  margin-top: 5%;
+  margin-left: 76%;
+  transform-origin: right;
+  -webkit-animation: notify 1s ease-in ;
+  animation: notify 1s ease-in ;
+  display: flex;
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  padding: 20px;
+  z-index: 1203;
+  font-weight:300;
+  color: #ffff;
+}
+
+@-webkit-keyframes notify {
+  0% {transform: scaleX(0); opacity: 100%;}
+  10% {transform: scaleX(1); opacity: 100%;;}
+  13% {transform: scale(1); opacity: 100%;}
+  16% {transform: scale(1); opacity: 100%;}
+  55% {transform: scaleX(1); opacity: 100%;}
+  65% {transform: scaleX(1); opacity: 50%;}
+  95% {transform: scaleX(1); opacity: 50%;}
+  100% {transform: scaleX(0); display: none;}
+}
+
+
+  </style>
+      <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0TXFE4GJ4V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0TXFE4GJ4V');
+</script>
+  
+  <body class=" dash " >
+    <div class="d-flex justify-content-between p-2" >
+     <!-- <div class="container " name="container" style="height: 100dvh;"></div> -->
+      <!-- else -->
+       <% if (promotions.length > 0) { %>
+        <marquee width="100%" direction="left" height="100px">
+          <% promotions.forEach(element => { %>
+            <a
+              href="/api/v1/Product/<%= element._id %>"
+              class="badge bg-dark-subtle text-dark"
+              ><%= element.Name %>!
+              <img src="<%= element.image ? element.image : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAD9UlEQVR4nO2dT08TQRiHl8QvoNGEbbbtxXD2b2IFCREUbxrxAMabeG27RDi0BvkAJEakKibtzcgFL8aDiRdSh6MpR++WwIHYmXBS4TVTaWxaSmfLru8Cv1/yXtvkefad2c40M5aFIAiCIAiCIAiCIPtFKXVNSrkopSxLKX8rpQiljBloZlLK71LKd0qpvo6fNiI6IaV8BfjK1wdQSpnTbD0LgQwV2EhQLpcLnocpdIYKdGguFArjlmV1mXbHIoSoQIWsrpa+RKPRS6ZCyo0fkHu+REP9Lg0kkqiEOQPNLDe31CRkY2Nj03Hsse7u7jMmQprepiAj2fGDeKN/oklIpVLZ1kJischVkzmk6QPQGckDMdiLqRbiOPadAwsh4aJEewZmQiKjECL+zwNl2CFjECIg5FgOcQPoEJddAoQIfvAQIvhhQ4jgBwwhgh8qhAh+kBASAngEIfzA6KgIqdVgX5Kyj1L0eT6Nmk9TdjxVZeJxcbG9ECnlT9Pl98HeJGTM/30gr/d6Wn7f8dIh35o2qOZab1ChQ9JVBq02qF6+eL/XBtUPL0LettuCxHK863nOaNzCNV5+39raOiel3IEQ19dJvL4mJycyxhtUu10yCyFuIEKKxeUPteHKaAtXh4i6lFLPpJTbGLJcX4ToibxYLH6Mx537/4TETlpeUqlULkOI64uQqanH2ZoIXfF45LwnGXXDFyZ14d8PQT2Rx2L2hY5kQIjr+y9zx3FOdSyDQ8ivZZdeZ1I0ctP/P+WNDKdoIZOufkdol0rCJmQhs/ePLD9LfweEGAoZCaAzGuvucApCjIUMpwIXcu+W/52NISvRuZA3WXSIp0l9IZMOpFMwqR+jGjiqb1l0SAtCBL8ECBH84CFE8MOGEMEPGEIEP1QICQFIghB+eAQh/MAIQvghEYTwgyEI4YdBISgsnQh+CRAi+MFDiOCHDSGCHzCECH6oEBICkAQh/PAIQviBEYTwQyII4QdDEMIPg0JQWDoR/BIgRPCDhxDBDxtCBD9gCBH8UCEkBCAJQvjhEYTwAyMI4YdEEMIPhiCEHwaFoLB0IvglQIjgBw8hgh/2oRKCSjYxCFQILglL+nYJmF9Cyl5OKT3ONdTiFNL19fVNP4Xoi3XbHuyIUi0ZlEpfzU8hNRBypd0ppSi1L4OZmemnWkg0at8+sJBdKTlAVx09eCsrK5/qzllM+CJEXzm9traWhxTlWUZPz9kHNSFGV616ST6ff1gqlYSepPSbAwSpprcpzUafXD09/aQ6TNUdCXvRCiBd+pbj+i9C2W0Z7Mowu667k+jW06cy60lKvzlAit0gITKq2WhGtm2fDkwEgiAIgiAIgliHLn8AKSCcApR8l94AAAAASUVORK5CYII' %>" width="20px" height="20px" alt="" srcset="">
+              </a
+            >
+            
+          <% }) %>
+          </marquee>
+       <% } else{%>
+        <h5 class="animate__animated animate__fadeInDown" title="<%=company.CompayName%>, <%=company.Address%>"><%=company.CompayName%></h5>
+        <small><%=responseDate%></small>
+        <% } %>
+
+      <!-- time and date here -->
+      <div class="d-flex justify-content-between p-2 align-items-start text-light"  title="Logged in as <%=user.firstName.toUpperCase().charAt(0)%><%=user.firstName.substring(1,30)%> <%=user.lastName%>">
+        <!-- <h6 class="bg-dark rounded shadow p-1"><%=user.firstName.toUpperCase().charAt(0)%></h6><p  class="text-dark"><%=user.firstName.substring(1,30)%> <%=user.lastName%></p> -->
+        <%-include('./partials/USER.ejs')%>
+      </div>
+     
+      
+    </div>
+    <div class="container main">
+      <%if(birthdayPerson.length > 0 ){%>
+        <h5 class="card-title m-3 animate__animated animate__fadeInDown">Welcome to Your DashBoard</h5>
+        <p class="card-title m-3 animate__animated animate__fadeInDown">
+          Navigate to any module and Carry out necessary Operation
+        </p>
+        <%birthdayPerson.forEach((person)=>{%>
+          <div id="cover" class="notification shadow rounded text-light d-flex justify-content-between align-items-center">
+            <%if(user.isAdmin){%>
+            <button class="btn btn-dark" id="birthdyButton"> Message Celebrant(s)</button> 
+            <%}else{%>
+              <img src="<%=person.image%>" alt="<%=person.fistName%> photo" width="30" height="30"/>
+            <%}%>
+            <br>
+              <div id="notify" class="notify p-1">Happy Birthday <%=person.firstName.toUpperCase()%>  &#127881; &#127881;</div>
+        </div>   
+        <%})%>
+      <%}else{%>
+       
+        <h5 class="card-title m-3 animate__animated animate__fadeInDown">Welcome to Your DashBoard</h5>
+        <p class="card-title m-3 animate__animated animate__fadeInDown">
+          Navigate to any module and Carry out necessary Operation
+        </p>
+      <%}%>
+      <ul class=" overflow-hidden flex-wrap justify-content-center gap-5  d-flex align-items-center">
+        <!-- employees -->
+       
+        <span
+        <%if(user.isAdmin || user.createStaff){%>
+          onclick="location.assign('/api/v1/employee')"
+          <%}else{%>
+            onclick="location.assign('/api/v1/employee/<%=user._id%>/user')"
+          <%}%>
+          
+          class="card m-1 mb-3 shadow-lg animate__bounceIn"
+          title="Employee Management "
+          style="cursor: pointer;"
+        >
+          <div class="card-img-top justify-content-center d-flex p-2">
+            <!-- <img
+              src="data:image/png;base64,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"
+              width="50"
+              height="50"
+            /> -->
+            <img width="40" height="40" src="https://img.icons8.com/ios-filled/50/commercial-development-management.png" alt="commercial-development-management"/>
+          </div>
+        </span>
+        <!-- ends here -->
+
+        <!-- sales -->
+        <%if(user.isAdmin ||  !user.isAccountant){%>
+        <span
+        onclick="location.assign('/api/v1/warehouse/<%=user._id%>/employeeLocation')"
+          class="card m-1 mb-3 shadow-lg animate__bounceIn"
+          title="Inventory Operations"
+          style="cursor: pointer;"
+        >
+          <div class="card-img-top justify-content-center d-flex p-2">
+              <img width="40" height="40" src="https://img.icons8.com/ios-filled/50/warehouse-1.png" alt="warehouse-1"/>
+          </div>
+        </span>
+        <%}%>
+        <!-- ends here -->
+
+        <!-- EMAIL MARKETING -->
+        <span
+        onclick="location.assign('/api/v1/Marketing')"
+          class="card m-1 mb-3 shadow-lg animate__bounceIn d-none"
+          title="Email Marketing "
+          style="cursor: pointer;"
+        >
+          <div class="card-img-top justify-content-center d-flex p-2">
+            <img width="40" height="40" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAB8klEQVR4nO3Xu2sUURTH8U9pozZWYlQEIVHx0UVURLC181WJIKikML4gEBvFv0BS2QimyOJ2NhELlSA+MFqEJAi+KiujNoJBNI5cOIFlWN3J7sxikQM/2L33njPf+zpzhmVrbltxGEdKUoq1RUG7gN/ISlaKOVgE4HM4XMJe1NCDCazFoxYPuo5R3MZQaDT65ooAZKFbuIwnOIoPsZSvWwDcwyReoB6abOgvDJBVpJa2qWL9/yuQNdEbvFyi3pYFUMO2Nu5+yiV3ygC4GCf5b0v6E0+btNfDt1KAj9iH1fjabYAH2BxblPLFzW4B/MLVOBez0TYTWbMrAMdwCvO5cbvwvgqAgRzAaYw1/P+BdwF1LQcw0CnAGazKATyOjLYHG7ARK3Acd3MAKyNG2wDr0d/kED7HFRzCWayJl1b+DPTHm7RtgJ5IKml/x3N9X3AjZj2bqyHGwyf5rusUIMN0BNvdoh54hgM4GOk4KwsgC6WMtz8e8KqhfSYA05I/zPmUCrCAkaiMtsfBS9oRbSMxphKAqZjhiSitFiIL1uJ3KuVOxpipMgG+R+brw/1/7P+iJiJLpgL0WxkAvRgOkKyg5uOa9nYKsDNmUm9Tg3EdlwQw1zB4OmY/1KaG44YsxvtUBOB8hR8m5xS0vgo+zVLMZZO3PyYf7a5i/0y9AAAAAElFTkSuQmCC">
+          </div>
+        </span>
+        <!-- ends here -->
+
+        <!-- Register payment -->
+        <%if(user.isAdmin || user.isAccountant || user.postPayment){%>
+        <span
+        onclick="location.assign('/api/v1/Sales/Payment/Home/<%=user._id%>')"
+          class="card m-1 mb-3 shadow-lg animate__bounceIn"
+          title="Finance & Operations"
+          style="cursor: pointer;"
+        >
+          <div class="card-img-top justify-content-center d-flex p-2">
+            <img width="47" height="47" src="https://img.icons8.com/nolan/64/donation.png" alt="donation"/>
+          </div>
+        </span>
+        <%}%>
+        <!-- ends here -->
+
+        <!-- Notes -->
+        <span
+        onclick="location.assign('/api/v1/Service')"
+          class="card m-1 mb-3 shadow-lg animate__bounceIn d-none"
+          title="Service"
+          style="cursor: pointer; "
+        >
+          <div class="card-img-top justify-content-center d-flex p-2">
+            <img width="40" height="40" src="https://img.icons8.com/ios-filled/50/service.png" alt="service"/>
+          </div>
+        </span>
+        <!-- ends here -->
+
+        <!-- Notes -->
+        <%if(user.firstName ==="developer"){%>
+        <span
+        onclick="location.assign('/api/v1/Company/Register/<%=user._id%>')"
+          class="card m-1 mb-3 shadow-lg animate__bounceIn"
+          title="Company Setup"
+          style="cursor: pointer;"
+        >
+          <div class="card-img-top justify-content-center d-flex p-2">
+            <img width="40" height="40" src="https://img.icons8.com/ios-filled/50/gears.png" alt="gears"/>
+          </div>
+        </span>
+        <%}%>
+        <!-- ends here -->
+
+        <!-- Notes -->
+        <%if(user.isAdmin || user.isCFO || user.raiseInvoice || user.isManager){%>
+          <span
+          onclick="location.assign('/api/v1/stock-move')"
+          class="card m-1 mb-3 shadow-lg animate__bounceIn"
+          title="Virtual Inventory "
+          style="cursor: pointer;"
+        >
+          <div class="card-img-top justify-content-center d-flex p-2">
+            <img width="40" height="40" src="https://img.icons8.com/ios-filled/50/stack.png" alt="stack"/>
+          </div>
+        </span>
+        <%}%>
+       
+        <!-- ends here -->
+
+        <!-- Notes -->
+        <span
+        onclick="location.assign('/api/v1/Products')"
+          class="card m-1 mb-3 shadow-lg animate__bounceIn"
+          title="Product Management"
+          style="cursor: pointer;"
+        >
+          <div class="card-img-top justify-content-center d-flex p-2">
+            <img width="44" height="44" src="https://img.icons8.com/cotton/64/open-box--v1.png" alt="open-box--v1"/>
+          </div>
+        </span>
+        <!-- ends here -->
+
+         <!-- cutomers -->
+         <%if(user.isAdmin || user.isAccountant){%>
+         <span
+         onclick="location.assign('/api/v1/Ecommerce/Customers?user=<%=user._id%>')"
+         class="card m-1 mb-3 shadow-lg animate__bounceIn"
+         title="KYC"
+         style="cursor: pointer;"
+       >
+         <div class="card-img-top justify-content-center d-flex p-2">
+          <img width="40" height="40" src="https://img.icons8.com/ios-filled/50/helping-hand.png" alt="helping-hand"/>
+         </div>
+        </span>
+        <%}%>
+       <!-- ends here -->
+
+     
+      <!-- Dashboard -->
+      <span
+      onclick="location.assign('/api/v1/Helpdesk?user=<%= user._id %>&page=1&limit=9')"
+        class="card m-1 mb-3 shadow-lg animate__bounceIn d-none"
+        title="Help Desk"
+        style="cursor: pointer;"
+      >
+        <div class="card-img-top justify-content-center d-flex p-2">
+          <img width="40" height="40"
+           src="https://img.icons8.com/ios-filled/50/customer-support.png" 
+           alt="customer-support"/>
+        </div>
+      </span>
+
+      <span
+      onclick="location.assign('/api/v1/Manufacturing')"
+        class="card m-1 mb-3 shadow-lg d-none"
+        title="Manufacturing Services"
+        style="cursor: pointer; "
+      >
+        <div class="card-img-top justify-content-center d-flex p-2">
+          <img width="40" height="40" src="https://img.icons8.com/ios-filled/50/deployment.png" alt="deployment"/>
+        </div>
+      </span>
+
+      <%if(user.isAdmin ||  user.reportsUser){%>
+      <!-- reports -->
+      <span
+      <% if (user.isAdmin) { %>
+        onclick="location.assign('/api/v1/Report')"
+      <% }else{%>
+        onclick="location.assign('/api/v1/StockReport')"
+      <%} %>
+          class="card m-1 mb-3 shadow-lg animate__bounceIn"
+          title="Business At Glance"
+          style="cursor: pointer;"
+        >
+          <div class="card-img-top justify-content-center d-flex p-2">
+            <img width="50" height="50" src="https://img.icons8.com/external-flatart-icons-solid-flatarticons/64/external-report-marketing-growth-flatart-icons-solid-flatarticons.png" alt="external-report-marketing-growth-flatart-icons-solid-flatarticons"/>
+          </div>
+        </span>
+      <!-- ends here -->
+      <%}%>
+
+      <%if(user.AppraisalUser){%>
+        <!-- performance -->
+        <span
+        onclick="location.assign('/api/v1/Appraisals/Management/<%=user._id%>?page=1&limit=10&category=all')"
+          class="card m-1 mb-3 shadow-lg animate__bounceIn"
+          title="Staff Appraisal "
+          style="cursor: pointer;"
+        >
+          <div class="card-img-top justify-content-center d-flex p-2">
+            <img width="60" height="60" src="https://img.icons8.com/external-glyph-silhouettes-icons-papa-vector/78/external-Feedback-black-glyph-icon-teamwork.-glyth.-silhouettes-glyph-silhouettes-icons-papa-vector.png" alt="external-Feedback-black-glyph-icon-teamwork.-glyth.-silhouettes-glyph-silhouettes-icons-papa-vector"/>
+          </div>
+        </span>
+
+        <!-- Task shedula --> 
+        <span
+        onclick="location.assign('/api/v1/TimeOFF/<%=user._id%>?page=1&limit=10&category=all')"
+          class="card m-1 mb-3 shadow-lg animate__bounceIn"
+          title="TIme Off"
+          style="cursor: pointer;"
+        >
+          <div class="card-img-top justify-content-center d-flex p-2">
+            <img width="40" height="40" src="https://img.icons8.com/external-nawicon-glyph-nawicon/64/external-Time-Out-basketball-nawicon-glyph-nawicon.png" alt="leave"/>
+          </div>
+        </span>
+        <!-- ends here  -->
+        <% } %>
+
+        <span
+        onclick="location.assign('/api/v1/Calendar')"
+        class="card m-1 mb-3 shadow-lg animate__bounceIn"
+        title="Calender"
+        style="cursor: pointer;"
+      >
+        <div class="card-img-top justify-content-center d-flex p-2">
+          <img width="40" height="40" 
+          src="https://img.icons8.com/external-goofy-solid-kerismaker/96/external-Desk-Calender-stationery-goofy-solid-kerismaker.png" alt="external-Desk-Calender-stationery-goofy-solid-kerismaker"/>
+        </div>
+      </span>
+
+
+     
+        <span
+        onclick="location.assign('/api/v1/POS/dashboard?page=1&limit=10&category=all&user=<%= user._id%>')"
+          class="card m-1 mb-3 shadow-lg animate__bounceIn d-none"
+          title="Point of Sales"
+          style="cursor: pointer;"
+        >
+          <div class="card-img-top justify-content-center d-flex p-2">
+            <img width="44" height="44" src="https://img.icons8.com/pulsar-color/48/transaction-declined.png" alt="transaction-declined"/>
+          </div>
+        </span>
+
+
+      </div>
+    </div>
+
+     <!-- The Modal -->
+     <div id="myModal" class="modal flex items-center flex-row justify-center gap-3 shadow">
+      <!-- Modal content -->
+        <div class="modal-body d-flex justify-content-center container ">
+          <div class="bg-black gap-3 p-3 rounded shadow  flex-column d-flex" id="opsCode">
+           <div class="col-md-12 ">
+             <div class="">
+              <div title="close" onclick="document.getElementById('myModal').style='none'"  style="color: aliceblue;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square-fill" viewBox="0 0 16 16">
+                  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"/>
+                </svg>
+              </div>
+             </div>
+              <div class="form-floating mb-3">
+                <input type="search" class="form-control" id="SEARCH" placeholder="name@example.com"   
+                  style="width: 450px;background:rgba(240, 255, 255, 0.685); padding: 5px;"
+                >
+                <label for="floatingInput">Bade AI Universal Search </label>
+              </div>
+        </div>
+          </div>
+          <!-- response fro ai display -->
+        </div>
+        <div id="aiResponse" class="text-light container" style="overflow-y: scroll ; max-height: 240px;"></div>
+     </div>
+
+     <footer style="z-index: 3 !important;">
+      <!-- place footer here -->
+      <div class="container-fluid fixed-bottom bg-dark-subtle ">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="text-center">
+                            BADE &copy; <script>
+                                document.write(new Date().getFullYear());
+                            </script>. All rights reserved.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      <!-- end of footer -->
+     
+  </footer>
+
+     
+  </body>
+  <script type="module">
+
+// import { Fireworks } from 'https://esm.run/fireworks-js';
+
+// let container = document.querySelector('.container');
+
+// let options = {
+//   gravity: 1.4,
+//   opacity: 0.4,
+//   autoresize: true,
+//   acceleration: 1.00,
+// };
+
+// let fireworks = new Fireworks(container, options);
+// document.addEventListener('DOMContentLoaded',fireworks.start())
+
+    const updateCursor = ({ x, y }) => {
+  document.documentElement.style.setProperty('--x', x)
+  document.documentElement.style.setProperty('--y', y)
+}
+
+
+// universal serch
+document.body.addEventListener('pointermove', updateCursor)
+
+document.addEventListener('keydown', (event) => {
+  var name = event.key;
+  var code = event.code;
+  // Alert the key name and key code on keydown
+  if(code === "Space"){
+    // alert(`Key pressed ${name} \r\n Key code value: ${code}`);
+    document.getElementById('myModal').style.display ='block';
+
+      // ai search
+  const SEARCH = document.getElementById('SEARCH')
+  SEARCH.addEventListener('change',async (e)=>{
+   const request =  await fetch(`/api/v1/query/${e.target.value}`,{
+    method:'GET',
+    headers:{'Content-Type':'application/json'}
+   })
+
+    // get response
+    const response = await request.json()
+
+   if(response.message){
+    document.getElementById('aiResponse').innerText = `Bade AI: ${response.message}`
+   }else{
+     alert(response.error)
+   }
+  })
+
+  }
+}, false);
+
+
+
+
+  const BirthdayButtn = document.getElementById("birthdyButton")
+  BirthdayButtn.addEventListener("click", async ()=>{
+    
+   
+   const clientRequest =  await fetch('/api/v1/Birthday/messages',{
+      method: 'GET',
+      headers:{"content-type": "application/json"}
+    })
+
+    const serverResponse = await clientRequest.json()
+
+        Swal.fire({
+      title: `${serverResponse.message || serverResponse.error}`,
+      width: 600,
+      padding: "3em",
+      color: "#716add",
+      background: "#fff url(/images/'Happy Birthday' Calligraphy (3 Free Printables).jpeg)",
+      backdrop: `
+        rgba(0,0,123,0.4)
+        url("/images/'Happy Birthday' Calligraphy (3 Free Printables).jpeg")
+        left top
+        no-repeat
+      `
+    });
+
+  });
+
+
+  
+  
+  </script>
+</html>

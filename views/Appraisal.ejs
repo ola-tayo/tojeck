@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>BADE||<%=item.ref%>/<%=item.Period%></title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="icon" type="image/x-icon" href="https://allchannels.com.ng/BADES.jpg">
+  <link rel="stylesheet" href="/sale.css" />
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <style>
+    #pspdfkit-header {
+      transition: margin-left .5s;
+      padding: 16px;
+    }
+
+    @media screen and (max-height: 450px) {
+      .sidenav {
+        padding-top: 15px;
+      }
+
+      .sidenav p {
+        font-size: 18px;
+      }
+    }
+
+
+    /* ends here  */
+
+    .itemQty:focus {
+      outline: none;
+    }
+
+    /* #item :nth-child(odd){
+           background-color: #999a9c86;
+           font-weight: bolder;
+           font-size: '15px';
+         } */
+
+    @font-face {
+      font-family: "Inter";
+      src: url("Inter-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Inter";
+      src: url("Inter-Medium.ttf") format("truetype");
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Inter";
+      src: url("Inter-Bold.ttf") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Space Mono";
+      src: url("SpaceMono-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    #invoice {
+      font-size: 0.75rem;
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      color: #000000;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    #pspdfkit-header {
+      font-size: 0.625rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 400;
+      color: #717885;
+      margin-top: 2.5rem;
+      margin-bottom: 2.5rem;
+      width: 100%;
+    }
+
+    .header-columns {
+      display: flex;
+      justify-content: space-between;
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+
+    .logo {
+      height: 3rem;
+      width: auto;
+      margin-right: 1rem;
+    }
+
+    .logotype {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-family: "Space Mono", monospace;
+      font-size: 1.25rem;
+      font-weight: 400;
+    }
+
+    h4 {
+      font-family: "Space Mono", monospace;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    .page {
+      margin-left: 5rem;
+      margin-right: 5rem;
+    }
+
+    .intro-table {
+      display: flex;
+      justify-content: space-between;
+      margin: 3rem 0 3rem 0;
+      border-top: 1px solid #000000;
+      border-bottom: 1px solid #000000;
+    }
+
+    .intro-form {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #000000;
+      width: 50%;
+    }
+
+    .intro-form:last-child {
+      border-right: none;
+    }
+
+    .intro-table-title {
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .intro-form-item {
+      padding: 1.25rem 1.5rem 1.25rem 1.5rem;
+    }
+
+    .intro-form-item:first-child {
+      padding-left: 0;
+    }
+
+    .intro-form-item:last-child {
+      padding-right: 0;
+    }
+
+    .intro-form-item-border {
+      padding: 1.25rem 0 0.75rem 1.5rem;
+      border-bottom: 1px solid #000000;
+    }
+
+    .intro-form-item-border:last-child {
+      border-bottom: none;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      margin-top: 6rem;
+    }
+
+    .no-border {
+      border: none;
+    }
+
+    .border {
+      border: 1px solid #000000;
+    }
+
+    .border-bottom {
+      border: 1px solid #000000;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+
+    .signer {
+      display: flex;
+      justify-content: space-between;
+      gap: 2.5rem;
+      margin: 2rem 0 2rem 0;
+    }
+
+    input {
+      font-family: "Space Mono", monospace;
+      text-align: center;
+      margin-top: none;
+      box-sizing: border-box;
+      text-align: left;
+      border: none !important;
+    }
+
+    input#signature {
+      height: 8rem;
+    }
+
+    .intro-text {
+      width: 60%;
+    }
+
+    .table-box table,
+    .summary-box table {
+      width: 100%;
+      font-size: 0.625rem;
+    }
+
+    .table-box table {
+      padding-top: 2rem;
+    }
+
+    .table-box td:first-child,
+    .summary-box td:first-child {
+      width: 40%;
+    }
+
+    .table-box td:last-child,
+    .summary-box td:last-child {
+      text-align: right;
+    }
+
+    .table-box table tr.heading td {
+      border-top: 1px solid #000000;
+      border-bottom: 1px solid #000000;
+      height: 1.5rem;
+    }
+
+    .table-box table tr.item td,
+    .summary-box table tr.item td {
+      border-bottom: 1px solid #d7dce4;
+      height: 1.5rem;
+    }
+
+    .summary-box table tr.no-border-item td {
+      border-bottom: none;
+      height: 1.5rem;
+    }
+
+    .summary-box table tr.total td {
+      border-top: 1px solid #000000;
+      border-bottom: 1px solid #000000;
+      height: 1.5rem;
+    }
+
+    .summary-box table tr.item td:first-child,
+    .summary-box table tr.total td:first-child {
+      border: none;
+      height: 1.5rem;
+    }
+
+    #pspdfkit-footer {
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 500;
+      color: #717885;
+      margin-top: 2.5rem;
+      bottom: 2.5rem;
+      position: absolute;
+      width: 100%;
+    }
+
+    .footer-columns {
+      display: flex;
+      justify-content: space-between;
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+
+    .signer-item img {
+      margin: 10px;
+    }
+
+    .box {
+      position: relative;
+    }
+
+    .ribbon {
+      position: absolute;
+      right: -5px;
+      top: -5px;
+      z-index: 1;
+      overflow: hidden;
+      width: 75px;
+      height: 75px;
+      text-align: right;
+    }
+
+    .ribbon span {
+      font-size: 10px;
+      font-weight: bold;
+      color: #FFF;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 20px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      width: 100px;
+      display: block;
+      background: #79A70A;
+      background: linear-gradient(#9BC90D 0%, #79A70A 100%);
+      box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+      position: absolute;
+      top: 19px;
+      right: -21px;
+    }
+
+    .ribbon span::before {
+      content: "";
+      position: absolute;
+      left: 0px;
+      top: 100%;
+      z-index: -1;
+      border-left: 3px solid #79A70A;
+      border-right: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid #79A70A;
+    }
+
+    .ribbon span::after {
+      content: "";
+      position: absolute;
+      right: 0px;
+      top: 100%;
+      z-index: -1;
+      border-left: 3px solid transparent;
+      border-right: 3px solid #79A70A;
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid #79A70A;
+    }
+
+    /* for canceled bill */
+    .CANCELLED {
+      position: absolute;
+      right: -5px;
+      top: -5px;
+      z-index: 1;
+      overflow: hidden;
+      width: 75px;
+      height: 75px;
+      text-align: right;
+    }
+
+    .CANCELLED span {
+      font-size: 10px;
+      font-weight: bold;
+      color: #FFF;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 20px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      width: 100px;
+      display: block;
+      background: #c5160a;
+      background: linear-gradient(#df3e0c 0%, #df3e0c 100%);
+      box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+      position: absolute;
+      top: 19px;
+      right: -21px;
+    }
+
+    .CANCELLED span::before {
+      content: "";
+      position: absolute;
+      left: 0px;
+      top: 100%;
+      z-index: -1;
+      border-left: 3px solid #df3e0c;
+      border-right: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid #df3e0c;
+    }
+
+    .CANCELLED span::after {
+      content: "";
+      position: absolute;
+      right: 0px;
+      top: 100%;
+      z-index: -1;
+      border-left: 3px solid transparent;
+      border-right: 3px solid #df3e0c;
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid #df3e0c;
+    }
+
+    .go-corner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      overflow: hidden;
+      top: 0;
+      right: 0;
+      background-color: #00838d;
+      border-radius: 0 4px 0 32px;
+      cursor: pointer;
+    }
+
+    .go-arrow {
+      margin-top: -4px;
+      margin-right: -4px;
+      color: white;
+      font-family: courier, sans;
+    }
+
+    /* card 2 */
+    .card2 {
+      display: block;
+      top: 0px;
+      position: relative;
+      max-width: 262px;
+      background-color: #f2f8f9;
+      border-radius: 4px;
+      padding: 32px 24px;
+      margin: 12px;
+      text-decoration: none;
+      z-index: 0;
+      overflow: hidden;
+      border: 1px solid #f2f8f9;
+      font-family: 'Dancing Script', cursive;
+      font-family: 'Nova Square', sans-serif;
+
+      &:hover {
+        transition: all 0.2s ease-out;
+        box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
+        top: -4px;
+        border: 1px solid #cccccc;
+        background-color: white;
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: -16px;
+        right: -16px;
+        background: #00838d;
+        height: 32px;
+        width: 32px;
+        border-radius: 32px;
+        transform: scale(2);
+        transform-origin: 50% 50%;
+        transition: transform 0.15s ease-out;
+      }
+    }
+
+    &:hover:before {
+      transform: scale(2.15);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <%-include('./partials/Notification.ejs')%>
+    <%-include('./partials/inactive.ejs')%>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- place navbar here -->
+    <nav class="dash navbar navbar-light bg-light fixed-top" style="background-color: rgb(173, 168, 105) !important">
+      <div class="container-fluid">
+        <span class="navbar-brand">
+          <img onclick="history.back()" width="30" hegith="30" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAA
+                        ACXBIWXMAAAsTAAALEwEAmpwYAAAEgklEQVR4nO2a/U/VVRzH31xEbjxEQmjYAobWUkdYIiYxYYg8c+/9HrqUhAaFbvaE60lnOVzTrRbFMCZjNkmvGV6433NjjY2W1WzrgVHNkq0VtkxXZmqaUwyBTzv0Zd01TO4ZP3zP5b628we8vp/z9P5+DhAkSJAgUw
+                        1RyPpWCsN0wOmmUI1TK+Pkzf6IZiCQcbpppqZTO+NEYmicXPX1ZEEgUtpFEYxT97isz2hGoOF0UxTjdGgC2fFKb0Og4
+                        HRTLOP0xbVkfcYzUB3NQwmM07eTkCWm0yjj9ChUhXVSisbp2KRk/53aw5pOTqiGndNiptMpf2R9pLdDJRw6ZTBOZ2Rkcxu+PAhAnQuJ5qFcjdNFv2V1Gl2+me8FsBpAJlTAoZNd4zTo9xTWR0bS6/a1GLI2ANEwO
+                        4zTGqbTVb9lPcNDd9U2vW7IlgCIgNnROD1pHCl+yTo6hwYXVr60w5AtABAOs6Nx2iSzOdk7rlycX/b0VkN2pfk3KqIQplOjjKyt/dIfibk1zxuyKwCEwuzxjum0R0a27O0LpxMy7Bt9dmNzJ6XCbgpnnDwysqWucyfjFq14zJBNBxACM1PVQ5
+                        GM0/sysiV7Tw/EJKetM2TTYHZK3qNZjNNnMrJFu0/0R8xJqTFkF8DsON10i6bTERnZgpZjfdbo+LUAHgQwD2bHzilZ0+kHGdm8nf2fWKyRVQAeAJAIs+P00kJNp5MysrkNfT0WS1glgAoACTA75V5KZzr9LiObveNwl7FeywHEw+yUc8phOv0plXi2dLkMWQ3ALJgdxqlMNvEsrXO1GrJ2JRLPFAmrkXh8CE2rbdro6PhrUGZK29svizuyUtwtpuW84sdfcBwc9H8d/yP+MhQiFECOkE7MrnrW9s6ls1LSnJpVaqFYANwnpOcsKX6qdP952b+PLpWaZSEAlgrpuDsyN5TsO3Nccnq/+3AbWaEQi4V0VOKi2uK2X6WumJpOH9q8pMYxZbBQSEfE31ZduPv4N5JrutehUxwUYr5IPGHRsWvzd33fK1npfpuX5kIhkkTysYRZH1rZeORjSekfHTqZPyb6ICpUAYulMueVzydqbk9m/GLnlAqFmA3gfrGuM7d2H5A8ss5qHroXChErrt5Cetkmz1syP+LHelBeyoNC3Ggko9VLntizS9NHhiXO6Sual0SUVIZI8V5FSKc+0tjg8Fwdkqi0+FDVUAgrgCIhfWdF/XbRM5Ko9CjTqQ4KMRPAKiGdUlr3ot096H+PWMGkNWM8aSXlr99sb798fjo8ebAAyBLSCem2urIDF36bDo9aQgBkjCWtBVkbSl3nfp7sOl72XMcbyvwPm4B7hHRMYuq6krZTA9cTXr6la79Sbzz+P2kl1RS9eeLotWSztn3Qacjmm785fn1uF0krPHZudWHrT1//Vzbn1d4eQ7ZYiWcPkyR5LF5G3LRmVfN3n47L5jUdPWy0ZMoA3IAA41aRtES8zH3tq0MFLQN9RrPNASAKAcrssaRlsVSGWaOrjP6T+VsyU5S0RGfxZkwTYoxqBwkC//gbNIgEXXRi6msAAAAASUVORK5CYII=">
+          <b><%=item.ref%>/<%=item.Period%></b>
+        </span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+          <i class="bi bi-three-dots-vertical"></i>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="dash offcanvas-header bg-dark-subtle ">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+              Menu
+            </h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body ">
+            <!-- uls -->
+            <ul class="nav nav-tabs d-flex  align-content-center  " id="myTab" role="tablist">
+              <%-include('./partials/USER.ejs')%>
+
+              <li class="nav-item active" role="presentation">
+                <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false" title="New KPI">
+                  <%=item.ref%>/<%=item.Period%>
+                </button>
+              </li>
+
+
+              <!-- <li class="nav-item " role="presentation">
+                <button class="nav-link " id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false" title="Add New Location">
+                  <img width="30" height="30" src="<%if(Employee.image){%>
+                                        <%= Employee.image %>
+                                        <%}else{%>
+                                           https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701_640.png
+                                        <%}%>
+                                        " alt="<%= Employee.firstName %> Photo" class="card-img-top" alt="...">
+                </button>
+              </li> -->
+            </ul>
+            <!-- <form class="d-flex border">
+              <input type="text" id="searchLPOproducts" class="form-control " list="searchLPO" name="referenceNo" placeholder="Search P/O ReferenceNo" />
+              
+              <button class="btn btn-success" type="submit">
+                Search
+              </button>
+            </form> -->
+            <!-- <script>
+                               const searchLPOproducts = document.getElementById("searchLPOproducts")
+                               searchLPOproducts.addEventListener('change',async(event)=>{
+                                plsWait(true) 
+                            setTimeout(()=>{
+                              plsWait(false)
+                            },3000)
+                            location.assign(`/api/v1/Purchase/bill/${event.target.value}/`)
+                            })      
+                            </script> -->
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Nav tabs -->
+
+  </header>
+
+  <main class="pt-4 ">
+    <!-- Tab panes -->
+    <div class="tab-content mt-5 active">
+
+      <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="container-fluid mb-5 mt-5 animate__animated animate__backInLeft">
+          <!-- display all appraisal here  -->
+
+
+          <div id="invoice" class="shadow-lg container mt-5 mb-5 p-3">
+            <h5 class="font-bold text-2xl "><%=item.ref%>/<%=item.Period%></h5>
+            <div class="d-flex border rounded p-2">
+              <div class="intro-form  intro-form-item d-flex intro-table-title align-items-start  w-50 justify-content-evenly">
+                <div class="col-md-7">
+                  <label for="" class="form-label">
+                    <img class="img-fluid rounded-top" width="60" height="60" src="<%if(Employee.image){%>
+              <%= Employee.image %>
+              <%}else{%>
+              https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701_640.png
+              <%}%> " alt="<%= Employee.firstName %> Photo" class="card-img-top" alt="...">
+                  </label>
+                  <p class="form-text"><b><%= Employee.firstName.toUpperCase() %> <%=Employee.lastName.toUpperCase()  %></b></p>
+                </div>
+                <div class="col-md-7">
+                  <label for="" class="form-label">REF</label><br>
+                  <input type="text" id="title" required disabled readonly value="<%=item.ref%>/<%=item.Period%>" class="form-control is-valid border">
+                </div>
+                <div class="col-md-7">
+                  <label for="" class="form-label">Start Date</label><br>
+                  <input type="date" value="<%=item.StartDate%>" id="Start" readonly required class="form-control is-valid border">
+                </div>
+                <div class="col-md-7">
+                  <label for="" class="form-label">Select Period</label>
+                  <select disabled class="form-select form-select  is-valid border" id="Period" required>
+                    <option selected class="bg-success-subtle"><%=item.Period%> [CURRENT]</option>
+                    <option value="Q1">Q1</option>
+                    <option value="Q2">Q2</option>
+                    <option value="Q3">Q3</option>
+                    <option value="Q4">Q4</option>
+                  </select>
+                </div>
+              </div>
+              <div class="intro-form  intro-form-item d-flex intro-table-title align-items-start  w-50 justify-content-evenly">
+
+                <div class="col-md-7">
+                  <label for="" class="form-label">Department</label>
+                  <p class="form-text"><%=Employee.Department  %></p>
+                </div>
+                <div class="col-md-7">
+                  <label for="" class="form-label">Line Manager</label>
+                  <p class="form-text"><%=Employee.Manager.firstName  %> <%=Employee.Manager.lastName  %></p>
+                </div>
+                <div class="col-md-7">
+                  <label for="" class="form-label">Job Title</label>
+                  <p class="form-text"><%=Employee.jobTittle  %></p>
+                </div>
+                <div class="col-md-7">
+                  <label for="" class="form-label">Employment Date</label>
+                  <p class="form-text"><%=  Employee.StartDate%></p>
+                </div>
+                <div class="col-md-4">
+                  <label for="" class="form-label">Status</label>
+                  <p class=" shadow rounded form-control text-dark badge bg-primary-subtle"><%= item.status %></p>
+                </div>
+
+              </div>
+            </div>
+            <div class="table-box pb-3">
+              <table cellpadding="0" cellspacing="0">
+                <tr class="heading font-bold">
+                  <th class="border">KPI</th>
+                  <th class="border">Objectives</th>
+                  <th class="border p-2">weight</th>
+                  <% if (item.status === "Kpi Accepted" && user._id.toString() === item.Employe.toString()) { %>
+                    <th class=" border">Staff score</th>
+                    <% } %>
+                  <% if (item.status === "Employee Scored" && user._id.toString() === Employee.Manager._id.toString()) { %>
+                    <th class="border">Manager score</th>
+                  <% } %>
+                  <th class="border p-2">Score</th>
+                </tr>
+                <tbody id="tbody" class="border">
+                  <% if (item.kpi.length > 0) { %>
+                   <% item.kpi.forEach(element => { %>
+                    <tr>
+                      <td><%= element.Perspective %> </td>
+                      <td><%= element.Objectives %></td>
+                      <td><%= element.weight %></td>
+                      <% if (item.status === "Kpi Accepted" && user._id.toString() === item.Employe.toString()) { %>
+                      <td>
+                        <div class="col-md-4">
+                          <label class="form-label"></label>
+                          <input type="number" class="p-1 rounded border-bottom" 
+                           id="employeeScore" value="<%= element.employeeScore %>" data-id="<%= element._id %>" data-weight="<%= element.weight %>">
+                          </div>
+                      </td>
+                      <% } %>
+                      <% if (item.status === "Employee Scored" && user._id.toString() === Employee.Manager._id.toString()) { %>
+             
+                      <td>
+                        <div class="col-md-4">
+                          <label class="form-label"></label>
+                          <input type="number" class="p-1 rounded border-bottom"
+                           id="managerScore" 
+                           data-id="<%= element._id %>"
+                           data-weight="<%= element.weight %>"
+                           value="<%= element.Manager_Score %>">
+                          </div>
+                        </td>
+                        <% } %>
+                      <td><%= element.Rating %>%</td>
+                    </tr>
+                   <% }) %>
+                  <% } %>
+                 
+                </tbody>
+              </table>
+              <br>
+
+              <br>
+              <hr>
+              <div class="p-2 font-bold" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+                <p class="form-text" id="Max">Max Score :<%Max =  item.kpi.map(kpi =>{%>
+                 <% return kpi.weight %>
+               <% }).reduce((total, currentValue) => {%>
+               <% return parseInt(total + currentValue)%>
+              <%}, 0)%>
+              
+               <%= Max %>/100</p>
+                <p class="form-text">Staff Score: <%employeeScore =  item.kpi.map(kpi =>{%>
+                  <% return kpi.employeeScore %>
+                <% }).reduce((total, currentValue) => {%>
+                <% return parseInt(total + currentValue)%>
+               <%}, 0)%>
+               
+                <%= employeeScore %>/100</p>
+
+                <%ManagerScore =  item.kpi.map(kpi =>{%>
+                  <% return kpi.Manager_Score %>
+                <% }).reduce((total, currentValue) => {%>
+                <% return parseInt(total + currentValue)%>
+               <%}, 0)%>
+                
+                <p class="form-text">Manager Score :<%= ManagerScore %>/100</p>
+                <input type="text" hidden id="generalRating" value="<%=Math.round( ManagerScore / item.kpi.length) %>" readonly/>
+                <p class="form-text">Average Rating: <%=Math.round( ManagerScore / item.kpi.length) %> / <%= Math.round(100 / item.kpi.length) %></p>
+               <%if(ManagerScore > 0){%>
+
+                <p> 
+                  Performance: <% if (ManagerScore < 50){%>
+                    Fair Performance
+                  <%}else{%>
+                    Excellent Performance
+                  <%}%>
+                </p>
+
+               <%}%>
+               
+              </div>
+
+              <!-- section 2 -->
+              <h6 class="font-bold p-2 rounded border-bottom appraisalH1">Commentary/Remark</h6>
+              <div class=" row gap-2" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+
+                <div  class="form-floating col-md-7">
+                  <textarea class="form-control" placeholder="Leave a discription here" rows="4" cols="50" 
+                  name="Description" id="floatingTextarea" data-comment="ManagerComment"
+                  <% if (item.status === "Complete"  ) { %>
+                    disabled
+                  <%}%>
+                   ><%=item.ManagerComment%></textarea>
+                  <label for="floatingTextarea">Manager Remark:</label>
+                </div>
+
+                <div  class="form-floating col-md-7">
+                  <textarea class="form-control" placeholder="Leave a discription here" rows="4" cols="50" 
+                  name="Description" id="floatingTextarea" data-comment="HR"
+                  <% if (item.status === "Complete"  ) { %>
+                    disabled
+                  <%}%>
+                   ><%=item.HrCommnet%></textarea>
+                  <label for="floatingTextarea"> H.R Remark:</label>
+                </div>
+
+                <div class="form-floating col-md-7">
+                  <textarea class="form-control" placeholder="Leave a discription here" rows="4" cols="50" 
+                  name="Description" id="floatingTextarea" data-comment="Employee"
+                  <% if (item.status === "Complete"  ) { %>
+                    disabled
+                  <%}%>
+                   ><%=item.employeComment%></textarea>
+                  <label for="floatingTextarea">Employee's comment:</label>
+                </div>
+
+              </div>
+            </div>
+            <% if (item.status === "pending" && user._id.toString() === item.Employe.toString()) { %>
+             
+              <button type="submit" id="submitBtn" data-status="Kpi Accepted" class="btn btn-secondary">Accept Kpi</button>
+              <% } %>
+            <% if (item.status === "Kpi Accepted" && user._id.toString() === item.Employe.toString()) { %>
+             
+              <button type="submit" id="submitBtn" data-status="Employee Scored" class="btn btn-warning">Save Employee Score</button>
+              <% } %>
+            <% if (item.status === "Employee Scored" && user._id.toString() === Employee.Manager._id.toString()) { %>
+             
+              <button type="submit" id="submitBtn" data-status="Manger scored" class="btn btn-light">Save Manger Score</button>
+              <% }%>
+             <% if (item.status === "Manger scored" && user._id.toString() === item.Employe.toString()) { %>
+             
+              <button type="submit" id="submitBtn" data-status="Complete" class="btn btn-success">Complete Appraisal</button>
+              <% } %>
+          </div>
+
+          <!-- ends here -->
+        </div>
+      </div>
+      <div class="tab-pane active" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+        <!-- SECOND DISPLAY HERE -->
+      </div>
+
+    </div>
+    </div>
+    </div>
+  </main>
+  <footer style="z-index: 3 !important;">
+    <!-- place footer here -->
+    <div class="container-fluid fixed-bottom bg-dark-subtle ">
+      <div class="row p-2">
+        <div>
+
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <p class="text-center">
+              BADE &copy; <script>
+                document.write(new Date().getFullYear());
+              </script>. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- end of footer -->
+  </footer>
+  <input type="hidden" name="" id="appraisalId" hidden disabled readonly value="<%=item._id%>">
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+  <script>
+    //get all buttn
+    const submitBtn = document.querySelectorAll("#submitBtn")
+    const appraisalId = document.getElementById('appraisalId').value
+    const generalRating = document.getElementById('generalRating').value
+    for (let index = 0; index < submitBtn.length; index++) {
+       submitBtn[index].addEventListener('click',async (e)=>{
+        const status = submitBtn[index].dataset.status
+        plsWait(true)
+        const url = `/api/v1/${appraisalId}/Appraisal/?status=${status}&btnStatus=true&generalRating=${generalRating}`
+       const request =  await fetch(url,{
+          method:'PATCH',
+          headers:{
+            'Content-Type':'application/json'
+          },
+          body:JSON.stringify({
+            status:status
+          })
+        })
+        const response = await request.json()
+        ShowServerResponse(response.message)
+        location.reload()
+        plsWait(false)
+       })
+      
+    }
+
+
+    // get employeeScore 
+    const employeeScore = document.querySelectorAll('#employeeScore');
+    for (let index = 0; index < employeeScore.length; index++) {
+      try {
+        employeeScore[index].addEventListener('change',async(e)=>{
+          plsWait(true)
+        const weight = employeeScore[index].dataset.weight;
+        const id = employeeScore[index].dataset.id;
+        const score = employeeScore[index].value;
+
+        if(weight < score ){
+          ShowServerResponse("Score can not be greater than " + weight);
+          e.target.value = 0
+          plsWait(false)
+        }else{
+          const url = `/api/v1/${appraisalId}/Appraisal/?kpiid=${id}&employeeScore=true`
+        const request = await fetch(url,{
+          method:'PATCH',
+          headers:{
+            'Content-Type':'application/json'
+          },
+          body:JSON.stringify({
+            score:score
+          })
+          
+        })
+        const response = await request.json()
+        response.message ? ShowServerResponse(response.message):''
+        plsWait(false)
+        }
+        
+      })
+      
+      } catch (error) {
+        ShowServerResponse("Error: " + error.message)
+      }
+    }
+
+    // get manager score
+    const managerScore = document.querySelectorAll('#managerScore');
+    for (let index = 0; index < managerScore.length; index++) {
+      try {
+        managerScore[index].addEventListener('change',async(e)=>{
+          plsWait(true)
+        const weight = managerScore[index].dataset.weight;
+        const id = managerScore[index].dataset.id;
+        const score = managerScore[index].value;
+        const Avg = Math.floor((parseInt(score) /  parseInt(weight)) * 100)
+
+
+        if(weight < score ){
+          ShowServerResponse("Score can not be greater than " + weight);
+          e.target.value = 0
+          plsWait(false)
+        }else{
+          const url = `/api/v1/${appraisalId}/Appraisal/?kpiid=${id}&managerScore=true&Avg=${Avg}`
+        const request = await fetch(url,{
+          method:'PATCH',
+          headers:{
+            'Content-Type':'application/json'
+          },
+          body:JSON.stringify({
+            score:score
+          })
+          
+        })
+        const response = await request.json()
+        response.message ? ShowServerResponse(response.message):''
+        plsWait(false)
+        }
+        
+      })
+      
+      } catch (error) {
+        ShowServerResponse("Error: " + error.message)
+      }
+    }
+
+    // get comments  of manager Hr and employee
+    const comment = document.querySelectorAll("#floatingTextarea");
+    for (let index = 0; index < comment.length; index++) {
+      try {
+        comment[index].addEventListener('change',async(e)=>{
+          // plsWait(true)
+        const id = comment[index].dataset.comment;
+        const score = e.target.value;
+        
+          const url = `/api/v1/${appraisalId}/Appraisal/?who=${id}&generalRating=${generalRating}`
+           const request = await fetch(url,{
+          method:'PATCH',
+          headers:{
+            'Content-Type':'application/json'
+          },
+          body:JSON.stringify({
+            comments:score
+          })
+          
+        })
+        const response = await request.json()
+        response.message ? ShowServerResponse(response.message):''
+        plsWait(false)
+      
+        
+      })
+      
+      } catch (error) {
+        ShowServerResponse("Error: " + error.message)
+      }
+    }
+
+  </script>
+
+</body>
+</html>

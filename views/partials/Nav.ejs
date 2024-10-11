@@ -1,0 +1,102 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+     
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <!--<li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Product
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/api/v1/Products">Products</a></li>
+                    <li><a class="dropdown-item" href="/api/v1/Product/Create-new" id="editPage">Create New</a></li>
+                    <li><hr></li>
+                  <li><a class="dropdown-item" href="/api/v1/stock-move">Products Transfer</a></li>
+                </ul>
+              </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  E-Commerce
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="javascript:void(0)">E-commerce Sales </a></li>
+                  <li><a class="dropdown-item" href="/api/v1/Ecommerce/Customers">E-commerce Customers</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0)">To deliver</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0)">Sales Team</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0)">Sales Target</a></li>
+                </ul>
+              </li>
+
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Apps
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="javascript:void(0)">Sales</a></li>
+                  <li><a class="dropdown-item" href="/api/v1/Ecommerce/Customers">Employee</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0)">Email Marketing</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0)">Register Payments</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0)">Notes</a></li>
+                </ul>
+              </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Configuration
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="javascript:void(0)">Purchase</a></li>
+              <li><a class="dropdown-item" href="javascript:viod(0)">Customers</a></li>
+              <li><a class="dropdown-item" href="/api/v1/warehouse">Warehouse(s)</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)">Deliveries</a></li>
+              <li><a class="dropdown-item" href="">Invoices</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)">Discount</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)">Promotions</a></li>
+              <li><a class="dropdown-item" hhref="javascript:void(0)">Credit Limit</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)">VAT</a></li>
+              <li><a class="dropdown-item" href="/api/v1/Sales/Vendor">Vendor</a></li>
+              <li><a class="dropdown-item" href="#">Register payment</a></li>
+            </ul> -->
+          </li>
+          <li class="nav-item">
+            <!-- MENU -->
+  
+            <span style="font-size:20px;cursor:pointer" onclick="
+            document.getElementById('mySidenav').style.width = '250px';
+            document.getElementById('main').style.marginLeft = '250px';
+            document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';">&#9776; </span> 
+
+        <!-- ends here -->
+          </li>
+        </ul>
+
+
+
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="query">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div> 
+    </div>
+  </nav>
+  <script>
+    const queryEvent = document.querySelector('#query');
+    queryEvent.addEventListener('change',async (e)=>{
+      const query = e.target.value;
+      const endpoint  = `/api/v1/quick/${query}`
+      const res = await  fetch(endpoint,{
+      method:'GET',
+      headers:{'Content-Type': 'application/json'}
+     });
+    })
+
+
+  </script>

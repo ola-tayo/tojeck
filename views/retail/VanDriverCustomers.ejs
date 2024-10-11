@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>BADE|| <%= van.name %></title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="icon" type="image/x-icon" href="https://allchannels.com.ng/BADES.jpg">
+  <link rel="stylesheet" href="/sale.css" />
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+
+<body>
+  <header>
+    <%-include('../partials/Notification.ejs')%>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- place navbar here -->
+    <nav class="dash navbar navbar-light bg-light fixed-top" style="background-color: rgb(173, 168, 105) !important">
+      <div class="container-fluid">
+        <a class="navbar-brand"  href="/api/v1/POS/Van?van=<%= van._id%>" title="Dashboard">
+          <img width="30" height="30" src="https://img.icons8.com/stickers/100/dashboard-layout.png" alt="dashboard-layout"/>
+         
+          <b> MY CUSTOMER</b>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+          <i class="bi bi-three-dots-vertical"></i>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="dash offcanvas-header bg-dark-subtle ">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+              Menu
+            </h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body ">
+            <!-- uls -->
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <div class="list-group " >
+              <%-include('../partials/USER.ejs')%>
+              <li class="nav-item " role="presentation">
+                <button
+                    class="nav-link bg-body p-2 rounded shadow"
+                    id="profile-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#profile"
+                    type="button"
+                    role="tab"
+                    aria-controls="profile"
+                    aria-selected="false"
+                    title="Register New Customer"
+                >
+                Register New Customer
+                </button>
+            </li>
+            <br>
+            <li class="nav-item active" role="presentation">
+                <button
+                    class="nav-link active border bg-success-subtle p-2 rounded shadow"
+                    id="messages-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#messages"
+                    type="button"
+                    role="tab"
+                    aria-controls="messages"
+                    aria-selected="false"
+                    title="Customer List"
+                >
+                Customer List
+                </button>
+            </li>
+              <%if(user._id.toString() === van.Driver.toString()){%>
+                <li class="nav-item">
+                    <a
+                    class="list-group-item list-group-item-action active"
+                        aria-current="page"
+                        href="/api/v1/Mycustomers?Mycustomers=<%= van._id%>"
+                        >
+                        <img width="30" height="30" src="https://img.icons8.com/color/48/shop.png" alt="shop"/>
+                        My Customers</a
+                    >
+                </li>
+                <li class="nav-item">
+                  <a
+                      class="list-group-item list-group-item-action"
+                      aria-current="page"
+                      href="/api/v1/New/Invoice?van=<%= van._id%>"
+                      >
+                      <img width="30" height=30" src="https://img.icons8.com/plasticine/100/invoice-1.png" alt="invoice-1"/>
+                      New Invoice</a>
+              </li>
+                <% } %>
+                <li class="nav-item">
+                    <a class="list-group-item list-group-item-action " href="/api/v1/Myproducts?Myproducts=<%= van._id%>">
+                      <img width="30" height="30" src="https://img.icons8.com/pastel-glyph/64/move-by-trolley.png" alt="move-by-trolley"/>
+                      Inventory</a>
+                </li>
+                <li class="nav-item">
+                  <a class="list-group-item list-group-item-action " href="/api/v1/POS/Van?van=<%= van._id%>">
+                    <img width="25" height="25" src="https://img.icons8.com/stickers/100/dashboard-layout.png" alt="dashboard-layout"/>
+                    Dashboard</a>
+              </li>
+                <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="dropdownId"
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        >More</a
+                    >
+                    <div
+                        class="dropdown-menu"
+                        aria-labelledby="dropdownId"
+                    >
+                        <a class="dropdown-item" href="/api/v1/Todays/Visit?van=<%= van._id%>"
+                            >
+                            <img width="30" height="30" src="https://img.icons8.com/fluency/48/route.png" alt="route"/>
+                            Todays Route</a
+                        >
+                        <a class="dropdown-item" href="#"
+                            >
+                            <img width="30" height="30" src="https://img.icons8.com/doodle/48/season-sale.png" alt="season-sale"/>
+                            Calender</a
+                        >
+                        <% if ( van.Manager.toString() === user._id.toString() || user.isAdmin) { %>
+
+                          <a class="dropdown-item" href="/api/v1/van/Settings?van=<%= van._id%>"
+                              >
+                              <img width="30" height="30" src="https://img.icons8.com/cotton/64/settings--v1.png" alt="settings--v1"/>
+                              Settings</a
+                          >
+                          <% } %>
+                    </div>
+                </li>
+                </div>
+            </ul>
+            <div class="d-flex border">
+              <input  type="text" id="search" class="form-control " placeholder="Search payment refrence" />
+              <button disabled class="btn btn-success" type="submit">
+                  Search
+              </button>
+            </div>
+          <!-- endes here -->
+        </div>
+
+      </div>
+      </div>
+    </nav>
+
+    <!-- Nav tabs -->
+
+  </header>
+
+  <main class="pt-4 ">
+    <!-- Tab panes -->
+    <div class="tab-content mt-5 ">
+
+      <div class="tab-pane " id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="container ">
+          <%if(user._id.toString() === van.Driver.toString()){%>
+          <!-- display payment form -->
+
+          <form class="row g-3 needs-validation container border shadow rounded p-5 mt-5 mb-5 bg-light" id="paymentForm">
+
+            <!-- <h5>Register Payment</h5> -->
+            <h6>REGISTER NEW CUSTOMER</h6>
+
+            <div class="col-md-4">
+              <label for="name" class="form-label">CUSTOMER NAME</label>
+              <input type="text" name="name" required id="name" autocomplete="off" class="form-control" />
+            </div>
+
+            <div class="col-md-4">
+              <label for="phone" class="form-label">PHONE NUMBER</label>
+              <input type="tel" name="phone"  autocomplete="off" required id="phone" class="form-control" />
+            </div>
+
+            <div class="col-md-4">
+              <label for="Email" class="form-label">EMAIL</label>
+              <input type="email"  autocomplete="off" class="form-control" name="Email" />
+            </div>
+
+            <div class="col-md-4">
+              <label for="registrationDate" class="form-label">REGISTRATION DATE</label>
+              <input type="date" name="registrationDate" id="registrationDate" class="form-control" />
+            </div>
+
+            
+            <div class="col-md-4">
+              <label for="country" class="form-label">COUNTRY</label>
+              <select
+              class="form-select form-select-md"
+              name="country"
+              id="country"
+              >
+              <option selected value="Nigeria">Nigeria</option>
+            </select>
+          </div>
+          
+          
+          <div class="col-md-4">
+            <label for="state" class="form-label">STATE</label>
+            <select class="form-select" name="state" required>
+              <option value="">Choose...</option>
+              <% states.forEach(element => { %>
+               <option value="<%= element.state %>"><%= element.state %></option>
+              <% }) %>
+            </select>
+          </div>
+          
+          <div class="col-md-4">
+            <label for="street" class="form-label">STREET NAME</label>
+            <input type="text"  autocomplete="off" name="street" id="street" class="form-control" />
+          </div>
+
+          <div class="col-md-4">
+            <label for="Land_mark" class="form-label">LAND MARK</label>
+            <input type="text"  autocomplete="off" name="Land_mark" id="Land_mark" class="form-control" />
+          </div>
+
+          <div class="col-md-4">
+            <label for="Birthday" class="form-label">BIRTHDAY</label>
+            <input type="date" name="Birthday" id="Birthday" class="form-control" />
+          </div>
+
+          
+          
+          <div class="col-md-4">
+            <label for="shopName" class="form-label">CUSTOMER SHOP NAME</label>
+            <input type="text"  autocomplete="off" name="shopName" id="shopName" class="form-control" />
+          </div>
+          
+          <div class="col-md-4">
+            <label for="googleMapDirection" class="form-label">GOOGLE MAP API LOCATION</label>
+            <input type="text"  autocomplete="off" name="googleMapDirection" id="googleMapDirection" class="form-control" />
+          </div>
+          
+          <div class="col-md-4">
+            <label for="Balance" class="form-label">Opening Balance</label>
+            ₦<input type="number"  autocomplete="off" step="any" value="0.00" placeholder="" required class="form-control border" id="Amount" name="Balance" />
+          </div>
+          
+          <div class="col-md-4">
+            <label for="validationCustom01" class="form-label">Brief Description</label>
+            <textarea type="text"  autocomplete="off" name="remarks"  class="form-control" autocomplete="off" autocapitalize="on"></textarea>
+          </div>
+
+            <input type="hidden" name="SupplyVan" hidden disabled readonly required value="<%= van._id %>">
+            <input type="hidden" disabled name="GeoLoacionLong" readonly id="GeoLoacionLong">
+            <input type="hidden" disabled name="GeoLoacionLat" readonly id="GeoLoacionLat">
+
+            <div class="col-md-4  ">
+              <label for="InvoiceNo" class="form-label"> ALL DONE!</label>
+              <button class="btn btn-success form-control" id="submit">CREATE CUSTOMER</button>
+            </div>
+
+          </form>
+
+          <!--  -->
+          <% } %>
+        </div>
+      </div>
+      <div class="tab-pane active" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+        <div class="container-fluid mt-5 mb-5 " id="tbody">
+          <!-- display payment -->
+          <!-- display contents here -->
+          <div class="h-59 mb-4 p-1 d-flex table-responsive custom-table-responsive animate__animated animate__backInLeft" style="overflow-y: hidden ;">
+            <table class="border w-100">
+              <thead class="border">
+                <td class="border"><b>Name</b></td>
+                <td class="border"><b>Tel..</b></td>
+                <td class="border"><b>Email</b></td>
+                <td class="border"><b>Code</b></td>
+                <td class="'border"><b>Balance (₦)</b></td>
+              </thead>
+              <% if (Mycustomers.length > 0 ) { %>
+              <% Mycustomers.forEach(element => { %>
+              <tbody id="tbody" class="mb-5">
+                <tr class="border">
+                  <td class="">
+                    <a href="/api/v1/retailer/<%=element._id  %>"><%=element.name.toUpperCase()%></a>
+                  </td>
+                  <td class="">
+                    <a href="tel:+234<%=element.phone %>">(+234) <%=element.phone %></a>
+                  </td>
+                  <td class="">
+                    <a href="mailto:<%=element.Email %>"><%=element.Email %></a>
+                  </td>
+                  <td class=""><%=element.customerCode %></td>
+                  <td class="">₦<%=element.Balance %></td>
+                </tr>
+              </tbody>
+              <% }) %>
+
+              <% }else{%>
+              <tr>
+                <td>
+                  <p class="form-text text-muted">Nothing to show</p>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <%} %>
+            </table>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+  <footer style="z-index: 3 !important;">
+    <!-- place footer here -->
+    <div class="container-fluid fixed-bottom bg-dark-subtle ">
+      <div class="row p-2">
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p class="text-center">
+            BADE &copy; <script>
+              document.write(new Date().getFullYear());
+            </script>. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    </div>
+    <!-- end of footer -->
+  </footer>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+  <script>
+    //get search element from DOM 
+    const searchInput = document.getElementById('search')
+    searchInput.addEventListener("submit", async (e) => {
+      plsWait(true)
+      const endPoint = `/api/v1/Getfulldb`
+      const res = await fetch(endPoint, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const data = await res.json()
+      plsWait(false)
+
+      const FilteredProduct = data.payment.sort((a, b) => {
+        return b.createdAt - a.createdAt
+      }).filter(Payment => {
+        const display = document.getElementById('tbody').innerHTML = '';
+        return Payment.paymentReferenceNo.toLowerCase().includes(e.target.value.toLowerCase().trim()) && Payment.collectionRef === 'PMNT';
+      })
+
+      const product = await FilteredProduct.map(Payment => {
+        return `
+        <span  class="list-group position-relative mb-2" title=" ${Payment.PaymentDate}"  id="reverseID"  data-reverse="${Payment._id}">
+                            <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" id="rev" >
+                                <small class="position-absolute top-0  start-50 translate-middle badge rounded-pill bg-warning"title='grand total of this bill'>
+                                  <span class="badge bg-secondary">
+                                    ₦${Payment.cr ? Payment.crAmount : Payment.drAmount} 
+                                    </span>
+                                </small>
+                                   
+                                  <div>   
+                                        <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="/api/v1/payments/${Payment._id }">${Payment.cr ?'CR' :'DR'}/${Payment.collectionRef}/${Payment.paymentReferenceNo}/${Payment.PaymentDate}</a>  
+                                  </div>
+                                  <div>
+                                  </div>
+                                 <small class="${Payment.status === 'posted' ? "bg-success" : "bg-secondary"}
+                                 text-light p-1 rounded shadow"> ${Payment.status}</small>
+                                </div> 
+                            </span>
+      `
+      });
+      document.getElementById('tbody').innerHTML = product
+
+    })
+
+    // create new customer
+    // get geo location information
+     if (navigator.geolocation) {
+       navigator.geolocation.getCurrentPosition(successlat);
+     } else {
+       serverError("Your browser is out dated. There is no geo location!")
+     }
+     
+     
+
+     function successlat(position) {
+      var GeoLoacionLat = position.coords.latitude;
+      var GeoLoacionLong = position.coords.longitude 
+      document.getElementById('GeoLoacionLat').value = GeoLoacionLat
+      document.getElementById('GeoLoacionLong').value = GeoLoacionLong
+     ShowServerResponse(`Your latitude is ${GeoLoacionLat} and your longitude is ${GeoLoacionLong}`)
+     return (GeoLoacionLat, GeoLoacionLong);
+   }
+    const paymentForm = document.getElementById('paymentForm')
+    paymentForm.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      plsWait(true)
+
+      const PaymentRequest = await fetch('/api/v1/new/Retailer', {
+        method: "POST",
+        body: JSON.stringify({
+          name: paymentForm.name.value,
+          Balance: paymentForm.Balance.value,
+          phone: paymentForm.phone.value,
+          Email: paymentForm.Email.value,
+          registrationDate: paymentForm.registrationDate.value,
+          country: paymentForm.country.value,
+          state: paymentForm.state.value,
+          street: paymentForm.street.value,
+          Land_mark: paymentForm.Land_mark.value,
+          // Image:paymentForm.Image.value,
+          salesPerson: ActiveUser,
+          SupplyVan:paymentForm.SupplyVan.value,
+          Type:'Retail',
+          shopName:paymentForm.shopName.value,
+          GeoLoacionLat: document.getElementById('GeoLoacionLat').value,
+          GeoLoacionLong: document.getElementById('GeoLoacionLong').value,
+          googleMapDirection:paymentForm.googleMapDirection.value,
+          remarks:paymentForm.remarks.value,
+          customerCode:Math.floor(Math.random() * 3556),
+          Birthday:paymentForm.Birthday.value,
+          
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      const PaymentResponse = await PaymentRequest.json()
+      ShowServerResponse(PaymentResponse.message)
+      if (PaymentResponse.message) {
+        paymentForm.reset()
+        location.reload()
+      }
+      if (PaymentResponse.error) {
+        serverError(PaymentResponse.error)
+        plsWait(false)
+      }
+    },{once:true});
+  </script>
+
+</body>
+
+</html>

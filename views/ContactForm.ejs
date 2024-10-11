@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <title><%=name%></title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/logo.jpg" type="image/x-icon">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/css/fontawesome.css">
+    <link rel="stylesheet" href="/css/MPP.css">
+    <link rel="stylesheet" href="/css/owl.css">
+    <link rel="stylesheet" href="/css/animate.css">
+    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+<!--
+
+TemplateMo 591 villa agency
+
+https://templatemo.com/tm-591-villa-agency
+
+-->
+  </head>
+
+<body>
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+ 
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky shadow">
+    <div class="container">
+        <div class="row">
+            <div class="">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="/" class="logo pt-2 d-flex align-item-center">
+                      <img src="/logo.jpg" width="80px" height="70px" alt="">
+                  </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                        <li><a href="/" class="active text-dark" ><%=Business.CompayName%></a></li>
+                      <li><a href="#"></a></li>
+                      <li><a href="/api/v1/SignIn" title="Login">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
+                          <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                        </svg>
+                      </i></a></li> 
+                  </ul>     
+
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+
+  <div class="page-heading header-text bg-danger shadow mt-5" style="background-image: url('/images/cc.png');background-position: top;">
+    <div class="container ">
+      <div class="row">
+        <div class="col-lg-12">
+          <h3 class="text-dark">Help Desk.</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-page section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="section-heading">
+            <h6>| <i class="bi bi-voicemail"></i> Help Desk</h6>
+            <h2>Get In Touch With Our Support Staff.</h2>
+          </div>
+          <p><b>Address: </b>[<%= Business.Address %>]
+            <br><b>Please note:</b> <i><%=Business.CompayName%> is Opened from Monday - Saturday at 8:00 AM and closes at 5:00 PM</i></p>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="item phone">
+                <img src="/images/phone-icon.png" alt="" style="max-width: 52px;">
+                <h6>
+                  <a href="tel:<%= Business.Tel %>"><%= Business.Tel %></a>
+                  <a href="tel:<%= Business.Tel %>"><%= Business.Tel %></a><br><span>Phone Number</span>
+                </h6>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="item email">
+                <img src="/images/email-icon.png" alt="" style="max-width: 52px;">
+                <h6>
+                  <a href="mailto:<%= Business.email %>"><%= Business.email %></a>
+                  <br><span>Business Email</span></h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <form id="contact-form" action="" method="post">
+            <div class="row">
+              <div class="col-lg-12">
+                <fieldset>
+                  <label for="name">Full Name</label>
+                  <input type="name" name="name" id="name" placeholder="Your Name..." autocomplete="on" required>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <label for="email">Email Address</label>
+                  <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your E-mail..." required="">
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <label for="tel">Tel...</label>
+                  <input type="text" name="tel" id="tel"  placeholder="+234 (2344565773)" required>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <!-- <input type="subject" name="subject" id="subject" placeholder="Subject..." autocomplete="on" > -->
+                  
+                    <label for="Priority" class="form-label">Priority</label>
+                    <select
+                        class="form-select form-select"
+                        name="Priority"
+                        id="Priority"
+                    >
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                  
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <label for="message">Message</label>
+                  <textarea name="message" id="message" placeholder="Your Message"></textarea>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <button type="submit" id="form-submit" class="orange-button">Send Message</button>
+                </fieldset>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-lg-12">
+          <div id="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63051.43961595613!2d7.5636452468017294!3d8.998352988860033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0f006e81bf1d%3A0xae9560894407923e!2sKaru%20Market!5e0!3m2!1sen!2sng!4v1720483346950!5m2!1sen!2sng" width="100%" height="500"  frameborder="0" style="border:0; border-radius: 10px; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);" allowfullscreen=""  loading="lazy" referrerpolicy="no-referrer-when-downgrade" ></iframe>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer-no-gap">
+    <div class="container">
+      <div class="col-lg-12">
+        <p>Copyright © <span >
+          <script>
+            document.write(new Date().getFullYear())
+          </script>
+        </span> BADE. All rights reserved. </p>
+        
+      </div>
+    </div>
+  </footer>
+  <script>
+    //get for for contact us
+    const contact_form = document.querySelector('form')
+    contact_form.addEventListener('submit',async (e)=>{
+      e.preventDefault();
+      const formBTN = document.getElementById('form-submit')
+      formBTN.addEventListener('click',async (e)=>{setAttribute('disabled',true);})
+        const request = await fetch('/api/v1/contact_form_submit',{
+        method:'POST',
+        body:JSON.stringify({
+          name:contact_form.name.value,
+          email:contact_form.email.value,
+          Priority:contact_form.Priority.value,
+          Issue:contact_form.message.value,
+          tel:contact_form.tel.value,
+          conversation:[
+            {
+                senderId:'',
+                messageBody:contact_form.message.value,
+                author:contact_form.name.value
+            }
+          ]
+        }),
+        headers:{ 'content-type': 'application/json'}
+        })
+
+        const response = await request.json()
+       if(response.message){
+        const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "success",
+        title:response.message 
+      });
+        contact_form.reset()
+       }else if(response.error){
+        const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: response.error
+      });
+        formBTN.removeAttribute('disabled');
+       }
+    })
+  </script>
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="/jquery/jquery.min.js"></script>
+  <script src="/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/js/isotope.min.js"></script>
+  <script src="/js/owl-carousel.js"></script>
+  <script src="/js/counter.js"></script>
+  <script defer src="/js/custom.js"></script>
+
+  </body>
+</html>

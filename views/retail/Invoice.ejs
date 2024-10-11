@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>BADE || NEW INVOICE/<%= van.VehiclePlate %></title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <link rel="icon" type="image/x-icon" href="https://allchannels.com.ng/BADES.jpg">
+        <!-- Bootstrap CSS v5.2.1 -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="/sale.css" />
+        <%-include('../partials/Notification.ejs')%> 
+    </head>
+
+    <body>
+        <header>
+            <!-- place navbar here -->
+             <nav class="dash navbar navbar-light bg-dark fixed-top">
+                <div class="container-fluid">
+                  <a class="navbar-brand"  href="/api/v1/POS/Van?van=<%= van._id%>" title="Dashboard">
+                    <img width="30" height="30" src="https://img.icons8.com/stickers/100/dashboard-layout.png" alt="dashboard-layout"/>
+                   
+                    <b>NEW- INVOICE/<%= van.VehiclePlate %></b>
+                  </a>
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar"
+                        aria-controls="offcanvasNavbar"
+                    >
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div
+                        class="offcanvas offcanvas-end"
+                        tabindex="-1"
+                        id="offcanvasNavbar"
+                        aria-labelledby="offcanvasNavbarLabel"
+                    >
+                        <div class="dash offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                                Menu
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close text-reset"
+                                data-bs-dismiss="offcanvas"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="offcanvas-body">
+                          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <div class="list-group " >
+                            <%-include('../partials/USER.ejs')%>
+                            <%if(user._id.toString() === van.Driver.toString()){%>
+                              <li class="nav-item">
+                                  <a
+                                  class="list-group-item list-group-item-action"
+                                      aria-current="page"
+                                      href="/api/v1/Mycustomers?Mycustomers=<%= van._id%>"
+                                      >
+                                      <img width="30" height="30" src="https://img.icons8.com/color/48/shop.png" alt="shop"/>
+                                      My Customers</a
+                                  >
+                              </li>
+                              <li class="nav-item">
+                                <a
+                                    class="list-group-item list-group-item-action active"
+                                    aria-current="page"
+                                    href="/api/v1/New/Invoice?van=<%= van._id%>"
+                                    >
+                                    <img width="30" height=30" src="https://img.icons8.com/plasticine/100/invoice-1.png" alt="invoice-1"/>
+                                    New Invoice</a>
+                            </li>
+                              <% } %>
+                              <li class="nav-item">
+                                  <a class="list-group-item list-group-item-action " href="/api/v1/Myproducts?Myproducts=<%= van._id%>">
+                                    <img width="30" height="30" src="https://img.icons8.com/pastel-glyph/64/move-by-trolley.png" alt="move-by-trolley"/>
+                                    Inventory</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="list-group-item list-group-item-action " href="/api/v1/POS/Van?van=<%= van._id%>">
+                                  <img width="25" height="25" src="https://img.icons8.com/stickers/100/dashboard-layout.png" alt="dashboard-layout"/>
+                                  Dashboard</a>
+                            </li>
+                              <li class="nav-item dropdown">
+                                  <a
+                                      class="nav-link dropdown-toggle"
+                                      href="#"
+                                      id="dropdownId"
+                                      data-bs-toggle="dropdown"
+                                      aria-haspopup="true"
+                                      aria-expanded="false"
+                                      >More</a
+                                  >
+                                  <div
+                                      class="dropdown-menu"
+                                      aria-labelledby="dropdownId"
+                                  >
+                                      <a class="dropdown-item" href="/api/v1/Todays/Visit?van=<%= van._id%>"
+                                          >
+                                          <img width="30" height="30" src="https://img.icons8.com/fluency/48/route.png" alt="route"/>
+                                          Todays Route</a
+                                      >
+                                      <a class="dropdown-item" href="#"
+                                          >
+                                          <img width="30" height="30" src="https://img.icons8.com/doodle/48/season-sale.png" alt="season-sale"/>
+                                          Calender</a
+                                      >
+                                      <% if ( van.Manager.toString() === user._id.toString() || user.isAdmin) { %>
+
+                                        <a class="dropdown-item" href="/api/v1/van/Settings?van=<%= van._id%>"
+                                            >
+                                            <img width="30" height="30" src="https://img.icons8.com/cotton/64/settings--v1.png" alt="settings--v1"/>
+                                            Settings</a
+                                        >
+                                        <% } %>
+                                  </div>
+                              </li>
+                              </div>
+                          </ul>
+                            <form class="d-flex">
+                                <input
+                                    class="form-control me-2"
+                                    type="search"
+                                    placeholder="Search"
+                                    aria-label="Search"
+                                />
+                                <button class="btn btn-outline-success" type="submit">
+                                    Search
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+             </nav>
+             
+        </header>
+        <main class="pt-4 ">
+          <div  class=" box mt-5 mb-5 ">
+            <form id="invoice" class="shadow-lg container mt-4 p-3 bg-light" style="height: 100dvh;" >
+              <div class="d-flex justify-content-between align-content-center gap-2">
+                <img  height="80" width="80" src="/logo.jpg" class="rounded "/>
+                <b><%= Business.CompayName %></b>
+              </div>
+              <br>
+              <div class="page" style="page-break-after: always" id="id" data-id="">
+               
+        
+                <div class="intro-table">
+                        
+                  <div class="intro-form  intro-form-item d-flex intro-table-title align-items-start  justify-content-evenly">
+                    
+                    
+                    <input type="hidden" disabled  id="ref" value="">
+                    <input type="hidden" disabled id="rec" value="">
+                  </div>
+        
+                  <div class="intro-form">
+                    <div class="intro-form-item-border d-flex flex-column gap-3">
+                      
+                        <div class="col-md-6">
+                          <label for="Customer" class="form-label">Todays Customer List </label>
+                          <select id="Customer" data-van="<%= van._id %>" class="form-select">
+                            <!-- display options for Bills -->
+                            <option disabled selected >choose...</option>
+                            <% if (Mycustomers.length > 0) { %>
+                              <% Mycustomers.forEach(element => { %>
+                                <option value="<%= element.customerCode %>"><%= element.name %></option> 
+                              <% }) %>
+                            <%} %>
+                          </select>
+                      </div>
+
+                      <div class="col-md-4">
+                        <p class="form-text text-muted">Note: Clicking the <span
+                          class="badge bg-danger"
+                          >RESET LOCATION</span
+                        >
+                         button will reload this page.</p>
+                        
+                        <a class="btn btn-warning" href="/api/v1/New/Invoice?van=<%= van._id%>">RESET LOCATION</a>
+                      </div>
+                      
+                    </div>
+        
+                  </div>
+                </div>
+
+                </div>
+                
+              </div>
+        
+             
+            </form>
+        
+          </div>
+        </main>
+        <footer style="z-index: 3 !important;">
+            <!-- place footer here -->
+            <div class="container-fluid fixed-bottom bg-dark-subtle ">
+                <div class="row p-2">
+                    <!-- for next and filter -->
+                   
+        
+                      <div>
+                       
+                      </div>
+                            <div class="row">
+                              <div class="col-12">
+                                  <p class="text-center">
+                                      BADE &copy; <script>
+                                          document.write(new Date().getFullYear());
+                                      </script>. All rights reserved.
+                                  </p>
+                              </div>
+                          </div>
+                       </div>
+                </div>
+            </div>
+            <!-- end of footer -->
+        </footer>
+        <!-- Bootstrap JavaScript Libraries -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+          //get User location information
+          navigator.geolocation.getCurrentPosition(async (position) => {
+            const { latitude, longitude } = position.coords;
+            
+            if (latitude, longitude) {
+              ShowServerResponse(`Your current location is ${latitude} and ${longitude}`);
+
+              // server action
+               // get Customer field from form 
+                  const customerInput = document.getElementById('Customer')
+                  customerInput.addEventListener('change',async(e)=>{
+                    plsWait(true);
+                    if(e.target.value !== ""){
+                      // send a request to the back end to create a new invoice
+                      const endPoint = `/api/v1/Retail_customer/?code=${e.target.value}&van=${customerInput.dataset.van}&latitude=${latitude}&longitude=${longitude}`
+                      const res = await fetch(endPoint,{
+                        method:'GET',
+                        headers:{'Content-Type': 'application/json'}
+                      })
+                      ShowServerResponse('Generating Invoice for New sales')
+                      const data = await res.json()
+                      if(data.error){
+                        serverError(data.error)
+                        plsWait(false);
+                      }else{
+                        document.getElementById('invoice').reset()
+                        location.assign(data.message)
+                        plsWait(false);
+                      }
+                    
+                    }else{
+                      serverError('Kindly Select a customer to bill')
+                      plsWait(false);
+                    };
+                  })
+            } else {
+              serverError("Either Your browser is out dated or Your device location is turned off.");
+            }
+          });
+
+
+         
+        </script>
+    </body>
+</html>

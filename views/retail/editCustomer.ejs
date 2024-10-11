@@ -1,0 +1,532 @@
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>BADE || <%= customer.name.toUpperCase() %></title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <link rel="stylesheet" href="/sale.css" />
+        <link rel="icon" type="image/x-icon" href="<%=customer.image  ? customer.image : 'https://allchannels.com.ng/BADES.jpg'%>">
+
+        <!-- Bootstrap CSS v5.2.1 -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+    </head>
+  
+    <body>
+        <header>
+            <%-include('../partials/Notification.ejs')%> 
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+            <!-- place navbar here -->
+            <nav class="dash navbar navbar-light bg-light fixed-top" 
+            style="background-color: rgb(173, 168, 105) !important">
+                <div class="container-fluid">
+                    <span  class="navbar-brand" >
+                        <img 
+                        onclick="history.back()"
+                        width="30"
+                        hegith="30"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAA
+                        ACXBIWXMAAAsTAAALEwEAmpwYAAAEgklEQVR4nO2a/U/VVRzH31xEbjxEQmjYAobWUkdYIiYxYYg8c+/9HrqUhAaFbvaE60lnOVzTrRbFMCZjNkmvGV6433NjjY2W1WzrgVHNkq0VtkxXZmqaUwyBTzv0Zd01TO4ZP3zP5b628we8vp/z9P5+DhAkSJAgUw1RyPpWCsN0wOmmUI1TK+Pkzf6IZiCQcbpppqZTO+NEYmicXPX1ZEEgUtpFEYxT97isz2hGoOF0UxTjdGgC2fFKb0Og4HRTLOP0xbVkfcYzUB3NQwmM07eTkCWm0yjj9ChUhXVSisbp2KRk/53aw5pOTqiGndNiptMpf2R9pLdDJRw6ZTBOZ2Rkcxu+PAhAnQuJ5qFcjdNFv2V1Gl2+me8FsBpAJlTAoZNd4zTo9xTWR0bS6/a1GLI2ANEwO4zTGqbTVb9lPcNDd9U2vW7IlgCIgNnROD1pHCl+yTo6hwYXVr60w5AtABAOs6Nx2iSzOdk7rlycX/b0VkN2pfk3KqIQplOjjKyt/dIfibk1zxuyKwCEwuzxjum0R0a27O0LpxMy7Bt9dmNzJ6XCbgpnnDwysqWucyfjFq14zJBNBxACM1PVQ5GM0/sysiV7Tw/EJKetM2TTYHZK3qNZjNNnMrJFu0/0R8xJqTFkF8DsON10i6bTERnZgpZjfdbo+LUAHgQwD2bHzilZ0+kHGdm8nf2fWKyRVQAeAJAIs+P00kJNp5MysrkNfT0WS1glgAoACTA75V5KZzr9LiObveNwl7FeywHEw+yUc8phOv0plXi2dLkMWQ3ALJgdxqlMNvEsrXO1GrJ2JRLPFAmrkXh8CE2rbdro6PhrUGZK29svizuyUtwtpuW84sdfcBwc9H8d/yP+MhQiFECOkE7MrnrW9s6ls1LSnJpVaqFYANwnpOcsKX6qdP952b+PLpWaZSEAlgrpuDsyN5TsO3Nccnq/+3AbWaEQi4V0VOKi2uK2X6WumJpOH9q8pMYxZbBQSEfE31ZduPv4N5JrutehUxwUYr5IPGHRsWvzd33fK1npfpuX5kIhkkTysYRZH1rZeORjSekfHTqZPyb6ICpUAYulMueVzydqbk9m/GLnlAqFmA3gfrGuM7d2H5A8ss5qHroXChErrt5Cetkmz1syP+LHelBeyoNC3Ggko9VLntizS9NHhiXO6Sual0SUVIZI8V5FSKc+0tjg8Fwdkqi0+FDVUAgrgCIhfWdF/XbRM5Ko9CjTqQ4KMRPAKiGdUlr3ot096H+PWMGkNWM8aSXlr99sb798fjo8ebAAyBLSCem2urIDF36bDo9aQgBkjCWtBVkbSl3nfp7sOl72XMcbyvwPm4B7hHRMYuq6krZTA9cTXr6la79Sbzz+P2kl1RS9eeLotWSztn3Qacjmm785fn1uF0krPHZudWHrT1//Vzbn1d4eQ7ZYiWcPkyR5LF5G3LRmVfN3n47L5jUdPWy0ZMoA3IAA41aRtES8zH3tq0MFLQN9RrPNASAKAcrssaRlsVSGWaOrjP6T+VsyU5S0RGfxZkwTYoxqBwkC//gbNIgEXXRi6msAAAAASUVORK5CYII=">
+                        <b> <%=customer.name.toUpperCase()%></b>
+                    </span>
+                    <!-- <a  >Setup Location</a> -->
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar"
+                        aria-controls="offcanvasNavbar"
+                    >
+                    <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <div
+                        class="offcanvas offcanvas-end"
+                        tabindex="-1"
+                        id="offcanvasNavbar"
+                        aria-labelledby="offcanvasNavbarLabel"
+                    >
+                        <div class="dash offcanvas-header bg-dark-subtle ">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                                Menu
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close text-reset"
+                                data-bs-dismiss="offcanvas"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="offcanvas-body ">
+                            <!-- uls -->
+                            <ul class="nav nav-tabs d-flex  align-content-center  " id="myTab" role="tablist" >
+                                <%-include('../partials/USER.ejs')%>
+                                <li class="nav-item active" role="presentation">
+                                    <button
+                                        class="nav-link active"
+                                        id="profile-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#profile"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="profile"
+                                        aria-selected="false"
+                                        title="<%= customer.Name %>"
+                                    >
+                                    <img 
+                                        width="30" height="30" style="filter: drop-shadow(1px 1px 5px rgb(19, 20, 19));"
+                                        src="<%= customer.image ? customer.image :'https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701_640.png' %>" alt="" srcset="">
+                                    </button>
+                                </li>
+                                <!-- <li class="nav-item" role="presentation">
+                                    <button
+                                        class="nav-link active"
+                                        id="messages-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#messages"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="messages"
+                                        aria-selected="false"
+                                        title="<%= customer.customerName %>"
+                                    >
+                                    <i class="bi bi-plus-square-fill"><%= customer.customerName %>
+                                    </button>
+                                </li> -->
+                               </ul> 
+                            <div class="list-group mb-5" >
+                                <div class="list-group-item list-group-item-action"
+                                >
+                                <label for="validationCustom01" class="form-label">customer Name:</label>
+                                <h5><%= customer.name %></h5>
+                               </div >
+                               <div class="list-group-item list-group-item-action"
+                               >
+                               <label for="validationCustom01" class="form-label">customer code</label>
+                               <p><b><%= customer.customerCode %></b></p>
+                              </div >
+
+                              <div class="list-group-item list-group-item-action"
+                              >
+                              <label for="validationCustom01" class="form-label">Type</label>
+                             
+                                <p class=""><b><%=customer.Type%></b></p>
+                            
+                             </div >
+                             <div class="list-group-item list-group-item-action"
+                              >
+                              <label for="validationCustom01" class="form-label">Tel...</label>
+                             
+                                <p class=""><b><%=customer.phone%></b></p>
+                            
+                             </div >
+                             <div class="list-group-item list-group-item-action"
+                              >
+                              <label for="validationCustom01" class="form-label">Email</label>
+                             
+                                <p class=""><b><%=customer.Email%></b></p>
+                            
+                             </div >
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            
+           <!-- Nav tabs -->
+          
+        </header>
+
+        <main class="pt-4 mb-5">
+            <!-- Tab panes -->
+            <div class="container p-3 bg-light mb-5 mt-5 justify-content-center shadow animate__animated animate__backInLeft">
+        
+                <input type="file" name="" hidden id="files">
+                <form action=""  method="patch" id='form' class="p-2   " >
+                    
+
+                       <div class="col">
+                        <div class="col-md-5">
+                            <label for="" class="form-label"><h5><%=customer.name%></h5></label>
+                          <input
+                            type="text"
+                            name="name"
+                            id="Name"
+                            class="form-control is-valid"
+                            placeholder="customer Name"
+                            aria-describedby="helpId"
+                            required
+                            value="<%=customer.name%>"
+                          />
+                        </div>
+                      </div>
+                    
+                    <div class="d-flex container-fluid gap-3 p-5 justify-content-around">
+                        <!-- cateory -->
+                       <div >
+                            <i><%= customer.street%></i>
+                            <h6>Customer code: <%=customer.customerCode%></h6>
+                            <h5>Current Balance: ₦<%=customer.Balance%></h5>
+                            <% if (customer.googleMapDirection) { %>
+                                <a href="<%=customer.googleMapDirection%>">View Navigation on Google Map </a>
+                            <% } %>
+                       </div>
+                        <!-- image -->
+                        <div>
+                            <label for="files" class="flex flex-col">
+                                <div id="customerImage" <%if(customer.image){%>
+                                    style="background-image: url('<%=customer.image ? customer.image : 'https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701_640.png'%>');filter: drop-shadow(5px 2px 5px rgb(19, 20, 19));transition: 0.5s;"
+                                <%}%>
+                                ></div>
+                                <!-- display progress % for photo upload -->
+                                <!-- <progress value="0" max="100" id="progress"></progress> -->
+                                <input type="url" name="image" value="<%=customer.image%>"  id="imageLoader" hidden>
+                            </label>
+                        </div>
+                    </div>
+                      
+                    <div class="border-bottom rounded d-flex font-bold">
+                        <div class="border-end p-1 rounded subs" name="category" title="Double click to show section">customer Information</div>
+                        <div class="border-end rounded p-1 subs" name="category" title="Double click to show section">customer Settings</div>
+                        <div class="border-end rounded p-1 subs" name="category" title="Double click to show section">Description</div> 
+                    </div>
+
+                    <!-- prouct information -->
+                        <div class="d-flex row d-none p-5 border-bottom" id="workInfo">
+
+                            <div class="col-md-4">
+                                <label class="form-label">Telephone</label>
+                            <input type="tel"  required class="form-control" name="phone"  <%if( !user.isManager){%>
+                                disabled
+                            <%}%>  value="<%=customer.phone%>" placeholder="+234 000 000 000">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Email</label>
+                            <input type="email"  class="form-control" name="Email" step="any"  <%if( !user.isManager){%>
+                                disabled
+                            <%}%>  value="<%=customer.Email%>" placeholder="Eg domain@provider.com">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Registration Date</label>
+                            <input type="date"  class="form-control" name="registrationDate" step="any"  <%if( !user.isManager){%>
+                                disabled
+                            <%}%>  value="<%=customer.registrationDate%>" placeholder="Eg ₦10.00">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Shop Address</label>
+                            <input type="text"  class="form-control" name="street" step="any"  <%if( !user.isManager){%>
+                                disabled
+                            <%}%>  value="<%=customer.street%>" placeholder="Street Address...">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Shop Name</label>
+                            <input type="text"  class="form-control" name="shopName" step="any"  <%if( !user.isManager){%>
+                                disabled
+                            <%}%>  value="<%=customer.shopName%>" placeholder="Shop name...">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Land Mark</label>
+                            <input type="text"  class="form-control" name="Land_mark" step="any"  <%if( !user.isManager){%>
+                                disabled
+                            <%}%>  value="<%=customer.Land_mark%>" placeholder="Shop name...">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">State</label>
+                            <input type="text"  class="form-control" name="state" step="any"  <%if( !user.isManager){%>
+                                disabled
+                            <%}%>  value="<%=customer.state%>" placeholder="Shop name...">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Birthday</label>
+                            <input type="date"  class="form-control" name="Birthday" step="any"  <%if( !user.isManager){%>
+                                disabled
+                            <%}%>  value="<%=customer.Birthday%>" >
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Google Map API</label>
+                            <input type="text"  class="form-control" name="googleMapDirection" step="any"  <%if( !user.isManager){%>
+                                disabled
+                            <%}%>  value="<%=customer.googleMapDirection%>" placeholder="Shop name...">
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <label class="form-label">Geo location latitude</label>
+                            <input type="text"  class="form-control" name="GeoLoacionLat" step="any"  <%if( !user.isManager){%>
+                                disabled
+                            <%}%>  value="<%=customer.GeoLoacionLat%>" placeholder="Shop name...">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Geo location longitude</label>
+                            <input type="text"  class="form-control" name="GeoLoacionLong" step="any"  <%if( !user.isManager){%>
+                                disabled
+                            <%}%>  value="<%=customer.GeoLoacionLong%>" placeholder="Shop name...">
+                            </div>
+ 
+                        </div>
+                        
+                        <!-- customer settings -->
+                        <div id="privateinfo" class="d-flex border-bottom row d-none p-5 ">
+                            
+                            
+                            <div class="col-md-4">
+                                <label for="VisitDays" class="form-label">Assign a New Route Day</label>
+                                <select
+                                    class="form-select form-select-sm"
+                                    name=""
+                                    id="VisitDays"
+                                    <%if( !user.isManager){%>
+                                        disabled
+                                    <%}%> 
+                                >
+                                    <option disabled selected>Select days</option>
+                                    <option disabled value="Sunday">Sunday's</option>
+                                    <option value="Monday">Monday's</option>
+                                    <option value="Tuesday">Tuesday's</option>
+                                    <option value="Wednesday">Wednesday's</option>
+                                    <option value="Thursday">Thursday's</option>
+                                    <option value="Friday">Friday's</option>
+                                    <option value="Saturday">Saturday's</option>
+                                </select>
+                            </div>
+                            
+
+                            <% if (customer.RouteDays.length > 0) { %>
+                                <i class="form-text text-muted text-start">Van Routing Days</i>
+                                <div class="flex-wrap d-flex gap-1 p-3 mb-5 animate__animated animate__backInLeft">
+                                    
+                                <% customer.RouteDays.sort().forEach(element => { %>
+                               
+                                <span
+                                class="badge bg-danger-subtle broder shadow-sm text-secondary p-2"
+                                ><%= element.date %>'s 
+                                <%if(user.isAdmin ||  user.isManager ){%>
+                                <i class="bi bi-trash3-fill bg-light shadow border rounded p-1" name="removeDateBtn" data-date="<%=element._id%>"></i>
+                                  <% } %>
+                                </span>
+
+                                <% }) %>
+                                </div>
+                            <% }else{ %>
+                                   <p class="form-text text-muted"> No Route day Assigned yet.</p>
+                            <% } %>
+                           
+                            <!-- OPTION TO DISPLAY ON VAN SALES  -->
+                            <div class="col-md-4">
+                                 Activation Status
+                                <label class="switch">
+                                    <input type="checkbox" name="blocked" <%if(customer.blocked){%>
+                                        checked
+                                    <%}%>>
+                                    <div class="slider"></div>
+                                </label>
+                            </div>
+
+                            <div class="col-md-4">
+                                 News Feed Subscription Status
+                                <label class="switch">
+                                    <input type="checkbox" name="NewsFeedSubscription" <%if(customer.NewsFeedSubscription){%>
+                                        checked
+                                    <%}%>>
+                                    <div class="slider"></div>
+                                </label>
+                            </div>
+                    
+                        
+                            <br>
+                        <div class="container-fluid w-100">
+                        <!-- customer price change -->
+                        <label for="form-label"><b>Transaction Activity for <%=customer.name%></b></label>
+                        
+                            <table class="border w-100">
+                              <thead class="border font-bold">
+                               <td  class="border">REF</td>
+                               <td  class="border">DATE</td>
+                               <td class="border">DR</td>
+                               <td  class="border">CR</td>
+                               <td  class="border">BALANCE</td>
+                              </thead>
+                              <tbody id="tbody" >
+                            <% if (RetailTransactions.length > 0) { %>
+                                <% RetailTransactions.forEach(element => { %>
+                                    <tr>
+                                        <td class="border"><%= element.paymentReferenceNo %></td>
+                                        <td><%= element.PaymentDate %></td>
+                                        <td><%= element.dr ? element.transactionAmount : 0 %></td>
+                                        <td><%= element.cr ? element.transactionAmount : 0 %></td>
+                                        <td><%= element.Balance %></td>
+                                    </tr>
+                                <% }) %>
+                                <tr class="opacity-25">
+                                    <td>More...</td>
+                                    <td>More...</td>
+                                    <td>More...</td>
+                                    <td>More...</td>
+                                    <td>More...</td>
+                                </tr>
+                            <% }else{ %>
+                                <tr class="opacity-25">
+                                    <td class="border">No Transaction Recorded.</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                   </tr>
+                            <% } %>           
+                           
+                       </table>
+                        <!-- ends here -->
+                        </div>
+                    </div>
+        
+                         
+                        <!-- description -->
+                        <div id="thirdinfo" class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a discription here" rows="4" cols="50" name="remarks" id="floatingTextarea" title=""><%=customer.remarks%></textarea>
+                                <label for="floatingTextarea">Description</label>
+                        </div>
+        
+                    <%if(user.isAdmin ||user.isManager ){%> 
+                        <div class="col-md-7 mt-2">
+                            <button  type="submit" class="btn btn-success">Update <%=customer.name%> </button>
+                        </div>
+                    <%}%> 
+                </form>
+              </div>
+            <!-- ends here -->
+        </main>
+        <footer>
+            <!-- place footer here -->
+            <div class="container-fluid fixed-bottom bg-dark-subtle ">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="text-center">
+                                    BADE &copy; <script>
+                                        document.write(new Date().getFullYear());
+                                    </script>. All rights reserved.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of footer -->
+        </footer>
+        <!-- Bootstrap JavaScript Libraries -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+        <!-- TODO: Add SDKs for Firebase customers that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-storage.js"></script>
+        <script type="module" src="/ImageUpload.js"></script>
+        <script src="https://unpkg.com/jspdf-invoice-template@1.4.0/dist/index.js"></script>
+        <script src="/filesaver.js" type="module"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script  src="/Erp.js"></script>
+        <script>
+            const VisitDays = document.querySelector("#VisitDays");
+            VisitDays.addEventListener('change',async (e)=>{
+                plsWait(true);
+                const selectedDate = e.target.value;
+                // update the route day in the database
+                const request = await fetch(`/api/v1/customer/<%= customer._id %>/routeDay`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ date: selectedDate }),
+                })
+                const response = await request.json();
+                response.message ? ShowServerResponse(response.message): serverError(response.error);
+                response.message  ? location.reload() : plsWait(false)
+            })
+
+            //FORM TO EDIT CUSTOMER
+            const form = document.getElementById('form')
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                plsWait(true);
+                
+                const customerData = {
+                    name: form.name.value,
+                    phone: form.phone.value,
+                    Email: form.Email.value,
+                    registrationDate: form.registrationDate.value,
+                    // country: form.country.value,
+                    state: form.state.value,
+                    street: form.street.value,
+                    Land_mark: form.Land_mark.value,
+                    blocked: form.blocked.checked,
+                    shopName: form.shopName.value,
+                    GeoLoacionLat: form.GeoLoacionLat.value,
+                    GeoLoacionLong: form.GeoLoacionLong.value,
+                    googleMapDirection: form.googleMapDirection.value,
+                    remarks: form.remarks.value,
+                    Birthday: form.Birthday.value,
+                    NewsFeedSubscription:form.NewsFeedSubscription.checked,
+                };
+                const request = await fetch(`/api/v1/customer/Update?customer=<%=customer._id %>`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(customerData),
+                });
+                const response = await request.json();
+                response.message ? ShowServerResponse(response.message): serverError(response.error);
+                response.message  ? location.reload() : plsWait(false)
+            });
+
+
+            //remove dates from customer route days RemoveDate
+            const removeDateBtn = document.getElementsByName('removeDateBtn');
+            //for loop for all delete date button
+            for (let i = 0; i < removeDateBtn.length; i++) {
+                removeDateBtn[i].addEventListener('click', async (e) => {
+                    plsWait(true);
+                    const request = await fetch(`/api/v1/customer/<%= customer._id %>/routeDay?date=${e.target.dataset.date}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+                    const response = await request.json();
+                    response.message? ShowServerResponse(response.message): serverError(response.error);
+                    response.message  ? location.reload() : plsWait(false)
+                });
+            }
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>BADE ||CALENDAR/<%= van.VehiclePlate %></title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <link rel="icon" type="image/x-icon" href="https://allchannels.com.ng/BADES.jpg">
+        <!-- Bootstrap CSS v5.2.1 -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="/sale.css" />
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
+        <%-include('../partials/Notification.ejs')%> 
+    </head>
+
+    <body>
+        <header>
+            <!-- place navbar here -->
+             <nav class="dash navbar navbar-light bg-dark fixed-top">
+                <div class="container-fluid">
+                    <a class="navbar-brand"  href="/api/v1/POS/Van?van=<%= van._id%>" title="Dashboard">
+                        <img width="30" height="30" src="https://img.icons8.com/stickers/100/dashboard-layout.png" alt="dashboard-layout"/>
+                        <b>Todays Visit</b>
+                      </a>
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar"
+                        aria-controls="offcanvasNavbar"
+                    >
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div
+                        class="offcanvas offcanvas-end"
+                        tabindex="-1"
+                        id="offcanvasNavbar"
+                        aria-labelledby="offcanvasNavbarLabel"
+                    >
+                        <div class="dash offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                                Menu
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close text-reset"
+                                data-bs-dismiss="offcanvas"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="offcanvas-body">
+                          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <div class="list-group " >
+                            <%-include('../partials/USER.ejs')%>
+                            <%if(user._id.toString() === van.Driver.toString()){%>
+                              <li class="nav-item">
+                                  <a
+                                  class="list-group-item list-group-item-action"
+                                      aria-current="page"
+                                      href="/api/v1/Mycustomers?Mycustomers=<%= van._id%>"
+                                      >
+                                      <img width="30" height="30" src="https://img.icons8.com/color/48/shop.png" alt="shop"/>
+                                      My Customers</a
+                                  >
+                              </li>
+                              <li class="nav-item">
+                                <a
+                                    class="list-group-item list-group-item-action "
+                                    aria-current="page"
+                                    href="/api/v1/New/Invoice?van=<%= van._id%>"
+                                    >
+                                    <img width="30" height=30" src="https://img.icons8.com/plasticine/100/invoice-1.png" alt="invoice-1"/>
+                                    New Invoice</a>
+                            </li>
+                              <% } %>
+                              <li class="nav-item">
+                                  <a class="list-group-item list-group-item-action " href="/api/v1/Myproducts?Myproducts=<%= van._id%>">
+                                    <img width="30" height="30" src="https://img.icons8.com/pastel-glyph/64/move-by-trolley.png" alt="move-by-trolley"/>
+                                    Inventory</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="list-group-item list-group-item-action " href="/api/v1/POS/Van?van=<%= van._id%>">
+                                  <img width="25" height="25" src="https://img.icons8.com/stickers/100/dashboard-layout.png" alt="dashboard-layout"/>
+                                  Dashboard</a>
+                            </li>
+                              <li class="nav-item dropdown">
+                                  <a
+                                      class="nav-link dropdown-toggle"
+                                      href="#"
+                                      id="dropdownId"
+                                      data-bs-toggle="dropdown"
+                                      aria-haspopup="true"
+                                      aria-expanded="false"
+                                      >More</a
+                                  >
+                                  <div
+                                      class="dropdown-menu"
+                                      aria-labelledby="dropdownId"
+                                  >
+                                      <a class="dropdown-item active" href="/api/v1/Todays/Visit?van=<%= van._id %>"
+                                          >
+                                          <img width="30" height="30" src="https://img.icons8.com/fluency/48/route.png" alt="route"/>
+                                          Todays Route</a
+                                      >
+                                      <a class="dropdown-item" href="#"
+                                          >
+                                          <img width="30" height="30" src="https://img.icons8.com/doodle/48/season-sale.png" alt="season-sale"/>
+                                          Calender</a
+                                      >
+                                      <% if ( van.Manager.toString() === user._id.toString() || user.isAdmin) { %>
+
+                                        <a class="dropdown-item" href="/api/v1/van/Settings?van=<%= van._id%>"
+                                            >
+                                            <img width="30" height="30" src="https://img.icons8.com/cotton/64/settings--v1.png" alt="settings--v1"/>
+                                            Settings</a
+                                        >
+                                        <% } %>
+                                  </div>
+                              </li>
+                              </div>
+                          </ul>
+                            <form class="d-flex">
+                                <input
+                                    class="form-control me-2"
+                                    type="search"
+                                    placeholder="Search"
+                                    aria-label="Search"
+                                />
+                                <button class="btn btn-outline-success" type="submit">
+                                    Search
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+             </nav>
+             
+        </header>
+        <main class="pt-4 m-3 position-relative">
+
+          <!-- display calender here -->
+          <div id='calendar' class="container-fluid p-4 " style="height: 90dvh !important;">
+          
+          </div>
+          <button class="btn btn-secondary  position-fixed focus-ring-danger top-200 left-0 buttom-0 shadow-sm rounded border" style="right: 85px; bottom: 85px;z-index: 7;" onclick="openFullscreen();">Open in Fullscreen</button>
+        </main>
+        <footer style="z-index: 3 !important;">
+            <!-- place footer here -->
+            <div class="container-fluid fixed-bottom bg-dark-subtle ">
+                <div class="row p-2">
+                    <!-- for next and filter -->
+                   
+        
+                      <div>
+                       
+                      </div>
+                            <div class="row">
+                              <div class="col-12">
+                                  <p class="text-center">
+                                      BADE &copy; <script>
+                                          document.write(new Date().getFullYear());
+                                      </script>. All rights reserved.
+                                  </p>
+                              </div>
+                          </div>
+                       </div>
+                </div>
+            </div>
+            <!-- end of footer -->
+        </footer>
+        <!-- Bootstrap JavaScript Libraries -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+         <script>
+
+          var elem = document.querySelector('#calendar')
+
+            function openFullscreen() {
+            /* If fullscreen mode is available, show the element in fullscreen */
+            if (
+              document.fullscreenEnabled || /* Standard syntax */
+              document.webkitFullscreenEnabled || /* Safari */
+              document.msFullscreenEnabled /* IE11 */
+            ) {
+            
+              /* Show the element in fullscreen */
+              if (elem.requestFullscreen) {
+                elem.requestFullscreen(); /* Standard syntax */
+              } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+              } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+              }
+            }
+          }
+
+        //get the vans id
+        const van_id = '<%= van._id %>';
+        const Allevents = []
+
+      // Get the year of the current date
+        const date = new Date();
+        let year = date.getFullYear();
+
+      const ReturnColor = (status)=>{
+        if(status.includes('rejected')){
+          return '#FF6666'//red
+        }else if(status.includes('Manager Approved') ){
+          return '#669966'//light green
+        }else if(status.includes('HR Approve') ) {
+          return '#669966'
+        }else{
+          return ''
+        }
+      }
+      
+document.addEventListener('DOMContentLoaded', async function() {
+  plsWait(true);
+    var calendarEl = document.getElementById('calendar');
+
+    const request = await fetch(`/api/v1/Todays/Route/?van=${van_id}`,{
+        method:'GET',
+        headers:{'Content-Type': 'application/json'},
+    })
+        const response = await request.json()
+    
+        const Birthdays = response.events.filter((customer)=>{return customer.Birthday.substring(5,10) === `${moment().format("MM")}-${moment().format("DD")}`})
+        const Events = response.events
+       
+        Events.map(shop => {
+            Allevents.push({
+            title: `${shop.name} `,
+            Date: `${moment().format('YYYY-MM-DD')}T08:00:00`,
+            _id: shop._id,
+            color: '#86540d',
+            allDay: false,
+            url:`${shop.googleMapDirection ? shop.googleMapDirection : `/api/v1/retailer/${shop._id}`}`,
+            end: `${moment().format('YYYY-MM-DD')}T17:00:00`,
+            textColor:'#ffffff'
+           })
+        })
+
+        Birthdays.map(birthday => {
+            Allevents.push({
+            title: `${String.fromCodePoint(127874)}${birthday.name.toUpperCase()}'s Birthday ${String.fromCodePoint(127880)}${String.fromCodePoint(127881)}`,
+            Date: `${year}${birthday.Birthday.substring(4,12)}`,
+            _id: birthday._id,
+            color: '#28df92',
+            allDay:true,
+            url:`/api/v1/retailer/${birthday._id}`,
+            end:'',
+            textColor:'#2f3231'
+           })
+        })
+        response ?  plsWait(false) : ''
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      
+      initialView: 'dayGridMonth',//use 3 buttons to send dataset value that changes initialView to any of the options on right to calendar
+      initialDate: date ,//start date of dataset
+      editable: false,//this will make the event dragable
+      headerToolbar: {
+        left: 'prev,next today',//butons to show show on the right side of the calendar
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay',
+        showNonCurrentDates: false,
+      },
+      dateClick: function(info) {
+        // calendar.addEvent({
+        //   title: 'New Event  6666',
+        //   start: calendar.getDate(),
+        //   end: calendar.getDate()
+        // });
+
+        // display leave form on calendar click event
+        // document.getElementById('offcanvasNavbar').classList.add('show');
+        // assign value to satart date to selsected date clicked on calendar
+        // document.getElementById('Start').value = info.dateStr
+
+        // use sweet alert to display form to add new event to calendar
+        // console.log(info );
+      },
+      events:Allevents.map(element => {
+        
+          return{
+            title: `${element.title.toUpperCase()}`,
+            start: `${element.Date}`,
+            color:element.color,
+            textColor:element.textColor,
+            borderColor:' rgba(255, 99, 71, 0.2)',
+            allDay: element.allDay,
+            groupId: element._id,
+            editable: false,
+            durationEditable: false,
+            url:element.url,
+            end:element.end,
+            
+          };
+        }),
+    });
+
+    // loop throuh timeoff array to add event to calender
+   
+
+    calendar.render();
+  });
+
+    </script>
+    </body>
+</html>

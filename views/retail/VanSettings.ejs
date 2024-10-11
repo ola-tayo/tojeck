@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>BADE ||CALENDAR/<%= van.VehiclePlate %></title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <link rel="icon" type="image/x-icon" href="https://allchannels.com.ng/BADES.jpg">
+        <!-- Bootstrap CSS v5.2.1 -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="/sale.css" />
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
+        <%-include('../partials/Notification.ejs')%> 
+    </head>
+
+    <body>
+        <header>
+            <!-- place navbar here -->
+             <nav class="dash navbar navbar-light bg-dark fixed-top">
+                <div class="container-fluid">
+                    <a class="navbar-brand"  href="/api/v1/POS/Van?van=<%= van._id%>" title="Dashboard">
+                        <img width="30" height="30" src="https://img.icons8.com/stickers/100/dashboard-layout.png" alt="dashboard-layout"/>
+                        <b>Settings</b>
+                      </a>
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar"
+                        aria-controls="offcanvasNavbar"
+                    >
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div
+                        class="offcanvas offcanvas-end"
+                        tabindex="-1"
+                        id="offcanvasNavbar"
+                        aria-labelledby="offcanvasNavbarLabel"
+                    >
+                        <div class="dash offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                                Menu
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close text-reset"
+                                data-bs-dismiss="offcanvas"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="offcanvas-body">
+                          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <div class="list-group " >
+                            <%-include('../partials/USER.ejs')%>
+                            <%if(user._id.toString() === van.Driver.toString()){%>
+                              <li class="nav-item">
+                                  <a
+                                  class="list-group-item list-group-item-action"
+                                      aria-current="page"
+                                      href="/api/v1/Mycustomers?Mycustomers=<%= van._id%>"
+                                      >
+                                      <img width="30" height="30" src="https://img.icons8.com/color/48/shop.png" alt="shop"/>
+                                      My Customers</a
+                                  >
+                              </li>
+                              <li class="nav-item">
+                                <a
+                                    class="list-group-item list-group-item-action "
+                                    aria-current="page"
+                                    href="/api/v1/New/Invoice?van=<%= van._id%>"
+                                    >
+                                    <img width="30" height=30" src="https://img.icons8.com/plasticine/100/invoice-1.png" alt="invoice-1"/>
+                                    New Invoice</a>
+                            </li>
+                              <% } %>
+                              <li class="nav-item">
+                                  <a class="list-group-item list-group-item-action " href="/api/v1/Myproducts?Myproducts=<%= van._id%>">
+                                    <img width="30" height="30" src="https://img.icons8.com/pastel-glyph/64/move-by-trolley.png" alt="move-by-trolley"/>
+                                    Inventory</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="list-group-item list-group-item-action " href="/api/v1/POS/Van?van=<%= van._id%>">
+                                  <img width="25" height="25" src="https://img.icons8.com/stickers/100/dashboard-layout.png" alt="dashboard-layout"/>
+                                  Dashboard</a>
+                            </li>
+                              <li class="nav-item dropdown">
+                                  <a
+                                      class="nav-link dropdown-toggle"
+                                      href="#"
+                                      id="dropdownId"
+                                      data-bs-toggle="dropdown"
+                                      aria-haspopup="true"
+                                      aria-expanded="false"
+                                      >More</a
+                                  >
+                                  <div
+                                      class="dropdown-menu"
+                                      aria-labelledby="dropdownId"
+                                  >
+                                      <a class="dropdown-item " href="/api/v1/Todays/Visit?van=<%= van._id %>"
+                                          >
+                                          <img width="30" height="30" src="https://img.icons8.com/fluency/48/route.png" alt="route"/>
+                                          Todays Route</a
+                                      >
+                                      <a class="dropdown-item" href="#"
+                                          >
+                                          <img width="30" height="30" src="https://img.icons8.com/doodle/48/season-sale.png" alt="season-sale"/>
+                                          Calender</a
+                                      >
+                                      <% if ( van.Manager.toString() === user._id.toString() || user.isAdmin) { %>
+
+                                        <a class="dropdown-item active" href="/api/v1/van/Settings?van=<%= van._id%>"
+                                            >
+                                            <img width="30" height="30" src="https://img.icons8.com/cotton/64/settings--v1.png" alt="settings--v1"/>
+                                            Settings</a
+                                        >
+                                        <% } %>
+                                  </div>
+                              </li>
+                              </div>
+                          </ul>
+                            <!-- <form class="d-flex">
+                                <input
+                                    class="form-control me-2"
+                                    type="search"
+                                    placeholder="Search"
+                                    aria-label="Search"
+                                />
+                                <button class="btn btn-outline-success" type="submit">
+                                    Search
+                                </button>
+                            </form> -->
+                        </div>
+                    </div>
+                </div>
+             </nav>
+             
+        </header>
+        <main class="pt-4 m-3 position-relative">
+            <form id="updateVanForm" class="container mb-5 mt-5 p-3 flex items-center flex-col justify-center gap-3 shadow bg-light">
+                <!-- Modal content -->
+                 <h1 class="form-text"><%=van.name.toUpperCase()%></h1>
+                <div class="content ">
+                    <div  class="row g-3 needs-validation" id="form">
+                      <div class="col-md-4">
+                          <label for="customer" class="form-label">Title</label>
+                          <input class="form-control" name="name" required placeholder="<%=van.name%>" value="<%=van.name%>"/>
+                        </div>
+                        
+                          <div class="col-md-4">
+                            <label for="customer" class="form-label">Current Driver</label>
+                            <h1 class="form-text">
+                                <%= driver.firstName.toUpperCase() %>  <%= driver.lastName.toUpperCase() %>
+                            </h1>
+                          </div>
+                          
+                          <div class="col-md-4">
+                            <label for="remark" class="form-label"> Plate Number </label>
+                            <input class="form-control"name="VehiclePlate"  required placeholder="<%= van.VehiclePlate %>" value="<%= van.VehiclePlate %>">
+                         </div>
+            
+                        <div class="col-md-4">
+                            <label for="date" class="form-label">Invoice Reference No</label>
+                            <h5 class="form-control">
+                                <%= van.InvoiceReference %>
+                            </h5>
+                        </div>
+
+                        <hr>
+                        <h5 class="form-text">Proxi Invoice Sales</h5>
+                        <p class="form-text text-muted">Activating this feature will Allow  <%= driver.lastName%> raise Invoice without Geo location of customer</p>
+                        
+                         <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="proximitySale" id="proximitySale1" value="true"  <%if(van.proximitySale){%>
+                                checked="checked"
+                                <%}%> >
+                            <label class="form-check-label" for="proximitySale1">Active </label>
+                         </div>
+
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="proximitySale" id="proximitySale2" value="false"  <%if(!van.proximitySale){%>
+                                checked="checked"
+                                <%}%> >
+                            <label class="form-check-label" for="proximitySale2">Inactive </label>
+                          </div>
+                          <br>
+                          <hr>
+                          <h1 class="form-text">Activation Status</h1>
+                          <small class="text-muted">Enable/Disable Van Usage</small>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="status" id="status1" value="activated"  <%if(van.status === 'activated'){%>
+                                checked="checked"
+                                <%}%> >
+                            <label class="form-check-label" for="status1">Active </label>
+                         </div>
+
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="status" id="status2" value="deactivated"  <%if(van.status === 'deactivated'){%>
+                                checked="checked"
+                                <%}%> >
+                            <label class="form-check-label" for="status2">Inactive </label>
+                          </div>
+                          <hr>
+                       
+                         <div class="col-md-4">
+                            <label for="driver" class="form-label">Change Driver</label>
+                            <select
+                                class="form-select form-select"
+                                name="Driver"
+                                id="driver"
+                            >
+                            <option value="<%= van.driver %>" selected disabled>Choose...</option>
+                            <%employees.forEach(employe=>{%>
+                                <option value="<%=employe._id%>"><%=employe.firstName%> <%=employe.lastName%></option>
+                            <% })%>
+                            </select>
+                         </div>
+  
+
+                         <div class="col-md-4">
+                            <label for="" class="form-label">Change Manager</label>
+                            <select
+                                class="form-select form-select"
+                                name="Manager"
+                                id=""
+                            >
+                            <option value="<%= van.Manager %>" selected disabled>Choose...</option>
+                            <%manager.forEach(employe=>{%>
+                                <option 
+                                class="<% if (van.Manager.toString() === employe._id.toString()) { %>
+                                 bg-warning
+                                <% } %>"
+                                value="<%=employe._id%>"><%=employe.firstName%> <%=employe.lastName%></option>
+                            <% })%>
+                            </select>
+                         </div>
+
+
+                         <div class="col-md-4">
+                            <label for="location" class="form-label">Change Location</label>
+                            <select
+                                class="form-select form-select"
+                                name="location"
+                                id="location"
+                            >
+                            <option value="<%= van.location %>" selected disabled>Choose...</option>
+                            <%Locations.forEach(Location=>{%>
+                                <option 
+                                class="<% if (van.location.toString() === Location._id.toString()) { %>
+                                    bg-warning
+                                   <% } %>"
+                                value="<%=Location._id%>"><%=Location.WHName%></option>
+                            <% })%>
+                            </select>
+                         </div>
+
+
+                    
+                       
+                        <div class="col-md-4  ">
+                            <label for="InvoiceNo" class="form-label"></label>
+                              <button class="btn btn-warning form-control" id="Approve" data-reverseid=""> Update Settings on <%=van.name%></button>
+                          </div>
+            
+                        </div>
+                </div>
+            </form>
+        </main>
+        <footer style="z-index: 3 !important;">
+            <!-- place footer here -->
+            <div class="container-fluid fixed-bottom bg-dark-subtle ">
+                <div class="row p-2">
+                    <!-- for next and filter -->
+                      <div>
+                       
+                      </div>
+                            <div class="row">
+                              <div class="col-12">
+                                  <p class="text-center">
+                                      BADE &copy; <script>
+                                          document.write(new Date().getFullYear());
+                                      </script>. All rights reserved.
+                                  </p>
+                              </div>
+                          </div>
+                       </div>
+                </div>
+            </div>
+            <!-- end of footer -->
+        </footer>
+        <!-- Bootstrap JavaScript Libraries -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            //get form data and send patch requests to the server
+            document.getElementById('updateVanForm').addEventListener('submit',async function (event) {
+                event.preventDefault();
+                plsWait(true);
+                const formData = new FormData(document.getElementById('updateVanForm'));
+                const data = {};
+                for (const [key, value] of formData.entries()) {
+                    data[key] = value;
+                }
+                await fetch('/api/v1/Editvan?vanId=<%=van._id%>', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                   .then((response) => response.json())
+                   .then((data) => {
+                       if(data.message){
+                        ShowServerResponse(data.message)
+                           window.location.reload()
+                       }else{
+                        throw new Error(data.error)
+                       }
+                    })
+                   .catch((error) => {
+                    serverError(erro.messager)
+                    plsWait(false);
+                    });
+            });
+        </script>
+    </body>
+</html>

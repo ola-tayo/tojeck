@@ -1,0 +1,1160 @@
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <title><%=name%> || <%=wareHouse.WHName.toUpperCase()%> NEW ORDERS</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+
+        <link rel="icon" type="image/x-icon" href="https://allchannels.com.ng/BADES.jpg">
+
+        <!-- Bootstrap CSS v5.2.1 -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Nova+Square&display=swap" rel="stylesheet">
+       
+
+        <link rel="stylesheet" href="/sale.css" />
+    </head>
+  
+    <body>
+        <header>
+            <%-include('./partials/Notification.ejs')%> 
+            <%-include('./partials/inactive.ejs')%>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+            <!-- place navbar here -->
+            <nav class="dash navbar navbar-light bg-light fixed-top" 
+            style="background-color: rgb(173, 168, 105) !important">
+                <div class="container-fluid">
+                    <span  class="navbar-brand" >
+                      <a class="navbar-brand" href="/api/v1/Dashboard/<%=user._id%>" title="Apps">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAVe0lEQVR4nO1de3RV1Zk/tgvrtJ2RP8bprM60IsvV6XLVtnbWaisCQwyvICbyCCEhEAR5PxIgPJIAImgFCiZIeQQiiKAJqOEhQoJIKC81g4EEEwQDBsiTJDd370todWa6Z/1Ozrl3n3PPPo97TwLVu9f6FneFc863v+/be397f68tSZEWaZEWaZEWaZEWaZEWaZEWaZEWaW60lpaWf/L5fAmU0jcppR8TQmoJIV9TStsopZcJIYWEkHltbW0PhYOHMfYdr9c7gFK6hhBySsFzWwH8Pkkp/aPP5+uPZ8PB5fV6exJC0gkhe0EDaA
+                        FNwAMaKaW7fD7fKNAu3S3t9u3bP6GUbieEfEUpZVZACPkbIeRDSmlvJ3gYY9+DQAkhN+zgUXBdJ4TMYYzd6wQXpbQPIaQEfbWJ56+U0tfa29v/XbpTjTH2XULIckLIX+wyyICQ/La2tu52GEQpvRIqHkpptZ0BgL4QQgrCoAezdBl4I3Vl83g891NKD4fBIB6u+ny+X4hwEULmEkL+J1w8+AYhJE2Ex+fzPYq+uEGTx+Mp6rJlDMIghFxwSRgqs276fL5f6nFRSpe4iUeBLD2eW7du/YoQ0uwmnsbGxktXrly5v1OFASVJKX1P1Inr1+rZzteL2Oxp69iIpxez/n3msGeGZLLnxq1im9bvZZWfXTETSsOtW7f+VcXl9XqTRM96vV5WfPhj9sLibWxM/HI2KGqeDEnxy9kLS7axI0
+                        WfMK+XmOEap+Lx+Xz/oihpw2crL1SzjesLZRpAC2gCbaBx144iduN6vRBPdXV1aXx8/D90mkCgM4wQt7V52ZaN+9jgqHTW7/HZQoh6IpUtX7qd1dU2iogoAh5K6c8ppe1Gz5w6eZ6lJL5kigcwPukP7PTJchGeW4SQnym4jhg9U3ujUe4r+myGBzRv2bRf5oHRd44ePbpLkqRurgujvb3934yY1NBwk6VOX2fJIB4Shj0vjzwBs4ZTSg8Z/d9bO4vZk0+k2cYT3TuNvbXziAjPQUrpSKP/++xCtdxHJzSlzXhV5oX+Wx6P5+sRI0aMkiTpHlcFgq2t0czQCyNm4FI2buIONiP9EEvNOsZmLihmz07NZ3FPv6x5bmTsEnatps6IUS1GTNr37p+1zO4zjyUkbmRTUvex2RkfyjBl9j6WkLRR/
+                        j/+2f2FJ0RCCcJVU1Mn9y3wfiqLi31ZpgG0gCbQNm7CDjZk4NIgoRjNlDNnzpRIkvSo24o86JyRu2FfoEO9Ulni2C0sbXEJS1t83BAmTCtgT3LMAgGi9ZdycOnzGjag71z/e0/FvMBmLigS4gHj8Iz6/MD/mscuX6qxhSttRmCAoa/oswhPalYJS0zOlWlX38HyFTxw277u2bNniiRJ33dFIF6vN9FIgfM6o0MYxy3huRl7WBRHwInjZZZMWpKxNTADByyRZ4MVHjyDZ9X3lmbkWeL5c0lZQN/1SmMTZ7xtiyZZKJxOMVL0OTk56yRJ+p0rAoGJQI9g5/bDGiZhtNjpPGBkfGAUZi3YYsqkutpGWReoyweWJbt4pqTt949e6B4oajNcGfMDjB0Z/6ptPFgVYgYFli/svvTfLi0tPSlJUoIrC
+                        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" width="30" height="30">
+                      </a>
+                       <b><%=wareHouse.WHName.toUpperCase()%></b>
+                    </span>
+                    <!-- <a  >Setup Location</a> -->
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar"
+                        aria-controls="offcanvasNavbar"
+                    >
+                    <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <div
+                        class="offcanvas offcanvas-end"
+                        tabindex="1"
+                        id="offcanvasNavbar"
+                        aria-labelledby="offcanvasNavbarLabel"
+                        
+                    >
+                        <div class="dash offcanvas-header bg-dark-subtle "  style="background-color: rgb(173, 168, 105) !important">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                                Menu
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close text-reset"
+                                data-bs-dismiss="offcanvas"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="offcanvas-body ">
+                            <!-- uls -->
+                            <ul class="nav nav-tabs d-flex  align-content-center  " id="myTab" role="tablist" >
+                              <%-include('./partials/USER.ejs')%>
+                                <%if(wareHouse.Status ){%>
+                                  <%if(user._id.toString() === wareHouse.StoreKeeper._id.toString() || user.isAdmin ||  user._id.toString() === wareHouse.Manager._id.toString()){%>
+                                <!-- <li class="nav-item " role="presentation">
+                                  <button
+                                      class="nav-link "
+                                      id="profile-tab"
+                                      data-bs-toggle="tab"
+                                      data-bs-target="#profile"
+                                      type="button"
+                                      role="tab"
+                                      aria-controls="profile"
+                                      aria-selected="false"
+                                      title="Export Table to Xlsx"
+                                      onclick="location.assign('/api/v1/deliveryExcel/<%=wareHouse._id%>')"
+                                  >
+                                  <img height="30" width="30" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB90lE
+                                  QVR4nGNgGAWjYBSMgiEJxCYEZ4hNCP4oNjHkP6lY81A96fhg3Uetg3Xp1PQAWY4n2wOHwPgD9TxApuMp9MD/UQ/AwGgMHBpNQsM0CXEXWhRwF1p84Smy+E8RLrH8L9TsMSAe+EKx42G42OI/T4MrBpZck0o2ZiAEqOZ4GB71QOpoDPwXLrP9f+f1o/8gULVpEjx5aLUE/v/x+9f/b79+/NdpDR7cSShiXhnYA2++vP8vUekEFlt5didYrGHr9KGRB3ZdPw52cOO2Gf8te2L///339//tVw/BMTQkPGDSGfn/15/f/99/+/T/2L0L///9+/ffa1r20CqFphxc8R8Glp/ZPvSK0YUnNsE9sOLsDoIeEHfXwsBC04LIxgyUeMBzahY42Zx6cPn/kbvnwZ7wn5k/NDwgXGb7/8aL+2BHg9K9/YQksGcevn32X6zCcfB7oHvPArDjd1w7ChfbdOkAWKx378LB7QGzrihw6QMqNq174+Dihh1h/3///QPGVr2xg9cDPBTgUQ9MG2kxwF1k/plqHigwHwAPFJrnUcUTBeb/hKL0v4m7a75Hx6oZDmRjBmoBCQ+t/+Ri9TR7s
+                                  jHDqAegYDQG0kaT0EhPQu5aH+nvATvqTXBIemilSXhofaCfB+w+qKbYp1LNA6NgFIyCUcBADQAA6UC2Ipn+q/gAAAAASUVORK5CYII=">
+                                  </button>
+                              </li> -->
+                              <% } %>
+                                <!-- <li class="nav-item active" role="presentation">
+                                    <button
+                                        class="nav-link active"
+                                        id="profile-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#profile"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="profile"
+                                        aria-selected="false"
+                                        title="List of Locations"
+                                    >
+                                      View All
+                                    </button>
+                                </li> -->
+                                <!-- <li class="nav-item" role="presentation">
+                                    <button
+                                        class="nav-link "
+                                        id="messages-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#messages"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="messages"
+                                        aria-selected="false"
+                                        title="Add New Location"
+                                    >New Way-Bill
+                                    </button>
+                                </li> -->
+                               </ul> 
+                            <!-- <form class="d-flex" id="search">
+                                <input
+                                    class="form-control"
+                                    type="search" 
+                                    placeholder="Search Inv-No, WB-No or Customer Name" 
+                                    aria-label="Search" 
+                                    name="query"
+                                />
+                                <button class="btn btn-success" type="submit">
+                                    Search
+                                </button>
+                            </form> -->
+                          
+                            <ul class="list-group list-group-flush m-2 " >
+                              
+                                <div class="list-group " >
+                                  <!-- Hover added -->
+                                  <%if(user._id.toString() === wareHouse.StoreKeeper._id.toString() || user.isAdmin ||  user._id.toString() === wareHouse.Manager._id.toString()){%>
+                                  <span class=" nav-item dropdown d-none">
+                                    <a
+                                        class="nav-link dropdown-toggle"
+                                        href="#"
+                                        id="dropdownId"
+                                        data-bs-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                        title="More options"
+                                        > More...</i> 
+                                        </a
+                                    >
+                                    <div
+                                        class="dropdown-menu "
+                                        aria-labelledby="dropdownId"
+                                    >
+                                        <a class="dropdown-item " href="/api/v1/warehouse/purchase/<%=wareHouse._id%>?page=1&limit=10"
+                                          >STOCK CARD</a>
+                                          <!-- <a class="dropdown-item " href="/api/v1/PR/<%=wareHouse._id%>"
+                                            >PURCHASE REQUESTS</a
+                                            > -->
+                                            <a class="dropdown-item " href="/api/v1/Replenish/<%=wareHouse._id%>/storeproduct"
+                                              >
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stopwatch-fill" viewBox="0 0 16 16">
+                                                <path d="M6.5 0a.5.5 0 0 0 0 1H7v1.07A7.001 7.001 0 0 0 8 16a7 7 0 0 0 5.29-11.584l.013-.012.354-.354.353.354a.5.5 0 1 0 .707-.707l-1.414-1.415a.5.5 0 1 0-.707.707l.354.354-.354.354-.012.012A6.97 6.97 0 0 0 9 2.071V1h.5a.5.5 0 0 0 0-1zm2 5.6V9a.5.5 0 0 1-.5.5H4.5a.5.5 0 0 1 0-1h3V5.6a.5.5 0 1 1 1 0"/>
+                                              </svg>
+                                              EXPIRATION</a
+                                              >  
+                                    </div>
+                                    
+                                  </span>
+                                  <% } %>
+
+                                  <%if(user._id.toString() === wareHouse.StoreKeeper._id.toString() || user.isAdmin ||  user._id.toString() === wareHouse.Manager._id.toString()){%>
+                                  <a href="/api/v1/warehouse/Product/<%=wareHouse._id%>" class="list-group-item list-group-item-action "
+                                  >
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookshelf" viewBox="0 0 16 16">
+                                    <path d="M2.5 0a.5.5 0 0 1 .5.5V2h10V.5a.5.5 0 0 1 1 0v15a.5.5 0 0 1-1 0V15H3v.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5M3 14h10v-3H3zm0-4h10V7H3zm0-4h10V3H3z"/>
+                                  </svg>
+                                  INVENTORY ITEMS
+                                 </a >
+                                 <% } %>
+                                <a href="/api/v1/Notification/<%=wareHouse._id%>" class="list-group-item list-group-item-action "
+                                ><b class="position-absolute top-0 start-50  badge rounded-pill bg-black shadow">
+                                  <%=wareHouse.Notification.length%>
+                                </b>
+                                NOTIFICATION
+                            </a >
+                            <a  href="/api/v1/Location/<%=wareHouse._id%>?page=1&limit=15&category=all" class="list-group-item list-group-item-action "
+                            >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-receipt-cutoff" viewBox="0 0 16 16">
+                              <path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5M11.5 4a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1z"/>
+                              <path d="M2.354.646a.5.5 0 0 0-.801.13l-.5 1A.5.5 0 0 0 1 2v13H.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1H15V2a.5.5 0 0 0-.053-.224l-.5-1a.5.5 0 0 0-.8-.13L13 1.293l-.646-.647a.5.5 0 0 0-.708 0L11 1.293l-.646-.647a.5.5 0 0 0-.708 0L9 1.293 8.354.646a.5.5 0 0 0-.708 0L7 1.293 6.354.646a.5.5 0 0 0-.708 0L5 1.293 4.354.646a.5.5 0 0 0-.708 0L3 1.293zm-.217 1.198.51.51a.5.5 0 0 0 .707 0L4 1.707l.646.647a.5.5 0 0 0 .708 0L6 1.707l.646.647a.5.5 0 0 0 .708 0L8 1.707l.646.647a.5.5 0 0 0 .708 0L10 1.707l.646.647a.5.5 0 0 0 .708 0L12 1.707l.646.647a.5.5 0 0 0 .708 0l.509-.51.137.274V15H2V2.118z"/>
+                            </svg>
+                            INVOICE / ORDERS           
+                          </a >
+                          <%if(user.raiseInvoice || user.isAdmin ){%>
+                          <a  href="/api/v1/warehouse/<%=wareHouse._id%>/Invoices/new" class="list-group-item list-group-item-action active"
+                          >
+                            <b  class=" top-0 start-50  badge bg-success shadow">NEW</b> SALES ORDER         
+                          </a >
+                          <% } %>
+                          <%if(user._id.toString() === wareHouse.StoreKeeper._id.toString() || user.isAdmin ||  user._id.toString() === wareHouse.Manager._id.toString()){%>
+                          <a href="/api/v1/Scrap/<%=wareHouse._id%>" class="list-group-item list-group-item-action d-none"
+                          >SCRAP/DAMAGED SKU
+                         </a >
+                        <a href="/api/v1/LPO/<%=wareHouse._id%>" class="list-group-item list-group-item-action"
+                        >
+                        PURCHASE ORDER
+                        </a >
+                        <a href="/api/v1/Transfers/<%=wareHouse.WHName%>/<%=wareHouse._id%>" class="list-group-item list-group-item-action"
+                        >
+                        INTERNAL TRANSFERS
+                        </a >
+                        <% } %>
+                        <%if(user._id.toString() === wareHouse.StoreKeeper._id.toString() || user.isAdmin ||  user._id.toString() === wareHouse.Manager._id.toString()){%>
+                        <a href="/api/v1/Returns/<%=wareHouse._id%>" class="list-group-item list-group-item-action"
+                        >RETURN MACHANDIZE AUTH
+                        </a >
+                        <% } %>
+                       </div>
+                      </ul>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+            </nav>
+            
+           <!-- Nav tabs -->
+          
+        </header>
+
+        <main class="pt-4 ">
+            <!-- Tab panes -->
+          
+
+            <div id="invoice" class="shadow-lg border m-1 pt-3 p-2 mb-5 mt-4 bg-light-subtle animate__animated animate__backInLeft ">
+                        <!-- #endregion -->
+     <% if (user.raiseInvoice) { %>
+
+      <!-- action buttons -->
+      <div class="p-2">
+        <button type="button" id="submit" class="btn btn-secondary d-none" >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"/>
+          </svg>  
+          Submit 
+        </button>
+        <button type="button" class="btn btn-warning" id="Signature" data-id="<%=user._id%>" onclick="opscodeRequest()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fingerprint" viewBox="0 0 16 16">
+            <path d="M8.06 6.5a.5.5 0 0 1 .5.5v.776a11.5 11.5 0 0 1-.552 3.519l-1.331 4.14a.5.5 0 0 1-.952-.305l1.33-4.141a10.5 10.5 0 0 0 .504-3.213V7a.5.5 0 0 1 .5-.5Z"/>
+            <path d="M6.06 7a2 2 0 1 1 4 0 .5.5 0 1 1-1 0 1 1 0 1 0-2 0v.332c0 .409-.022.816-.066 1.221A.5.5 0 0 1 6 8.447c.04-.37.06-.742.06-1.115V7Zm3.509 1a.5.5 0 0 1 .487.513 11.5 11.5 0 0 1-.587 3.339l-1.266 3.8a.5.5 0 0 1-.949-.317l1.267-3.8a10.5 10.5 0 0 0 .535-3.048A.5.5 0 0 1 9.569 8Zm-3.356 2.115a.5.5 0 0 1 .33.626L5.24 14.939a.5.5 0 1 1-.955-.296l1.303-4.199a.5.5 0 0 1 .625-.329Z"/>
+            <path d="M4.759 5.833A3.501 3.501 0 0 1 11.559 7a.5.5 0 0 1-1 0 2.5 2.5 0 0 0-4.857-.833.5.5 0 1 1-.943-.334Zm.3 1.67a.5.5 0 0 1 .449.546 10.72 10.72 0 0 1-.4 2.031l-1.222 4.072a.5.5 0 1 1-.958-.287L4.15 9.793a9.72 9.72 0 0 0 .363-1.842.5.5 0 0 1 .546-.449Zm6 .647a.5.5 0 0 1 .5.5c0 1.28-.213 2.552-.632 3.762l-1.09 3.145a.5.5 0 0 1-.944-.327l1.089-3.145c.382-1.105.578-2.266.578-3.435a.5.5 0 0 1 .5-.5Z"/>
+            <path d="M3.902 4.222a4.996 4.996 0 0 1 5.202-2.113.5.5 0 0 1-.208.979 3.996 3.996 0 0 0-4.163 1.69.5.5 0 0 1-.831-.556Zm6.72-.955a.5.5 0 0 1 .705-.052A4.99 4.99 0 0 1 13.059 7v1.5a.5.5 0 1 1-1 0V7a3.99 3.99 0 0 0-1.386-3.028.5.5 0 0 1-.051-.705ZM3.68 5.842a.5.5 0 0 1 .422.568c-.029.192-.044.39-.044.59 0 .71-.1 1.417-.298 2.1l-1.14 3.923a.5.5 0 1 1-.96-.279L2.8 8.821A6.531 6.531 0 0 0 3.058 7c0-.25.019-.496.054-.736a.5.5 0 0 1 .568-.422Zm8.882 3.66a.5.5 0 0 1 .456.54c-.084 1-.298 1.986-.64 2.934l-.744 2.068a.5.5 0 0 1-.941-.338l.745-2.07a10.51 10.51 0 0 0 .584-2.678.5.5 0 0 1 .54-.456Z"/>
+            <path d="M4.81 1.37A6.5 6.5 0 0 1 14.56 7a.5.5 0 1 1-1 0 5.5 5.5 0 0 0-8.25-4.765.5.5 0 0 1-.5-.865Zm-.89 1.257a.5.5 0 0 1 .04.706A5.478 5.478 0 0 0 2.56 7a.5.5 0 0 1-1 0c0-1.664.626-3.184 1.655-4.333a.5.5 0 0 1 .706-.04ZM1.915 8.02a.5.5 0 0 1 .346.616l-.779 2.767a.5.5 0 1 1-.962-.27l.778-2.767a.5.5 0 0 1 .617-.346Zm12.15.481a.5.5 0 0 1 .49.51c-.03 1.499-.161 3.025-.727 4.533l-.07.187a.5.5 0 0 1-.936-.351l.07-.187c.506-1.35.634-2.74.663-4.202a.5.5 0 0 1 .51-.49Z"/>
+          </svg>
+          Signature
+        </button>
+      <% } %>
+
+              <div id="pspdfkit-header" class="table-responsive custom-table-responsive">
+                <div class="header-columns p-2 d-flex justify-content-between align-content-center">
+                  <div class="logotype">
+                    <img  height="100" width="100" src="/logo.jpg" />
+                  </div>
+        
+                  <div class="">
+                    <input type="hidden" id="whId" value="<%=wareHouse._id%>" hidden class="d-none">
+                    <input type="hidden" value="<%=wareHouse.InvoiceNo%>"  id="LocationId" hidden disabled>
+                    <h5><%=Business.CompayName%></h5>
+                    
+                  </div>
+                </div>
+              </div>
+        
+              <div class="page table-responsive custom-table-responsive" style="page-break-after: always">
+                <div class="intro-table ">
+                 
+        
+                  <div class="intro-form">
+                    <div class="intro-form-item-border d-flex flex-column gap-3">
+        
+                      <!-- dropdown for customer list -->
+        
+                      <!-- drop down for pricelist -->
+        
+                      <div class="col-md-3">
+                        <label for="customers" class="form-label">Customer</label>
+                        <select
+                          class="form-select is-invalid "
+                          id="customer"
+                          aria-describedby="validationServer04Feedback"
+                          required
+                        >
+                        <option value="">Choose...</option>
+                          <!-- display options for Customer -->
+                       <%if(Cusomers){%>
+                        <%Cusomers.forEach((customer)=>{%>
+                            <option value="<%=customer._id%>"   
+                              <%if(customer.blocked){%>
+                                disabled = true
+                              <%}%>
+                              ><%=customer.Username%></option>
+                        <%})%>
+                        <%}%>
+                        </select>
+                        </div>
+        
+                     <!-- drop down for pricelist -->
+        
+                     <div class="col-md-3 ">
+                      <label for="pricelist" class="form-label">Costing Method</label>
+                      <select
+                        class="form-select is-valid "
+                        id="pricelist"
+                        aria-describedby="validationServer04Feedback"
+                        disabled
+                      >
+                        <option disabled value="">Choose...</option>
+                        <!-- <option disabled value="percentage"  >By Discount </option> -->
+                        <option  value="priceList">By Defined price List</option>
+                        <!-- <option disabled value="Price" >By whole Sale Price</option> -->
+                      </select>
+                      </div>
+        
+                      <div class="col-md-3">
+                        <label for="pricelist" class="form-label">Currency</label>
+                        <select
+                          class="form-select is-valid "
+                          id="pricelist"
+                          aria-describedby="validationServer04Feedback"
+                          disabled
+                        >
+                        
+                        <% if (currencies) { %>
+                          <option value="">Choose...</option>
+                          <% currencies.forEach(element => { %>
+                            <option value="<%= element.Symbol %>"><%= element.Currency %> <%= element.Symbol %></option>
+                          <% }) %>
+        
+                        <% } %>
+                        </select>
+                        </div>
+        
+                    </div>
+        
+                  </div>
+                </div>
+
+                <div class="d-flex flex-column  align-items-start  shadow-sm border rounded m-2 p-2 w-70">
+                  <h5 class="intro-table-title" id="Username"></h5>
+                  <p class="intro-table-title" id="Address"></p>
+                  <p class="intro-table-title" id="Email"></h4>
+                  <p class="intro-table-title"id="phone"></p>
+                  <h6 class="intro-table-title" id="Debt" style="color: #50e623; font-weight: bolder;"></h6>
+                  <p class="intro-table-title" id="Cl" style="color: #e63023; font-weight: bolder;"></p>
+                  <p id='startdate' class="intro-table-title"></p>
+                </div>
+        
+                <!-- table for product -->
+                 <div
+                  class="table-responsive-sm"
+                 >
+                  <table
+                    class="table table-striped-columns table-hover table-borderless table-dark align-middle"
+                  >
+                    <thead class="table-light">
+                      <caption class="bg-dark-subtle border shadow-sm rounded mt-1 p-2">
+                          <form action="">
+                              <!-- drop down for pricelist -->
+                            <div class="col-md-4">
+                              <label for="products" class="form-label">Products List </label>
+                              <input type="text" id="products" list="productsACD" name="referenceNo" class="form-control border" placeholder="Search SKU with Product-Code" required/>
+                              <datalist id="productsACD" >
+                               <!-- display options for Bills -->
+                               <option >choose...</option>
+                               <%products.forEach((products)=>{%>
+                                 <%pname = prud.filter(name=>{%>
+                                   <% return name._id.toString() === products.productId.toString()%>
+                                   <%})%>
+                                   <%pname.map(n=>{%>
+                                     <option class="bg-warning" <%if(products.currentQty < 1  && products.Rolls < 1 || n.Sellable === false  || products.isActivated === false ){%>
+                                       disabled="true"
+                                       <%}%> 
+                                       value="<%=n.ACDcode%>">
+                                       <%=n.Name.substring(0,60)%>
+                                       [C:<%=products.currentQty%>, R:<%=products.Rolls%>]
+                                     </option>
+                                   <%})%>
+                                    <%})%>
+                              </datalist>
+                          </div>
+          
+                          <div class="d-flex m-1 justify-content-start ">
+                            <button class="btn btn-danger shadow" id="reset"> &times;Reset</button>
+                          </div>
+                       </form> 
+                      </caption>
+                      <tr class="border">
+                        <th>Product</th>
+                        <th>Forecast</th>
+                        <th>Batch No</th>
+                        <th>Pck Qty</th>
+                        <!-- <th>Roll Qty</th> -->
+                        <th>Promo</th>
+                        <th>VAT</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody  class="item" id="item"></tbody>
+                    <tfoot >
+                      <div class="bg-success-subtle p-2 mt-1 mb-1 shadow-sm border rounded">
+                        <h5 id="reference"> "Order/-----/<%=wareHouse.InvoiceNo%>"</h5>
+                      </div>
+                    </tfoot>
+                  </table>
+                 </div>
+                 
+
+                <div class="summary-box">
+                  <table cellpadding="10" cellspacing="0">
+                    <tbody>
+                      <tr class="item">
+                        <td></td>
+                        <td><b>Gross:</b></td>
+                        <td id="Subtotal">₦0.00</td>
+                      </tr>
+        
+                      <tr class="item">
+                        <td></td>
+                        <td><b>Discount Allowed(₦):</b></td>
+                        <td id="discountinCalc">
+                          <input type="number" class="form-control" id="discount" placeholder="0.00" value="0"  >
+                        </td>
+                      </tr>
+        
+                      <tr class="item">
+                        <td></td>
+                        <td><b>Tax Rate (V.A.T):</b></td>
+                        <td id="vat">₦0.00</td>
+                      </tr>
+        
+                      <tr class="no-border-item">
+                        <td></td>
+                        <td><b>Shipping/Handling (<small>Not added to INV Total</small>):</b></td>
+                        <td>₦0.00 </td>
+                      </tr>
+        
+                      <tr class="total">
+                        <td></td>
+                        <td><b>Net Due:</b></td>
+                        <td id="Grandtotal">₦0.00</td>
+                      </tr>
+                  </table>
+                  <p id="words"></p>
+                </div>
+              </div>
+        
+              <div class="page" style="page-break-after: always">
+              
+                <div class="page" style="page-break-after: always">
+                  <div class="signer">
+                   
+        
+                    <div class="form signer-item">
+                      <p for="signature" class="label" >Raised by: <%=user.firstName.toUpperCase()%> <%=user.lastName.toUpperCase()%></p>
+                      <input type="hidden" value="<%=user.firstName%>"  id="raisedBy" hidden disabled>
+                      <img width="50" height="50" class="logo" src=""
+                        id="signature"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+        
+            </div>
+  
+             <!-- The Modal -->
+             <div id="myModal" class="modal flex items-center flex-col justify-center gap-3 shadow">
+              <!-- Modal content -->
+                <div class="modal-body d-flex justify-content-center container">
+                  <form class="bg-light gap-3 p-3 rounded shadow  flex-column d-flex" id="opsCode" >
+                    <span title="close" onclick="document.getElementById('myModal').style='none'">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"/>
+                      </svg>
+                    </span>
+                    <input type="password" name="opsCode" id="opsCodes" class="form-control input-group has-validation" placeholder="Enter operational code" autocomplete="off">
+                    <button type="submit" class="btn btn-danger">Action</button>
+                  </form>
+                </div>
+              </div>
+        </main>
+        <footer style="z-index: 3 !important;">
+            <!-- place footer here -->
+            <div class="container-fluid fixed-bottom bg-dark-subtle ">
+              <div class="row">
+                  <div class="col-12">
+                      <div class="row">
+                          <div class="col-12">
+                              <p class="text-center">
+                                  BADE &copy; <script>
+                                      document.write(new Date().getFullYear());
+                                  </script>. All rights reserved.
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+            <!-- end of footer -->
+            <input type="hidden" id="Whid" value="<%=wareHouse._id%>">
+        </footer>
+       
+
+        <!-- Bootstrap JavaScript Libraries -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+          const formatter = new Intl.DateTimeFormat('us-as')
+          //clear billproduct on page reload
+          localStorage.removeItem('bill_products');
+         const submitBtn = document.getElementById('submit')
+          //clear billproduct on page reload
+          window.onload = () => {
+            localStorage.removeItem('bill_products');
+                if(!BillProducts ){
+                submitBtn.style.display = 'none'
+                
+              }
+          }
+    
+          let customerPercent
+          //get request for customer
+          const customerInput = document.getElementById('customer')
+          customerInput.addEventListener('change',async(e)=>{
+                const endPoint = `/api/v1/customer/${e.target.value}/search`
+                const res = await fetch(endPoint,{
+                    method:'GET',
+                    headers:{'Content-Type': 'application/json'}
+                })
+                const data = await res.json()
+                customerPercent = data.item.discount
+                const Username = document.getElementById('Username').innerText = `Billed for: ${data.item.Username.toUpperCase()}`;
+                const Email =  document.getElementById('Email').innerText = `Email: ${data.item.Email}`;
+                const phone = document.getElementById('phone').innerText = `Phone: ${data.item.phone}`;
+                const Address = document.getElementById('Address').innerText = `Address: ${data.item.street}`;
+                const customerDebt = document.getElementById('Debt').innerText = `Customer Balance: ₦${data.item.Debt}`
+                document.getElementById('Cl').innerText = `Credit Limit: ₦${data.item.creditLimit}`
+                BillProducts.customerName = data.item.Username
+                ShowServerResponse(`You are currently raising "${BillProducts.billStatus}/${BillProducts.billReferenceNo}/${BillProducts.invoicelocation}" for ${data.item.Username}`)
+                const d = new Date();
+                BillProducts.startDate = `${d.getFullYear() }-${d.getMonth() + 1}-${d.getDate()}`
+                const startDate = document.getElementById('startdate').innerText = `Order Date: ${BillProducts.startDate}` ;
+                BillProducts.ActivityLog = []
+                BillProducts.orders = []
+                BillProducts.grandTotal = 0
+                BillProducts.subTotal = 0 
+                BillProducts.invoicelocation = `${document.getElementById('LocationId').value}`
+                BillProducts.shippingFee = 0
+                Grandtotal.textContent  = "₦0.00"
+                document.getElementById('Subtotal').innerHTML = "₦0.00"
+                document.getElementById('discount').value = 0
+                BillProducts.customer = data.item._id //assign custom properties
+                BillProducts.RaiseBy = document.getElementById('raisedBy').value
+                BillProducts.salesPerson = data.item.salesPerson
+                BillProducts.discount = 0 
+                BillProducts.priceList = data.item.priceList //assign customizes price list for product for diffrent customer pricelist
+                BillProducts.ActivityLog.push({
+                  logMsg:`${BillProducts.RaiseBy } Raised  a new ${BillProducts.billStatus} for ${data.item.Username} on ${d.getFullYear() }-${d.getMonth() + 1}-${d.getDate()}`,
+                  status:`Sales ${BillProducts.status} `
+                }) //for activity log
+                saveToLocalStorage(BillProducts);
+                RenderDom(BillProducts)
+                BillProducts.customerCategory =  data.item.category
+                BillProducts.creditLimit =  data.item.creditLimit
+                BillProducts.customerDebt = data.item.Debt;
+                document.getElementById('reference').innerText = `"${BillProducts.billStatus}/${BillProducts.billReferenceNo}/${BillProducts.invoicelocation}"`
+          })
+         
+          //save the data to local storage
+          const saveToLocalStorage = (BillProducts) => {
+            const quoteData = JSON.stringify(BillProducts)
+            localStorage.setItem('bill_products',quoteData)
+            return quoteData;
+          }
+          
+          //get quoat data from local storage
+          const getSaveBill = () =>{
+            const quoteData = localStorage.getItem('bill_products')
+            if(quoteData === null){
+              const d = new Date();
+              return {
+                grandTotal:0,
+              shippingFee:0,
+              subTotal:0,  
+              startDate:formatter.format(new Date()),
+              customer:'',
+              orders:[],
+              promotionItems:[],
+              billStatus:'Order',
+              status:'Locked',
+              discount:0,
+              taxRate:0,
+              whId:'',
+              RaiseBy:'',
+              signatureUrl:'',
+              ActivityLog:[],
+              rejectionReasons:'',
+              id:'',
+              billReferenceNo :`${Math.floor(Math.random() *1000001)}`,
+              registeredBilling:0,
+              registeredBalance:0,
+              PaymentStatus:'',
+              PaymentReference:'',
+              supportDoc:'',
+              priceList:'',
+              customerCategory:'',
+              creditLimit:0,
+              customerDebt:0,
+              DriverNumber:"",
+              DriverName:"",
+              vehicleNumber:"",
+              DeliveryComment:"",
+              DELIVERYDATE:"",
+              isDelivered:false,
+              customerName:"",
+              AccountantName:'',
+              salesPerson:'',
+              invoicelocation:''
+              };
+            }else{
+              return JSON.parse(quoteData)
+            }
+          }
+
+
+
+          //check for duplcate entries
+
+          const checkDuplicate = (id,data,priceLists,promotionData)=>{
+            // check for duplicate data
+            let duplicate =  BillProducts.orders.filter(ord =>{
+              return ord.storeProductId === id
+            })
+                if(duplicate.length > 0){
+                
+                  try {
+                    BillProducts.orders.splice(duplicate,1)
+                    serverError(`Duplicate ${data.item.Name} found, Both Entries will be Removed from Ordered List. We advise that you Merge both entries with a new one.`)
+                    RenderDom(BillProducts)
+                  } catch(e) {
+                    serverError(e.message)
+                  }
+              
+            }else{
+              BillProducts.orders.push({...data,Qty:0,total:0,BatchId:data.BatchId,ExpiryDate:data.ExpiryDate ,
+                storeProductId:id,priceListPrice:priceLists,ROLQTY:0,returnId:'',promotionData,CRT:data.CRT,ROL:data.ROL})//returns product, qty to perform and vat and price from custing
+                ShowServerResponse(`${data.item.Name} added to Order`)
+                saveToLocalStorage(BillProducts)
+                RenderDom(BillProducts)
+                // e.target.value=''
+            }
+          }
+
+          
+    
+          //discount input
+    
+          const discount = document.getElementById('discount')
+            
+              discount.addEventListener('input',(e) =>{
+              value =  parseInt(e.target.value < 1 ? discount.value = 0 : e.target.value )//tenary operator  to avoid overflow or underflow of 0 qty values;
+              BillProducts.discount =  value;
+              BillProducts.grandTotal = parseInt(BillProducts.subTotal) - parseInt(value)
+              Grandtotal.textContent = `₦${BillProducts.grandTotal}`;
+              saveToLocalStorage(BillProducts);
+              })
+    
+          // for qoutation generation
+          const BillProducts = getSaveBill()
+    
+          //get subtotal and assign various feilds to quotation
+          const calculateTotals = async (BillProducts,)=>{
+              setTimeout(async ()=>{
+                const whId = document.getElementById('whId').value;
+              
+              BillProducts.whId = whId;
+              saveToLocalStorage(BillProducts)
+    
+              BillProducts.subTotal =  await parseInt(BillProducts.orders.map(item => {return item.total})
+              .reduce((total , currentValue) => {return total + currentValue},0))
+    
+              //vat total 
+              BillProducts.taxRate =  await parseInt(BillProducts.orders.map(item => {return (item.total * item.item.VAT.$numberDecimal / 100)})
+              .reduce((total , currentValue) => {return total + currentValue},0))
+    
+    
+              // let discount = Shipping.value
+              const discount = document.getElementById('discount')
+            
+              discount.addEventListener('input',(e) =>{
+              value =  parseInt(e.target.value < 1 ? discount.value = 0 : e.target.value )//tenary operator  to avoid overflow or underflow of 0 qty values;
+              BillProducts.discount =  value;
+              BillProducts.grandTotal = parseInt(BillProducts.subTotal) - parseInt(value)
+              Grandtotal.textContent = `₦${BillProducts.grandTotal}`;
+              saveToLocalStorage(BillProducts);
+            });
+            
+            document.getElementById('Subtotal').innerHTML = `₦${BillProducts.subTotal}`; 
+            document.getElementById('vat').innerHTML = `₦${BillProducts.taxRate}`;
+            },1700)
+          }
+    
+          // clear bill order when when costing method is changed
+          const costing = document.getElementById('pricelist')
+          costing.addEventListener('change',(e)=>{
+            BillProducts.orders = [];
+            saveToLocalStorage(BillProducts);
+            RenderDom(BillProducts);
+          })
+    
+          // get product for quoatation
+          const products = document.getElementById('products')
+          products.addEventListener('change',async(e)=>{
+            const whId = document.getElementById('whId').value;
+            const endPoint = `/api/v1/product/${e.target.value}/bill/${whId}`
+            const res = await fetch(endPoint,{
+              method:'GET',
+              headers:{'Content-Type': 'application/json'}
+            })
+            const data = await res.json()
+            
+            
+            //get value from billing method 
+            const price = document.getElementById('pricelist').value
+            function priceLists(price){
+              // checks default base wholesale price with defined % on price
+              if(price === 'percentage'){
+    
+                 //add price list to the list of prices 
+                const percentage =  parseInt(customerPercent) //should return discount% as assigned to the customer 
+                const discountedPrice =  parseInt((data.item.WareHouse_Price * percentage )/ 100)//discounted value as percentage
+                const finalPrice  =  Math.floor(data.item.WareHouse_Price - discountedPrice) //set a base selling  price
+                return finalPrice
+    
+              }else if(price ==='priceList'){
+    
+                  if (BillProducts.priceList === "Van_Price") {
+                    getPromo(data.item.VanPromo)
+                    return data.item.Van_Price
+                  } else if(BillProducts.priceList ==="Market_Price") {
+                    getPromo(data.item.MarketPromo)
+                    return data.item.Market_Price
+                  }else if(BillProducts.priceList ==="WareHouse_Price"){
+                    getPromo(data.item.WholesalePromo)
+                    return data.item.WareHouse_Price
+                  }
+    
+                  // returns base price list (warehouse_price)
+              }else if (price === 'Price'){
+                return data.item.WareHouse_Price
+              }else if(price === '' || price === undefined || price === null ){
+                ShowServerResponse('Ops select a Customer to sell to and a costing Method');
+                return 0
+              }else{
+                return 0
+              }
+            }
+    
+    
+            let promotionData
+            // get promotion here
+            getPromo = (promodata)=>{
+              promotionData = promodata
+            }
+            const id = data._id[0];//use store product id to deduct from
+            checkDuplicate(id,data,priceLists(price),promotionData)
+                e.target.value=''
+          })
+          
+          //Dom manupulation for 
+          RenderDom = (BillProducts)=>{
+            const  body = document.getElementById('item')
+            body.innerHTML = ''
+            BillProducts.orders.forEach(element => {
+              // checkDuplicate(element.storeProductId,element,element.priceLists,element.promotionData )
+              let tr = document.createElement('tr')
+              tr.classList.add('border-bottom')
+              
+              let td2 = document.createElement('td')//product name
+              let Forecast = document.createElement('td')//product name
+              let Batch = document.createElement('td')//product name
+              let td8 = document.createElement('td')//product availability
+              // let scale = document.createElement('td')
+              let td3 = document.createElement('td')// qty
+              let td4 = document.createElement('td')//umo
+              let td5 = document.createElement('td')//vat
+              let td6 = document.createElement('td')//price
+              let td7 = document.createElement('td')//total
+              let promotion = document.createElement('td')//total
+    
+              //assign values to each element and input that can stillbe edited
+              td2.innerText = element.item.Name.toUpperCase()
+              Forecast.innerText =`C:${element.CRT}, R:${element.ROL}`
+              promotion.innerText = `₦${element.promotionData}`
+              td2.setAttribute("title", `Double click here to delete ${element.item.Name.toUpperCase()}`)
+              Batch.innerText = element.BatchId.toUpperCase()
+              //remove item from quotation table
+              
+              const deleteItem =()=>{
+                
+                let index =BillProducts.orders.findIndex(item =>{
+                  return item === element
+                })
+                if(index > -1){
+                
+                  try {
+                    BillProducts.orders.splice(index,1)
+                    RenderDom(BillProducts)
+    
+                    //calculate  sum of available prices in orders
+                    BillProducts.subTotal = parseInt(BillProducts.orders.map(item => {return item.total})
+                    .reduce((total , currentValue) => {return total + currentValue},0))
+    
+                    //calculate vat
+                    BillProducts.taxRate =   parseInt(BillProducts.orders.map(item => {return (item.total * item.item.VAT.$numberDecimal / 100)})
+                    .reduce((total , currentValue) => {return total + currentValue},0))
+    
+                    BillProducts.grandTotal = BillProducts.subTotal - parseInt(BillProducts.discount) 
+                    Grandtotal.textContent = `₦${BillProducts.grandTotal}`;
+    
+                    alert("products removed successfully")
+                    saveToLocalStorage(BillProducts)
+                    document.getElementById('Subtotal').innerHTML = `₦${BillProducts.subTotal}`; 
+                    document.getElementById('vat').innerHTML = `₦${BillProducts.taxRate}`; 
+                  } catch (error) {
+                    ShowServerResponse(error.message)
+                  }
+                 
+                }
+              }
+              td2.ondblclick = deleteItem
+    
+              //declear qty of products
+              let td3Input = document.createElement('input')
+              td3Input.value = element.ROLQTY 
+    
+              //declear SCALE  of products
+              let td4Select = document.createElement('input')
+              td4Select.value = element.Qty
+              td4Select.setAttribute('type', 'number')// for qty
+              // td4Select.style.border = 'none'
+              td4Select.style.width='100'
+              td4Select.setAttribute('required', true)
+              td4Select.style.fontSize='10px'
+              td4Select.setAttribute('placeholder','PARK QTY')
+              // td4Select.classList.add('itemQty')
+    
+              // ADD Eventlistner for html select
+              td4Select.addEventListener('change',(e)=>{//inpur for crtn
+                e.target.value === '' ?  e.target.value = 0 : e.target.value 
+                const value = parseInt(e.target.value) < 0 ? element.ROLQTY = 0 : e.target.value
+              //  SET value of crtn to e
+                if(value <= element.CRT){
+                  element.Qty = parseInt(value)
+
+                  const CRTNtOTAL =  element.priceListPrice * value
+                  const RollToral =  ( element.priceListPrice / element.item.Rolls) * parseInt(element.ROLQTY) 
+                  const promo = element.promotionData * element.Qty // no promo on 
+                  const CRTNVat = Math.round(parseInt(CRTNtOTAL *  element.item.VAT.$numberDecimal)/100)//find single vat for each product qty to perform
+                  const ROLLVat = Math.round(parseInt(RollToral *  element.item.VAT.$numberDecimal)/100)//find single vat for each product qty to perform
+                  element.total = CRTNtOTAL + RollToral + ROLLVat + CRTNVat - promo
+                  saveToLocalStorage(BillProducts)
+                  calculateTotals(BillProducts)
+                  RenderDom(BillProducts)
+                }else{
+                  serverError(`Qty should be less than or equal to ${element.CRT}. You cant sell what you dont have`)
+                  e.target.value = 0
+                  element.Qty = 0
+                  deleteItem()
+                  saveToLocalStorage(BillProducts)
+                  calculateTotals(BillProducts)
+                  RenderDom(BillProducts)
+                }
+
+              })
+    
+              // scale.innerText = element.scale
+    
+              td7.innerText= `₦${element.total}`
+              
+
+              td3Input.setAttribute('type', 'number')// for qty
+              td3Input.setAttribute('required', 'true')// for qty
+              td3Input.setAttribute('disabled', 'true')
+              td3Input.classList.add('itemQty')
+              td3Input.addEventListener('change', async (e)=>{//input for Roll
+                e.target.value === '' ?  e.target.value = 0 : e.target.value 
+               const value =  parseInt(e.target.value) < 0 ? td3Input.value = 0 : e.target.value
+                if(value > element.item.Rolls){
+                  serverError(`Defined ${element.item.Rolls} Rolls is lesser than ${value} Rolls Entered. You should pick in CRTNS`)
+                  deleteItem()
+                  saveToLocalStorage(BillProducts)
+                  calculateTotals(BillProducts)
+                  RenderDom(BillProducts)
+                }else if(element.CRT < 1 && value > element.ROL){
+                  serverError(`Available ${element.ROL}Roll is lesser than ${value} Rolls Entered, There are also no CRTNS to Open`)
+                  deleteItem()
+                  saveToLocalStorage(BillProducts)
+                  calculateTotals(BillProducts)
+                  RenderDom(BillProducts)
+                }else {
+                  element.ROLQTY = parseInt(value)
+                  const CRTNtOTAL =  element.priceListPrice * element.Qty
+                  const RollToral =  ( element.priceListPrice / element.item.Rolls) * parseInt(value) 
+                  const promo = (element.promotionData /element.item.Rolls) * element.ROLQTY
+                  const CRTNVat = Math.round(parseInt(CRTNtOTAL *  element.item.VAT.$numberDecimal)/100)//find single vat for each product qty to perform
+                  const singleVat = Math.round(parseInt(RollToral *  element.item.VAT.$numberDecimal)/100)//find single vat for each product qty to perform
+                  element.total = CRTNtOTAL + RollToral + singleVat + CRTNVat - promo
+                  saveToLocalStorage(BillProducts)
+                  calculateTotals(BillProducts)
+                  RenderDom(BillProducts)
+                }
+               
+              })
+              calculateTotals(BillProducts)
+    
+              td3Input.setAttribute('placeholder','ROLL Qty')
+              td3Input.style.width='90px'
+              // td3Input.style.fontSize='10px'
+              td3.appendChild(td3Input)
+    
+              // td4.innerText = element.item.UMO
+              td5.textContent = `${element.item.VAT.$numberDecimal}%`
+    
+              td6.textContent=  `₦${Math.round(element.priceListPrice)}`
+    
+              //assign class
+              tr.classList.add('item')
+              td3Input.classList.add('itemQty')
+    
+              //append to quotation 
+              tr.appendChild(td2)
+              tr.appendChild(Forecast)
+              tr.appendChild(Batch)
+              tr.appendChild(td4Select)
+              // tr.appendChild(scale)
+              // tr.appendChild(td3)
+              tr.appendChild(promotion)
+              tr.appendChild(td5)
+              tr.appendChild(td6)
+              tr.appendChild(td7)
+              body.appendChild(tr)
+            });
+
+             //calculate  sum of available prices in orders
+             BillProducts.subTotal = parseInt(BillProducts.orders.map(item => {return item.total})
+                    .reduce((total , currentValue) => {return total + currentValue},0))
+    
+                    //calculate vat
+                    BillProducts.taxRate =   parseInt(BillProducts.orders.map(item => {return (item.total * item.item.VAT.$numberDecimal / 100)})
+                    .reduce((total , currentValue) => {return total + currentValue},0))
+    
+                    BillProducts.grandTotal = BillProducts.subTotal - parseInt(BillProducts.discount) 
+                    Grandtotal.textContent = `₦${BillProducts.grandTotal}`;
+
+                    document.getElementById('Subtotal').innerHTML = `₦${BillProducts.subTotal}`; 
+                    document.getElementById('vat').innerHTML = `₦${BillProducts.taxRate}`;
+          }
+    
+          //reset billorder button 
+          const reset = document.getElementById('reset');
+          reset.addEventListener('click',()=>{
+            BillProducts.orders = [];
+            BillProducts.subTotal = 0;
+            BillProducts.grandTotal = 0;
+            saveToLocalStorage(BillProducts);
+            RenderDom(BillProducts);
+            document.getElementById('Subtotal').innerHTML = `₦0.00`; 
+            document.getElementById('vat').innerHTML = `₦0.00`;
+            Grandtotal.textContent = `₦0.00`;
+          })
+    
+          //add promotion btn
+          // const promobtn = document.querySelector('#promo')
+          // promobtn.addEventListener('click', () =>{
+          //   //target the product qouatation and append  the peomo div
+          //   const  body = document.getElementById('promosection');
+          //   body.innerHTML = ''
+          //   const promosection = document.createElement('div');
+          //   promosection.innerText = 'PROMOTIONS';
+          //   promosection.style.fontWeight ='bold';
+          //   promosection.style.borderBottom ='1px solid';
+          //   body.appendChild(promosection);
+          // })
+          
+          //hide submit button pending  signature validation
+          setInterval(() => {
+                if(!BillProducts.signatureUrl ){
+                submitBtn.style.display = 'none'
+              }else{
+                    submitBtn.style.display = 'block'
+              }
+          }, 100);
+    
+          //submit to the server and get the results
+    
+          submitBtn.addEventListener('click',async (e)=>{
+            
+            if(BillProducts.signatureUrl === ''){
+              ShowServerResponse('Bills must contain a signature')
+            }else{
+              if (customerInput.value ==='' ){
+                   ShowServerResponse('This Sals Order cannot be verified unti a Customer, quotation or signature is provided.')
+                   customerInput.style.backgroundColor = 'red';
+                }else{
+                  e.preventDefault();
+                  BillProducts.grandTotal = BillProducts.subTotal - BillProducts.discount
+                  saveToLocalStorage(BillProducts);
+                  const modal = document.getElementById('myModal')
+                  modal.style.display='block'
+    
+                  spinner = ()=>{
+                    return`
+                    <div class="modal-body d-flex justify-content-center container">
+                      <div class="spinner-border" text-info" role="status" style="width: 3rem; height: 3rem;">
+                             <span class="visually-hidden">Loading...</span>
+                      </div>
+                    </div>
+                          `}
+    
+                  modal.innerHTML = spinner();
+    
+                 
+                       // check if customer is a crdit customer  and compare credit limit to bill total to regulate total from customer debt
+               if(BillProducts.customerCategory ==='Credit-Customer' ){
+                  try {
+                    const customerDebt =  BillProducts.customerDebt
+                  const creditLimit = BillProducts.creditLimit
+                  const subTotal = BillProducts.subTotal
+                  const creditProduct = creditLimit - customerDebt
+                  if (customerDebt <= 0){
+                    const endpoint = '/api/v1/wareHouse/Bill?raisedId=<%=user._id%>'
+                  const res = await fetch(endpoint,{
+                    method:"POST",
+                    body: JSON.stringify(BillProducts),
+                    headers:{'Content-Type': 'application/json'}
+                  })
+    
+                  const data = await res.json()
+                  if (data){
+                    ShowServerResponse(data.message || data.error)
+                   if(data.message){
+                    localStorage.removeItem('bill_products');
+                    location.reload();
+                   }else if(data.error){
+                    ShowServerResponse(data.error)
+                    const modal = document.getElementById('myModal')
+                    modal.style.display='none';
+                   }
+                  }
+                  
+                    }
+                    
+                    if(customerDebt > 0){
+                      if(subTotal <=  creditProduct ){
+                        const endpoint = '/api/v1/wareHouse/Bill'
+                  const res = await fetch(endpoint,{
+                    method:"POST",
+                    body: JSON.stringify(BillProducts),
+                    headers:{'Content-Type': 'application/json'}
+                  })
+    
+                  const data = await res.json()
+                  if (data){
+                    ShowServerResponse(data.message || data.error)
+                   if(data.message){
+                    localStorage.removeItem('bill_products');
+                    location.assign(location.href);
+                   }
+                  }
+                      }else{
+                        throw new Error(`This bill total has exceeded the maximum credit limit assigned to the customer. Ask the customer to clear debt on thier account or reduce the quatity of products added to this bill total`)
+                      }
+                      
+                    }
+                  } catch (error) {
+                    ShowServerResponse(error.message)
+                  }
+                } else{
+                  const endpoint = '/api/v1/wareHouse/Bill'
+                  const res = await fetch(endpoint,{
+                    method:"POST",
+                    body: JSON.stringify(BillProducts),
+                    headers:{'Content-Type': 'application/json'}
+                  })
+    
+                  const data = await res.json()
+                  if (data.message){
+                    ShowServerResponse( data.message )
+                   if(data.message){
+                    localStorage.removeItem('bill_products');
+                    location.assign(location.href);
+                   }
+                  }
+    
+                  if( data.error){
+                    ShowServerResponse(data.error)
+                    const modal = document.getElementById('myModal')
+                    modal.style.display='none';
+                  }
+                }
+         
+              return customer  
+            }
+    
+            }
+          })
+    
+          //appending signature to the quotation
+          const Signature = ()=>{
+            const modal = document.getElementById('myModal')
+            modal.style.display='block'
+    
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                   let opInput = document.querySelector('#opsCode')
+                    modal.style.display = "none";
+                    opInput.value = ''
+                }
+            }
+          }
+
+          
+        </script>
+    </body>
+</html>

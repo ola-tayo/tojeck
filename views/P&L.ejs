@@ -1,0 +1,1111 @@
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <title><%=name%> || PROFIT & LOSS
+        </title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+
+        <link rel="icon" type="image/x-icon" href="https://allchannels.com.ng/BADES.jpg">
+
+        <!-- Bootstrap CSS v5.2.1 -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Nova+Square&display=swap" rel="stylesheet">
+        <style>
+         #pspdfkit-header {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav p {font-size: 18px;}
+}
+
+
+      /* ends here  */
+
+      .itemQty:focus{
+        outline: none;
+      }
+
+      /* #item :nth-child(odd){
+        background-color: #999a9c86;
+        font-weight: bolder;
+        font-size: '15px';
+      } */
+
+    
+    
+
+      #invoice {
+        font-size: 0.75rem;
+        font-family: "Inter", sans-serif;
+        font-weight: 400;
+        color: #000000;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      #pspdfkit-header {
+        font-size: 0.625rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 400;
+        color: #717885;
+        margin-top: 2.5rem;
+        margin-bottom: 2.5rem;
+        width: 100%;
+      }
+
+      .header-columns {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+      }
+
+      .logo {
+        height: 3rem;
+        width: auto;
+        margin-right: 1rem;
+      }
+
+      .logotype {
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+      }
+
+      h2{
+        font-family: "Space Mono", monospace;
+        font-size: 1.25rem;
+        font-weight: 400;
+      }
+
+      h4 {
+        font-family: "Space Mono", monospace;
+        font-size: 1rem;
+        font-weight: 400;
+      }
+
+      .page {
+        margin-left: 5rem;
+        margin-right: 5rem;
+      }
+
+      .intro-table {
+        display: flex;
+        justify-content: space-between;
+        margin: 3rem 0 3rem 0;
+        border-top: 1px solid #000000;
+        border-bottom: 1px solid #000000;
+      }
+
+      .intro-form {
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid #000000;
+        width: 50%;
+      }
+
+      .intro-form:last-child {
+        border-right: none;
+      }
+
+      .intro-table-title {
+        font-size:1rem;
+        margin: 0;
+      }
+
+      .intro-form-item {
+        padding: 1.25rem 1.5rem 1.25rem 1.5rem;
+      }
+
+      .intro-form-item:first-child {
+        padding-left: 0;
+      }
+
+      .intro-form-item:last-child {
+        padding-right: 0;
+      }
+
+      .intro-form-item-border {
+        padding: 1.25rem 0 0.75rem 1.5rem;
+        border-bottom: 1px solid #000000;
+      }
+
+      .intro-form-item-border:last-child {
+        border-bottom: none;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 6rem;
+      }
+
+      .no-border {
+        border: none;
+      }
+
+      .border {
+        border: 1px solid #000000;
+      }
+
+      .border-bottom {
+        border: 1px solid #000000;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+      }
+
+      .signer {
+        display: flex;
+        justify-content: space-between;
+        gap: 2.5rem;
+        margin: 2rem 0 2rem 0;
+      }
+
+      input {
+        font-family: "Space Mono", monospace;
+        text-align: center;
+        margin-top: none;
+        box-sizing: border-box;
+        text-align: left;
+        border:none !important;
+      }
+
+      input#signature {
+        height: 8rem;
+      }
+
+      .intro-text {
+        width: 60%;
+      }
+
+      .table-box table,
+      .summary-box table {
+        width: 100%;
+        font-size: 0.625rem;
+      }
+
+      .table-box table {
+        padding-top: 2rem;
+      }
+
+      .table-box td:first-child,
+      .summary-box td:first-child {
+        width: 40%;
+      }
+
+      .table-box td:last-child,
+      .summary-box td:last-child {
+        text-align: right;
+      }
+
+      .table-box table tr.heading td {
+        border-top: 1px solid #000000;
+        border-bottom: 1px solid #000000;
+        height: 1.5rem;
+      }
+
+      .table-box table tr.item td,
+      .summary-box table tr.item td {
+        border-bottom: 1px solid #d7dce4;
+        height: 1.5rem;
+      }
+
+      .summary-box table tr.no-border-item td {
+        border-bottom: none;
+        height: 1.5rem;
+      }
+
+      .summary-box table tr.total td {
+        border-top: 1px solid #000000;
+        border-bottom: 1px solid #000000;
+        height: 1.5rem;
+      }
+
+      .summary-box table tr.item td:first-child,
+      .summary-box table tr.total td:first-child {
+        border: none;
+        height: 1.5rem;
+      }
+
+      #pspdfkit-footer {
+        font-size: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 500;
+        color: #717885;
+        margin-top: 2.5rem;
+        bottom: 2.5rem;
+        position: absolute;
+        width: 100%;
+      }
+
+      .footer-columns {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+      }
+
+      .signer-item img {
+        margin:10px;
+      }
+          .box {
+      position: relative;
+    }
+    .ribbon {
+      position: absolute;
+      right: -5px; top: -5px;
+      z-index: 1;
+      overflow: hidden;
+      width: 75px; height: 75px;
+      text-align: right;
+    }
+    .ribbon span {
+      font-size: 10px;
+      font-weight: bold;
+      color: #FFF;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 20px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      width: 100px;
+      display: block;
+      background: #79A70A;
+      background: linear-gradient(#9BC90D 0%, #79A70A 100%);
+      box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+      position: absolute;
+      top: 19px; right: -21px;
+    }
+    .ribbon span::before {
+      content: "";
+      position: absolute; left: 0px; top: 100%;
+      z-index: -1;
+      border-left: 3px solid #79A70A;
+      border-right: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid #79A70A;
+    }
+    .ribbon span::after {
+      content: "";
+      position: absolute; right: 0px; top: 100%;
+      z-index: -1;
+      border-left: 3px solid transparent;
+      border-right: 3px solid #79A70A;
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid #79A70A;
+    }
+
+    /* for canceled bill */
+    .CANCELLED {
+      position: absolute;
+      right: -5px; top: -5px;
+      z-index: 1;
+      overflow: hidden;
+      width: 75px; height: 75px;
+      text-align: right;
+    }
+    .CANCELLED span {
+      font-size: 10px;
+      font-weight: bold;
+      color: #FFF;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 20px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      width: 100px;
+      display: block;
+      background: #c5160a;
+      background: linear-gradient(#df3e0c 0%, #df3e0c 100%);
+      box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+      position: absolute;
+      top: 19px; right: -21px;
+    }
+    .CANCELLED span::before {
+      content: "";
+      position: absolute; left: 0px; top: 100%;
+      z-index: -1;
+      border-left: 3px solid #df3e0c;
+      border-right: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid #df3e0c;
+    }
+    .CANCELLED span::after {
+      content: "";
+      position: absolute; right: 0px; top: 100%;
+      z-index: -1;
+      border-left: 3px solid transparent;
+      border-right: 3px solid #df3e0c;
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid #df3e0c;
+    }
+        </style>
+
+        <link rel="stylesheet" href="/sale.css" />
+    </head>
+  
+    <body>
+        <header>
+            <%-include('./partials/Notification.ejs')%> 
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+            <!-- place navbar here -->
+            <nav class="dash navbar navbar-light bg-light fixed-top" 
+            style="background-color: rgb(173, 168, 105) !important">
+                <div class="container-fluid">
+                  <span class="navbar-brand" onclick="history.back()" href="/" title="Back">
+                    <img 
+                    width="30"
+                    hegith="30"
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEgklEQVR4nO2a/U/VVRzH31xEbjxEQmjYAobWUkdYIiYxYYg8c+/9HrqUhAaFbvaE60lnOVzTrRbFMCZjNkmvGV6433NjjY2W1WzrgVHNkq0VtkxXZmqaUwyBTzv0Zd01TO4ZP3zP5b628we8vp/z9P5+DhAkSJAgUw1RyPpWCsN0wOmmUI1TK+Pkzf6IZiCQcbpppqZTO+NEYmicXPX1ZEEgUtpFEYxT97isz2hGoOF0UxTjdGgC2fFKb0Og4HRTLOP0xbVkfcYzUB3NQwmM07eTkCWm0yjj9ChUhXVSisbp2KRk/53aw5pOTqiGndNiptMpf2R9pLdDJRw6ZTBOZ2Rkcxu+PAhAnQuJ5qFcjdNFv2V1Gl2+me8FsBpAJlTAoZNd4zTo9xTWR0bS6/a1GLI2ANEwO4zTGqbTVb9lPcNDd9U2vW7IlgCIgNnROD1pHCl+yTo6hwYXVr60w5AtABAOs6Nx2iSzOdk7rlycX/b0VkN2pfk3KqIQplOjjKyt/dIfibk1zxuyKwCEwuzxjum0R0a27O0LpxMy7Bt9dmNzJ6XCbgpnnDwysqWucyfjFq14zJBNBxACM1PVQ5GM0/sysiV7Tw/EJKetM2TTYHZK3qNZjNNnMrJFu0/0R8xJqTFkF8DsON10i6bTERnZgpZjfdbo+LUAHgQwD2bHzilZ0+kHGdm8nf2fWKyRVQAeAJAIs+P00kJNp5MysrkNfT0WS1glgAoACTA75V5KZzr9LiObveNwl7FeywHEw+yUc8phOv0plXi2dLkMWQ3ALJgdxqlMNvEsrXO1GrJ2JRLPFAmrkXh8CE2rbdro6PhrUGZK29svizuyUtwtpuW84sdfcBwc9H8d/yP+MhQiFECOkE7MrnrW9s6ls1LSnJpVaqFYANwnpOcsKX6qdP952b+PLpWaZSEAlgrpuDsyN5TsO3Nccnq/+3AbWaEQi4V0VOKi2uK2X6WumJpOH9q8pMYxZbBQSEfE31ZduPv4N5JrutehU
+                    xwUYr5IPGHRsWvzd33fK1npfpuX5kIhkkTysYRZH1rZeORjSekfHTqZPyb6ICpUAYulMueVzydqbk9m/GLnlAqFmA3gfrGuM7d2H5A8ss5qHroXChErrt5Cetkmz1syP+LHelBeyoNC3Ggko9VLntizS9NHhiXO6Sual0SUVIZI8V5FSKc+0tjg8Fwdkqi0+FDVUAgrgCIhfWdF/XbRM5Ko9CjTqQ4KMRPAKiGdUlr3ot096H+PWMGkNWM8aSXlr99sb798fjo8ebAAyBLSCem2urIDF36bDo9aQgBkjCWtBVkbSl3nfp7sOl72XMcbyvwPm4B7hHRMYuq6krZTA9cTXr6la79Sbzz+P2kl1RS9eeLotWSztn3Qacjmm785fn1uF0krPHZudWHrT1//Vzbn1d4eQ7ZYiWcPkyR5LF5G3LRmVfN3n47L5jUdPWy0ZMoA3IAA41aRtES8zH3tq0MFLQN9RrPNASAKAcrssaRlsVSGWaOrjP6T+VsyU5S0RGfxZkwTYoxqBwkC//gbNIgEXXRi6msAAAAASUVORK5CYII=">
+                       <b>PROFIT AND LOSS
+                       </b>
+                    </span>
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar"
+                        aria-controls="offcanvasNavbar"
+                    >
+                    <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <div
+                        class="offcanvas offcanvas-end"
+                        tabindex="1"
+                        id="offcanvasNavbar"
+                        aria-labelledby="offcanvasNavbarLabel"
+                        
+                    >
+                        <div class="offcanvas-header bg-dark-subtle dash "  style="background-color: rgb(173, 168, 105) !important">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                                Menu
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close text-reset"
+                                data-bs-dismiss="offcanvas"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="offcanvas-body ">
+                            <!-- uls -->
+                            <ul class="nav nav-tabs d-flex  align-content-center  " id="myTab" role="tablist" >
+                              <%-include('./partials/USER.ejs')%>
+                                <li class="nav-item " role="presentation">
+                                  <button
+                                      class="nav-link "
+                                      id="profile-tab"
+                                      data-bs-toggle="tab"
+                                      data-bs-target="#profile"
+                                      type="button"
+                                      role="tab"
+                                      aria-controls="profile"
+                                      aria-selected="false"
+                                      onclick="generatePdf()"
+                                      data-id=""
+                                      title="download as Pdf file"
+                                  >
+                                 <img src="data:image/png;base64,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"
+                                    height="30"
+                                    width="30"
+                                    >
+                                  </button>
+                                  </li>
+                                 <li class="nav-item " role="presentation">
+                                    <button
+                                        class="nav-link "
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#profile"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="profile"
+                                        aria-selected="false"
+                                        onclick="MailBtn()"
+                                        id="Mail" 
+                                        data-id=""
+                                        title="Mail"
+                                    >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
+                                      <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2H2Zm-2 9.8V4.698l5.803 3.546L0 11.801Zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586l-1.239-.757ZM16 9.671V4.697l-5.803 3.546.338.208A4.482 4.482 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671Z"/>
+                                      <path d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034v.21Zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791Z"/>
+                                    </svg>
+                                    </button>
+                                    </li>
+                                  <li class="nav-item " role="presentation">
+                                    <button
+                                        class="nav-link active"
+                                        id="profile-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#profile"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="profile"
+                                        aria-selected="false"
+                                    >
+                                    Summary Log
+                                  </button>
+                                    </li>
+                                  <!-- activities on bills modal -->
+                                <li  class="list-group">
+                                  <h5></h5>
+                                      <ul class="list-group list-group-flush">
+                                          <div class="list-group">
+                                          
+                                            <!-- Hover added -->
+                                              <a class="list-group-item list-group-item-action" >
+                                                
+                                                <b class=" top-0 start-50  badge bg-success shadow"></b> 
+                                              </a >
+                                            </div>
+                                      </ul>
+                                    </li>
+            </nav>
+            
+           <!-- Nav tabs -->
+          
+        </header>
+
+        <main class="pt-4 ">
+        
+    
+    <div  class="bg-light shadow-lg p-3 box mt-5 mb-5 container">
+      
+      
+        <div class=" ribbon"><span>PROFIT OR LOSS</span></div>
+      <div id="pspdfkit-header" >
+
+       
+
+          <!-- action buttons -->
+     <div class="p-2" >
+
+     <div id="invoice" class="logotype ms-5 border-top border-bottom p-2">
+      <img  height="80" width="80" src="/logo.jpg" /> 
+    </div>
+     <div class="header-columns d-flex justify-content-between ">
+      <div class="ms-5">
+        <h5><%=Business.CompayName%></h5>
+            <p>[<%=Business.email%>]</p>
+            <p><%=Business.Tel%></p>
+            <p><%=Business.Address%></p>
+            <p><%=Business.CompanyCity%></p>
+      </div>
+
+      <form class="me-5" id="pnlForm">
+        <h5>PROFIT / LOSS FOR PERIOD</h5>
+        <div class="mb-3">
+          <label for="" class="form-label">START PERIOD</label>
+          <input
+            type="date"
+            class="form-control form-control-sm border"
+            name="START"
+            id=""
+            aria-describedby="helpId"
+            placeholder=""
+          />
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">END PERIOD</label>
+          <input
+            type="date"
+            class="form-control form-control-sm border"
+            name="END"
+            id=""
+            aria-describedby="helpId"
+            placeholder=""
+          />
+        </div>
+        <div class="mb-3">
+          <div class="mb-3">
+            <label for="LOCATION" class="form-label">LOCATION</label>
+            <select
+              class="form-select form-select-md"
+              name="LOCATION"
+              id="LOCATION"
+            >
+                <option value="">Choose...</option>
+              <% if (location.length > 0) { %>
+               <% location.forEach(element => { %>
+                <option value="<%= element._id%>"><%= element.name%></option>
+               <% }) %>
+              <% } %>
+            </select>
+          </div>
+          
+        </div>
+         
+          <div class="mb-3">
+            <label for="Vendor" class="form-label">Vendor</label>
+            <select
+              class="form-select form-select-md"
+              name="Vendor"
+              id="Vendor"
+            >
+            <option value="">Choose...</option>
+            <% if (vendors.length > 0) { %>
+              <% vendors.forEach(element => { %>
+               <option value="<%= element._id%>"><%= element.Name%></option>
+              <% }) %>
+             <% } %>
+            </select>
+        </div>
+        <div class="mb-3">
+          <button class="btn btn-success shadow-sm border-bottom" type="submit">Compute P&L Analysis</button>
+        </div>
+      </form>
+          
+        </div>
+      </div>
+
+      <div class="page" >
+        <div>
+         
+          <i>Comprehensive Sheet Summary for selected Period</i>
+        </div>
+
+        <div class="table-box">
+          <table cellpadding="0" cellspacing="0">
+            <tr class="heading font-bold">
+              <td  ><b>Description</b></td>
+              <td  ><b>DR</b></td>
+              <td  ><b>CR</b></td>
+            </tr>
+            <tbody  class="item" id="item">
+             
+              <!-- define all ites in orders here -->
+              <tr class="heading font-bold" title="Gain from Sales at diffrent Price Lists">
+                <td>
+                <details open>
+                <summary><b>TURNOVER</b></summary>
+                  <li>WH-SALES --> <i id="WH_T">₦0.00</i></li>
+                  <li>MK-SALES --> <i id="MK">₦0.00</i></li>
+                  <li>VN-SALES --> <i id="VP">₦0.00</i></li>
+                </details>
+                <td>₦0.00</td> 
+                <td  class="text-success" id="TurnCR">₦0.00</td>
+                </td> 
+            </tr>
+            <tr class="heading font-bold" title="Total sales for selected period and vat deductions">
+              <td>
+              <details open>
+              <summary><b>ALL SALES</b></summary>
+                <li>NET SALES --> <i id="NetSales">₦0.00</i></li>
+                <li><b>NET SALES (7.5% VAT)</b></li>
+              </details>
+              <td class="text-danger" id="SALES">₦0.00</td> 
+              <td id="" >₦0.00</td>
+              </td> 
+          </tr>
+                  <tr class="heading font-bold" title="Operatng Expense for selected period">
+                      <td>
+                      <details open>
+                      <summary><b>Operating Expense</b></summary>
+                      <!-- for each expense category display here -->
+                     <ul id="category"> </ul>
+                      </details>
+                      <td>₦0.00</td> 
+                      <td>₦0.00</td>
+                      </td> 
+                  </tr>
+                  <tr class="heading font-bold" title="DESCRIPTION">
+                    <td>
+                    <details open>
+                    <summary><b>GROSS P/L</b></summary>
+                      <l>Price Diffrential  --> <i id="price_change">₦0.00</i></li>
+                      <li>Dis Recieved  --> <i id="disRec">₦0.00</i></li>
+                      <li>Dis Allowed  --> <i id="disAllowed">₦0.00</i></li>
+                      <li>Incentive Earned  --> <i id="">₦0.00</i></li>
+                      <li>Promo Reimbursed  --> <i id="">₦0.00</i></li>
+                      <li>Promo issused  --> <i id="promoissused">₦0.00</i></li>
+                    </details>
+                    <td><i>₦0.00</i></td> 
+                    <td><i>₦0.00</i></td>
+                    </td> 
+                </tr>
+                <tr class="heading font-bold" title="DESCRIPTION">
+                  <td>
+                  <details open>
+                  <summary><b>COGS</b></summary>
+                    <li>OPENING STOCK  --> <i id="SelectedStrock">₦0.00</i></li>
+                    <li>+ PURCHASE  --> <i id="PURCHASE">₦0.00</i></li>
+                    <li>COG IN STOCK </li>
+                    <li>- CLOSING STOCK  --> <i id="">₦0.00</i></li>
+                    <li>COGS (B.P)  --> <i id="">₦0.00</i></li>
+                  </details>
+                  <td>₦0.00</td> 
+                  <td>₦0.00</td>
+                  </td> 
+              </tr>
+             
+            </tbody>
+            
+          </table>
+        </div>
+
+        <div class="summary-box">
+          <table cellpadding="10" cellspacing="0">
+            <tbody>
+              <tr class="item">
+                <td></td>
+                <td><b>Burn Rate:</b></td>
+                <td id="Subtotal">₦0.00</td>
+              </tr>
+
+              <tr class="item">
+                <td></td>
+                <td><b>Profit Margin:</b></td>
+                <td>0%</td>
+              </tr>
+
+              <tr class="item">
+                <td></td>
+                <td><b>Break Even Point</b></td>
+                <td>₦0.00</td>
+              </tr>
+
+          </table>
+          <input type="hidden" id="Grandtotal" value="" hidden>
+          <!-- <p>Total in words:</p> -->
+          <p id="words"></p>
+        </div>
+      </div>
+
+
+      <div id="pspdfkit-footer" >
+        <div class="footer-columns">
+          <span>"<%=Business.CompayName%>"</span>
+        </div>
+      </div>
+    </div>
+    
+
+    
+  </div>
+        </main>
+        <footer style="z-index: 3 !important;">
+            <!-- place footer here -->
+            <div class="container-fluid fixed-bottom bg-dark-subtle ">
+              <div class="row">
+                  <div class="col-12">
+                      <div class="row">
+                          <div class="col-12">
+                              <p class="text-center">
+                                  BADE &copy; <script>
+                                      document.write(new Date().getFullYear());
+                                  </script>. All rights reserved.
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+            <!-- end of footer -->
+           
+        </footer>
+       
+
+        <!-- Bootstrap JavaScript Libraries -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+        <script src="https://unpkg.com/jspdf-invoice-template@1.4.0/dist/index.js"></script>
+       <script>
+        // get form input
+        const pnlForm = document.querySelector("#pnlForm")
+        pnlForm.addEventListener("submit",async (e)=>{
+          e.preventDefault()
+          plsWait(true)
+          const formatter = new Intl.DateTimeFormat('us-as')
+          const convertAmount = (debt)=>{
+            f = new Intl.NumberFormat(undefined,{
+              currency:"NGN",
+              style:"currency"
+            })
+            return f.format(debt)
+            }
+          // make the get request
+              const request = await fetch('/api/v1/Getfulldb',{
+              method:'GET',
+              headers:{'Content-Type': 'application/json'},
+          })
+            const response = await request.json()
+            
+            
+            const generateDates = (to ,from) => {
+              const arr = [];
+              
+              while (from.getTime() <= to.getTime()) {
+                arr.push(dayjs(from).format("D-MMM-YYYY"));
+                from.setDate(from.getDate() + 1);
+              }
+              
+              return arr;
+            };
+            
+            const invoiceWhid = []
+
+             response.WH.filter(Location =>{
+                  return Location.location.toString() === pnlForm.LOCATION.value.toString()  
+                }).forEach(async (location) => {
+                  invoiceWhid.push(location._id)
+                  
+                })
+
+                const AllPeriodInvoice = []
+                
+               invoiceWhid.forEach(async (location) => {
+
+                const result  =  response.invoice.filter(payment =>{
+                    const dates = generateDates(new Date(pnlForm.END.value),new Date(pnlForm.START.value))
+                    const formattedDate = dayjs(payment.startDate).format("D-MMM-YYYY");
+                    return payment.whId.toString() === location.toString() && dates.includes(formattedDate) && payment.billStatus.toLowerCase() !== 'Cancelled'.toLowerCase()
+                  }).forEach(function(item) {
+                    AllPeriodInvoice.push(item);
+                    
+                  });
+                })
+
+
+
+                // check selling peice
+                const CheckSellPrice = (invoice,element) =>{
+                  if(invoice.priceList === 'Van_Price'){
+                    return element.item.Van_Price
+                  }else if(invoice.priceList === 'Market_Price'){
+                    return element.item.Market_Price
+                  }else if(invoice.priceList === "WareHouse_Price"){
+                    return element.item.WareHouse_Price
+                  }
+                }
+
+                // check unit of measure and return price and gain
+                const checkumo = (invoice,element) =>{
+                  let Gain = 0
+
+                  if(invoice.priceList === 'Van_Price' ){
+                    const BP = element.item.vendor_Price
+                    const SP = element.item.Van_Price
+                    const defaultRoll = element.item.Rolls
+                    const UMO = element.scale //measeure it was sold at
+                    const Qty =  element.Qty  //quantity bought
+                    const ROL =  element.ROL  //quantity bought
+
+                    // check for profit 
+                    CRTNGain = (SP - BP) * Qty
+                    rollGain = (SP / defaultRoll - BP / defaultRoll) * ROL
+                    Gain = CRTNGain + rollGain
+                    return Gain
+
+                  }else if(invoice.priceList === 'Market_Price' ){
+                    const BP = element.item.vendor_Price
+                    const SP = element.item.Market_Price
+                    const defaultRoll = element.item.Rolls
+                    const UMO = element.scale //measeure it was sold at
+                    const Qty =  element.Qty  //quantity bought
+                    const ROL =  element.ROL  //quantity bought
+
+                 // check for roll or carton
+                    CRTNGain = (SP - BP) * Qty
+                    rollGain = (SP / defaultRoll - BP / defaultRoll) * ROL
+                    Gain = CRTNGain + rollGain
+                    return Gain
+
+
+                  }else if(invoice.priceList === "WareHouse_Price"){
+                    
+                    const BP = element.item.vendor_Price
+                    const SP = element.item.WareHouse_Price // total from invoice line
+                    const defaultRoll = element.item.Rolls
+                    const UMO = element.scale //measeure it was sold at
+                    const Qty =  element.Qty  //quantity bought
+                    const ROL =  element.ROL  //quantity bought
+
+                   // check for roll or carton
+                    CRTNGain = (SP - BP) * Qty
+                    rollGain = (SP / defaultRoll - BP / defaultRoll) * ROL
+                    Gain = CRTNGain + rollGain
+                    return Gain
+
+                  }
+
+                  return Gain
+                }
+
+
+                // filter via price list and display value
+                let data = []
+                AllPeriodInvoice.filter(inv =>{
+                  return inv.billStatus !== "Cancelled"
+                }).map((invoice)=>{
+                  
+                    for (let index = 0; index < invoice.orders.length; index++) {
+                        const element = invoice.orders[index];
+                        data.push({
+                          batch:element.BatchId ? element.BatchId:'',
+                          Vendor:element.item.Vendor,
+                          catregory:element.item.category,
+                          productId:element.item._id,
+                          sku:element.item.Name,
+                          BP:element.item.vendor_Price,
+                          invNo:invoice.billReferenceNo,
+                          wh:invoice.whId,
+                          Channel:invoice.priceList,
+                          profit:checkumo(invoice,element),
+                          QTY:element.Qty,
+                          SP : CheckSellPrice(invoice,element),
+                          invoiceDate:invoice.startDate,
+                          total:element.total
+                        })
+                        
+                      }
+                    })
+
+                    // get all invoices for wholesale price plist
+                  const WH_T = data.filter(inv =>{
+                  return inv.Channel === "WareHouse_Price"  && inv.Vendor === pnlForm.Vendor.value
+                }).map((total)=>{return total.profit })
+                .reduce((total , currentValue) => {return total + currentValue},0)
+
+               document.getElementById('WH_T').innerText = `${convertAmount(WH_T)}k`
+
+
+              //  get all van sales pricelist
+               const VP = data.filter(inv =>{
+                  return inv.Channel === "Van_Price"  && inv.Vendor === pnlForm.Vendor.value
+                }).map((total)=>{return total.profit })
+                .reduce((total , currentValue) => {return total + currentValue},0)
+
+               document.getElementById('VP').innerText = `${convertAmount(VP)}k`
+
+              //  get all super market pricelist
+               const MK = data.filter(inv =>{
+                  return inv.Channel === "Market_Price"  && inv.Vendor === pnlForm.Vendor.value
+                }).map((total)=>{return total.profit })
+                .reduce((total , currentValue) => {return total + currentValue},0)
+
+               document.getElementById('MK').innerText = `${convertAmount(MK)}k`;
+
+              //  display total for turn over on all warehouse
+              const turnOverTotal = [MK,VP,WH_T].reduce((total , currentValue) => {return total + currentValue},0)
+              document.getElementById('TurnCR').innerText = `${convertAmount(turnOverTotal)}k`
+
+              //display Net sales with vat foor all sales for 
+              const netPlusVat = data.map((total)=>{return total.total })
+                .reduce((total , currentValue) => {return total + currentValue},0)
+
+              //display Net sales with vat
+              // const netPlusVat = turnOverTotal
+
+                document.getElementById('NetSales').innerText = `${convertAmount(netPlusVat)}k`
+
+                // extract vat from net turn over
+                document.getElementById('SALES').innerText =`${ convertAmount(netPlusVat * 0.075)}k`
+
+                // get expense for selected period ExpCat 
+                const getExpense = response.Expenses
+
+                const expense = []
+                
+                invoiceWhid.forEach(async (location) => {
+
+                 getExpense.filter(exp =>{
+                    const dates = generateDates(new Date(pnlForm.END.value),new Date(pnlForm.START.value))
+                    const formattedDate = dayjs(exp.Date).format("D-MMM-YYYY");
+                    return exp.WHID.toString() === location.toString() && dates.includes(formattedDate) && exp.status === "Approved"
+                  }).forEach(function(item) {
+                    expense.push(item);
+                    
+                  });
+                })
+
+                // display all expense category and thoer valur that match selected options
+                document.getElementById("category").innerHTML = '';
+                response.ExpCat.forEach((category, option) => {
+                  // group THE result array by categoty
+                  const result = expense.filter(exp =>{
+                    return exp.category.toString() === category.NAME.toString() 
+                  }).map((total)=>{return total.Amount })
+                  .reduce((total , currentValue) => {return total + currentValue},0)
+
+                  const li = document.createElement('li')
+                  li.innerText = `${category.NAME.substring(0,15)}--> ${convertAmount(result)}`
+                  document.getElementById("category").appendChild(li)
+                  
+                })
+
+                
+
+                // for price change  
+
+                const priceChange = response.priceChange
+
+                const pHistoricalpriceChange = []
+
+                const arr = [];
+                const generateProductId = (product) => {
+                  
+                  product.map(productId => {
+                    arr.push(productId.productId.toString());
+                  })
+                  return arr;
+                };
+                generateProductId(data)
+                
+
+              const results =   arr.forEach((id)=>{
+                 const v = priceChange.filter((price) =>{
+                    const dates = generateDates(new Date(pnlForm.END.value),new Date(pnlForm.START.value))
+                    const formattedDate = dayjs(price.date).format("D-MMM-YYYY");
+                    return price.productId.toString() === id.toString() && dates.includes(formattedDate)
+                  })
+                  if(v != []){
+                    // use for loop 
+                    v.forEach((change) => {
+                    pHistoricalpriceChange.push(change)
+                    })
+                  }
+                })
+
+                const priceCh = pHistoricalpriceChange.map((total)=>{return parseInt(total.Newprice.$numberDecimal) })
+                .reduce((total , currentValue) => {return total + currentValue},0)
+                document.getElementById('price_change').innerText = `${convertAmount(priceCh)}k`
+
+                
+                // discount recieved from lpo
+                const LPO = []
+
+                //loop for invoiceWhid 
+                invoiceWhid.forEach(async (location) => {
+
+                     response.LPO.filter(purchase =>{
+                      const dates = generateDates(new Date(pnlForm.END.value),new Date(pnlForm.START.value))
+                      const formattedDate = dayjs(purchase.recievedDate).format("D-MMM-YYYY");
+                      return purchase.Vendor === pnlForm.Vendor.value && purchase.WHID === location && dates.includes(formattedDate) && purchase.status === "POSTED TO WAREHOUSE"
+                    }).forEach(function(item) {
+                      LPO.push(item);  
+                    });
+                })
+               
+                // display total discount recieved from lpo 
+                
+                
+                // total profit for selected period
+                const totalProfit = turnOverTotal
+                const discountRecieved = LPO.map(invDis =>{return invDis.discount})
+                .reduce((total , currentValue) => {return total + currentValue},0)
+                
+                document.getElementById('disRec').innerText = `${convertAmount(discountRecieved)}k`
+              
+
+                //calculate discount recieved
+                const SelectedInvoice = []
+                invoiceWhid.forEach(async (location) => {
+
+                const result  =  response.invoice.filter(payment =>{
+                    const dates = generateDates(new Date(pnlForm.END.value),new Date(pnlForm.START.value))
+                    const formattedDate = dayjs(payment.startDate).format("D-MMM-YYYY");
+                    return payment.whId.toString() === location.toString() && dates.includes(formattedDate) && payment.billStatus.toLowerCase() !== 'Cancelled'.toLowerCase()
+                  }).forEach(function(item) {
+                    SelectedInvoice.push(item);
+                  });
+                })
+
+                const disAllowed = SelectedInvoice.map(invDis =>{return invDis.discount})
+                .reduce((total , currentValue) => {return total + currentValue},0)
+                 document.getElementById('disAllowed').innerText = `${convertAmount(disAllowed)}k`
+
+                 //calculate promo issused form the vendor selected
+                 const promo = []
+                 invoiceWhid.forEach(async (location) => {
+
+                const result  =  response.invoice.filter(payment =>{
+                    const dates = generateDates(new Date(pnlForm.END.value),new Date(pnlForm.START.value))
+                    const formattedDate = dayjs(payment.startDate).format("D-MMM-YYYY");
+                    return payment.whId.toString() === location.toString() && dates.includes(formattedDate) && payment.billStatus.toLowerCase() !== 'Cancelled'.toLowerCase()
+                  }).forEach(function(item) {
+                    item.orders.map(lineItem =>{
+                      promo.push({
+                        productId: lineItem.productId,
+                        vendor: lineItem.item.Vendor,
+                        productName: lineItem.item.Name,
+                        promotionData : lineItem.promotionData,
+                        total:lineItem.total
+                        
+                      })
+                    })
+                  });
+                })
+
+               const promoData =  promo.filter(item =>{
+                  return item.vendor === pnlForm.Vendor.value
+                }).map(item =>{return item.promotionData})
+                .reduce((total , currentValue) => {return total + currentValue},0)
+                document.getElementById('promoissused').innerText = `${convertAmount(promoData)}k`
+
+            //get opening stock
+            const openingStock = []
+            invoiceWhid.forEach(async (location) => {
+              response.openingStock.filter((stock) => {
+                const dates = generateDates(new Date(pnlForm.END.value),new Date(pnlForm.START.value))
+                const formattedDate = dayjs(stock.Date).format("D-MMM-YYYY");
+                return stock.WareHouse.toString() === location.toString() && dates.includes(formattedDate) && stock.Vendor.toString() === pnlForm.Vendor.value
+              }).forEach(entry =>{
+                openingStock.push(entry)
+              })
+            })
+
+           const SelectedStrock =  openingStock.map(entry =>{return entry.value})
+            .reduce((total , currentValue) => {return total + currentValue},0)
+            document.getElementById('SelectedStrock').innerText = `${convertAmount(SelectedStrock)}k`
+
+            //calculate purchase 
+            const purchase = []
+            invoiceWhid.forEach(async (location) => {
+              response.LPO.filter((purchase) => {
+                const dates = generateDates(new Date(pnlForm.END.value),new Date(pnlForm.START.value))
+                const formattedDate = dayjs(purchase.recievedDate).format("D-MMM-YYYY");
+                return purchase.Vendor === pnlForm.Vendor.value && purchase.WHID === location && dates.includes(formattedDate) && purchase.status === "POSTED TO WAREHOUSE"
+              }).forEach(entry =>{
+                purchase.push(entry)
+              })
+            })
+            const purchaseAmount =  purchase.map(entry =>{return entry.grandTotal})
+            .reduce((total , currentValue) => {return total + currentValue},0)
+            document.getElementById('PURCHASE').innerText = `${convertAmount(purchaseAmount)}k`
+
+            plsWait(false)
+
+        })
+       </script>
+    </body>
+</html>

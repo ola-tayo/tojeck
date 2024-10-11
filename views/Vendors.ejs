@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title><%=name%> || VENDORS</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Nova+Square&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="https://allchannels.com.ng/BADES.jpg">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <style>
+    .go-corner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      overflow: hidden;
+      top: 0;
+      right: 0;
+      background-color: #00838d;
+      border-radius: 0 4px 0 32px;
+      cursor: pointer;
+    }
+
+    .go-arrow {
+      margin-top: -4px;
+      margin-right: -4px;
+      color: white;
+      font-family: courier, sans;
+    }
+
+    /* card 2 */
+    .card2 {
+      display: block;
+      top: 0px;
+      position: relative;
+      max-width: 262px;
+      background-color: #f2f8f9;
+      border-radius: 4px;
+      padding: 32px 24px;
+      margin: 12px;
+      text-decoration: none;
+      z-index: 0;
+      overflow: hidden;
+      border: 1px solid #f2f8f9;
+      font-family: 'Dancing Script', cursive;
+      font-family: 'Nova Square', sans-serif;
+
+      &:hover {
+        transition: all 0.2s ease-out;
+        box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
+        top: -4px;
+        border: 1px solid #cccccc;
+        background-color: white;
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: -16px;
+        right: -16px;
+        background: #00838d;
+        height: 32px;
+        width: 32px;
+        border-radius: 32px;
+        transform: scale(2);
+        transform-origin: 50% 50%;
+        transition: transform 0.15s ease-out;
+      }
+    }
+
+    &:hover:before {
+      transform: scale(2.15);
+    }
+  </style>
+  <link rel="stylesheet" href="/sale.css" />
+</head>
+<%-include('./partials/Notification.ejs')%>
+<%-include('./partials/inactive.ejs')%>
+
+<body  onload="getData()">
+  <header>
+    <!-- <link rel="stylesheet" href="/main.css"/> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- place navbar here -->
+    <nav  class="dash navbar navbar-light bg-light fixed-top ">
+      <div class="container-fluid">
+        <span class="navbar-brand">
+            <img 
+                        onclick="history.back()"
+                        width="30"
+                        hegith="30"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEgklEQVR4nO2a/U/VVRzH31xEbjxEQmjYAobWUkdYIiYxYYg8c+/9HrqUhAaFbvaE60lnOVzTrRbFMCZjNkmvGV6433NjjY2W1WzrgVHNkq0VtkxXZmqaUwyBTzv0Zd01TO4ZP3zP5b628we8vp/z9P5+DhAkSJAgUw1RyPpWCsN0wOmmUI1TK+Pkzf6IZiCQcbpppqZTO+NEYmicXPX1ZEEgUtpFEYxT97isz2hGoOF0UxTjdGgC2fFKb0Og4HRTLOP0xbVkfcYzUB3NQwmM07eTkCWm0yjj9ChUhXVSisbp2KRk/53aw5pOTqiGndNiptMpf2R9pLdDJRw6ZTBOZ2Rkcxu+PAhAnQuJ5qFcjdNFv2V1Gl2+me8FsBpAJlTAoZNd4zTo9xTWR0bS6/a1GLI2ANEwO4zTGqbTVb9lPcNDd9U2vW7IlgCIgNnROD1pHCl+yTo6hwYXVr60w5AtABAOs6Nx2iSzOdk7rlycX/b0VkN2pfk3KqIQplOjjKyt/dIfibk1zxuyKwCEwuzxjum0R0a27O0LpxMy7Bt9dmNzJ6XCbgpnnDwysqWucyfjFq14zJBNBxACM1PVQ5GM0/sysiV7Tw/EJKetM2TTYHZK3qNZjNNnMrJFu0/0R8xJqTFkF8DsON10i6bTERnZgpZjfdbo+LUAHgQwD2bHzilZ0+kHGdm8nf2fWKyRVQAeAJAIs+P00kJNp5MysrkNfT0WS1glgAoACTA75V5KZzr9LiObveNwl7FeywHEw+yUc8phOv0plXi2dLkMWQ3ALJgdxqlMNvEsrXO1GrJ2JRLPFAmrkXh8CE2rbdro6PhrUGZK29svizuyUtwtpuW84sdfcBwc9H8d/yP+MhQiFECOkE7MrnrW9s6ls1LSnJpVaqFYANwnpOcsKX6qdP952b+PLpWaZSEAlgrpuDsyN5TsO3Nccnq/+3AbWaEQi4V0VOKi2uK2X6WumJpOH9q8pMYxZbBQSEfE31ZduPv4N5JrutehUxwUYr5IPGHRsWvzd33fK1npfpuX5kIhkkTysYRZH1rZeORjSekfHTqZPyb6ICpUAYulMueVzydqbk9m/GLnlAqFmA3gfrGuM7d2H5A8ss5qHroXChErrt5Cetkmz1syP+LHelBeyoNC3Ggko9VLntizS9NHhiXO6Sual0SUVIZI8V5FSKc+0tjg8Fwdkqi0+FDVUAgrgCIhfWdF/XbRM5Ko9CjTqQ4KMRPAKiGdUlr3ot096H+PWMGkNWM8aSXlr99sb798fjo8ebAAyBLSCem2urIDF36bDo9aQgBkjCWtBVkbSl3nfp7sOl72XMcbyvwPm4B7hHRMYuq6krZTA9cTXr6la79Sbzz+P2kl1RS9eeLotWSztn3Qacjmm785fn1uF0krPHZudWHrT1//Vzbn1d4eQ7ZYiWcPkyR5LF5G3LRmVfN3n47L5jUdPWy0ZMoA3IAA41aRtES8zH3tq0MFLQN9RrPNASAKAcrssaRlsVSGWaOrjP6T+VsyU5S0RGfxZkwTYoxqBwkC//gbNIgEXXRi6msAAAAASUVORK5CYII=">
+          <b>VENDORS</b>
+        </span>
+        <!-- <a  >Setup Location</a> -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+          <i class="bi bi-three-dots-vertical"></i>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header bg-dark-subtle dash ">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+              Menu
+            </h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body ">
+            <!-- uls -->
+            <ul class="nav nav-tabs d-flex  align-content-center  " id="myTab" role="tablist">
+              <%-include('./partials/USER.ejs')%>
+              <%if(user.isAdmin || user.isAccountant || user.createCustomer ){%>
+              <li class="nav-item " role="presentation">
+                <button class="nav-link " id="XLSX" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false" title="Export List to Xlsx" onclick="">
+                  <img height="30" width="30" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB90lE
+                  QVR4nGNgGAWjYBSMgiEJxCYEZ4hNCP4oNjHkP6lY81A96fhg3Uetg3Xp1PQAWY4n2wOHwPgD9TxApuMp9MD/UQ/AwGgMHBpNQsM0CXEXWhRwF1p84Smy+E8RLrH8L9TsMSAe+EKx42G42OI/T4MrBpZck0o2ZiAEqOZ4GB71QOpoDPwXLrP9f+f1o/8gULVpEjx5aLUE/v/x+9f/b79+/NdpDR7cSShiXhnYA2++vP8vUekEFlt5didYrGHr9KGRB3ZdPw52cOO2Gf8te2L///339//tVw/BMTQkPGDSGfn/15/f/99/+/T/2L0L///9+/ffa1r20CqFphxc8R8Glp/ZPvSK0YUnNsE9sOLsDoIeEHfXwsBC04LIxgyUeMBzahY42Zx6cPn/kbvnwZ7wn5k/NDwgXGb7/8aL+2BHg9K9/YQksGcevn32X6zCcfB7oHvPArDjd1w7ChfbdOkAWKx378LB7QGzrihw6QMqNq174+Dihh1h/3///QPGVr2xg9cDPBTgUQ9MG2kxwF1k/plqHigwHwAPFJrnUcUTBeb/hKL0v4m7a75Hx6oZDmRjBmoBCQ+t/+Ri9TR7s
+                  jHDqAegYDQG0kaT0EhPQu5aH+nvATvqTXBIemilSXhofaCfB+w+qKbYp1LNA6NgFIyCUcBADQAA6UC2Ipn+q/gAAAAASUVORK5CYII=">
+                </button>
+              </li>
+              <% } %>
+              <li class="nav-item active" role="presentation">
+                <button class="nav-link active"
+                 id="profile-tab" 
+                 data-bs-toggle="tab"
+                  data-bs-target="#profile"
+                   type="button" role="tab"
+                    aria-controls="profile" 
+                    aria-selected="false" 
+                    title="VENDOR LIST [<%=vendor.length%>]">
+                  List [<%=vendor.length%>]
+                </button>
+              </li>
+              <%if(user.isAdmin || user.createCustomer ){%> 
+              <li class="nav-item" role="presentation">
+                <button class="nav-link " 
+                id="messages-tab" 
+                data-bs-toggle="tab"
+                data-bs-target="#messages" 
+                type="button" role="tab" 
+                aria-controls="messages" 
+                aria-selected="false" 
+                title="Create Customer">New Vendor
+                </button>
+              </li>
+              <% } %>
+            </ul>
+            <div class="d-flex" >
+              <input type="search" id="search" class="form-control" required name="referenceNo" placeholder="Search Customer " />
+              <button class="btn btn-success" type="submit">
+                Search
+              </button>
+            </div>
+            <br>
+            <ul class="list-group list-group-flush m-2 ">
+
+              <div class="list-group ">
+                <!-- display area -->
+                <!-- Hover added -->
+                <!-- <li class="list-group-item">Nothing to show</li>
+                <li class="list-group-item">Nothing to show</li> -->
+
+              <!-- ends here -->
+              </div>
+            </ul>
+          </div>
+    </nav>
+
+    <!-- Nav tabs -->
+
+  </header>
+
+  <main class="pt-4 ">
+    <div class="tab-content mt-5 ">
+
+      <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class=" overflow-hidden flex-wrap d-flex gap-1 p-3 mb-5 animate__animated animate__backInLeft" id="profiles">
+            <!-- Cusomers list -->
+
+            <%if(vendor){%>
+              <% vendor.forEach((vendor)=> { %>
+                <div class="card2 m-1 mb-3 shadow-sm" style="width:13rem;" title="<%=vendor.Name.toUpperCase()%>" >
+                    
+                  <div class="card-img-top justify-content-center d-flex p-2">
+                      <img src="<%if(vendor.image){%>
+                          <%= vendor.image %>
+                          <%}else{%>
+                             https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701_640.png
+                          <%}%>
+                          " alt="<%= vendor.Name %> Photo"  width=100 height="100"> 
+                  </div>
+              
+              <div class="card-body" style="overflow:hidden;
+              white-space:nowrap;
+              text-overflow:ellipsis;
+              max-width:150px;">
+                  <p class="card-title"><%= vendor.Name %></p>
+                  <a  href="mailto: <%=vendor.email%>"> 
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at" viewBox="0 0 16 16">
+                          <path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z"/>
+                          <path d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648Zm-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z"/>
+                        </svg>
+                     <small  > <%=vendor.email%></small>
+                  </a>
+              </div>
+              <a href="/api/v1/vendor/<%=vendor._id%>/edit" class="go-corner">
+                  <div class="go-arrow">
+                      →
+                  </div>
+              </a>
+      </div>
+
+              <% }) %>
+          <%}else{%>
+              <h2>No vendor to display</h2>
+              <%}%>
+
+            
+            <!-- ends here -->
+        </div>
+      </div>
+           
+      <!--  -->
+          <div
+                class="tab-pane p-5"
+                id="messages"
+                role="tabpanel"
+                aria-labelledby="messages-tab"
+            >
+               <div>
+                <div
+                  data-bs-spy="scroll"
+                  data-bs-target="#nav-example"
+                  data-bs-smooth-scroll="true"
+                  tabindex="0"
+                  class="container-fluid "
+                >
+                
+                <div  class="container bg-light border mb-5 justify-content-center shadow rounded animate__animated animate__backInLeft">
+                  <!-- main display -->
+                       <!-- create product form -->
+              <div  >
+                  <div class="d-flex justify-content-end  ">
+                      <!-- image upload div -->
+                      <input type="file" hidden id="files" name='image' multiple />
+                  </div>
+              <form  method="post" id='vendorForm' class="p-2 ">
+                
+                  <div class="col">
+                    <div class="col-md-5">
+                      <label for="" class="form-label"><h4>Vendor Creation</h4></label>
+                      <input
+                        type="text"
+                        name="Name"
+                        id="Name"
+                        class="form-control is-invalid"
+                        placeholder="Name"
+                        aria-describedby="helpId"
+                        required
+                      />
+                    </div>
+                  </div>
+                
+                  <div class="d-flex container-fluid gap-3 p-5 justify-content-around">
+                      <!-- cateory -->
+                      <div>
+                          <label  for="category" class="d-flex justify-content-between gap-7">Vendor category </label>
+                           <select class="form-select is-valid" id="category" name="Categories" required>
+                            <option value="">Choose one</option>
+                            <option value="wholesale" >whole Sale</option>
+                            <option value="Retail" >Retail</option>
+                            <option value="DropShipping" >DropShipping</option>
+                          </select>
+                      
+                      </div>
+                      <!-- image -->
+                      <div>
+                          <div class="flex flex-col">
+                              <label for="files" id="productImage"></div>
+                              <!-- display progress % for photo upload -->
+                              <!-- <progress value="0" max="100" id="progress"></progress> -->
+                              <input type="url" name="image" disabled id="imageLoader" hidden>
+                              </label>
+                      </div>
+                  </div>
+                  <div class="border-bottom  d-flex m-2 font-bold">
+                      <div class="border-end p-1 rounded subs" name="category" title="Double click to show section">Vendor Information</div>
+                      <%if(user.isAdmin ){%> 
+                      <div class="border-end rounded p-1 d-none subs" name="category" title="Double click to show section">Product Settings</div>
+                      <div class="border-end rounded p-1 d-none subs" name="category" title="Double click to show section">Description</div> 
+                      <%}%>
+                  </div>
+                  <!-- prouct information -->
+                      <div class="d-flex row  p-5 border-bottom" id="workInfo">
+                          <div class="col-md-4">
+                          <label class="form-label">Email</label>
+                          <input type="tel" name="email"  class="form-control" placeholder="@xyz.con">
+                          </div>
+                          <div class="col-md-4">
+                          <label class="form-label">Telephone</label>
+                              <input type="tel" required name="vendor_tel" placeholder="Tel..." class="form-control" >
+                          </div>
+          
+                          <div class="col-md-4">
+                              <label class="form-label">Address </label>
+                              <input type="text" class="form-control" name="Address" placeholder="Address">
+                          </div>
+                          <div class="col-md-4">
+                            Verify Vendor:
+                            <label class="switch" title="Turning on this Feature will confirm vendor status">
+                                <input type="checkbox" id="toggleReplenish"Name="status">
+                                <div class="slider"></div>
+                            </label>
+                        </div>
+        
+                        <!-- block vendor -->
+                        <div class="col-md-4">
+                            Block vendor (`Pending Activation status`)
+                            <label class="switch">
+                                <input type="checkbox"  name="block_vendor">
+                                <div class="slider"></div>
+                            </label>
+                        </div>
+
+                      <div class="col-md-4">
+                          <label class="form-label">Account Number</label>
+                          <input type="text" name="Account_num" class="form-control">
+                        </div>
+          
+                          <div class="col-md-4">
+                            <label class="form-label ">Account Name</label>
+                            <input name="Account_name" type="text" class="form-control"  />
+                          </div>
+          
+                          <div class="col-md-4">
+                            <label class="form-label ">Bank Name</label>
+                            <input type="text" class="form-control"  name="Bank_name">
+                          </div>
+
+                         
+          
+                      </div>
+                      <!-- product settings -->
+                      <div id="privateinfo" class="d-flex border-bottom row d-none p-5 ">
+                         
+                      </div>
+                      <!-- description -->
+                      <div id="thirdinfo" class="flex row justify-between p-5 d-none border-bottom">
+                       
+                           
+                      </div>
+                  <%if(user.isAdmin ){%> 
+                    <div class="col-md-4 mt-2">
+
+                      <button type="submit" class="btn btn-success">Create New Vendor</button>
+                    </div>
+                   <%}%>
+              </form>
+              </div>
+              </div>
+            
+                 
+              </div>
+    </div>
+
+    </div>
+
+    </div>
+
+  </main>
+  <footer style="z-index: 3 !important;">
+    <!-- place footer here -->
+    <div class="container-fluid fixed-bottom bg-dark-subtle ">
+      <div class="row p-2">
+        <!-- for next and filter -->
+
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p class="text-center">
+            BADE &copy; <script>
+              document.write(new Date().getFullYear());
+            </script>. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    <!-- end of footer -->
+  </footer>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-storage.js"></script>
+<!-- <script  src="/ImageUpload.js"></script> -->
+<script src="https://unpkg.com/jspdf-invoice-template@1.4.0/dist/index.js"></script>
+  <script src="/filesaver.js" type="module"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.mini.min.js" integrity="sha512-NDQhXrK2pOCL18FV5/Nc+ya9Vz+7o8dJV1IGRwuuYuRMFhAR0allmjWdZCSHFLDYgMvXKyN2jXlSy2JJEmq+ZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  
+  let data = []
+  const getData = async ()=>{
+    plsWait(true)
+    const request = await fetch('/api/v1/Getfulldb',{
+        method:'GET',
+        headers:{'Content-Type': 'application/json'},
+    })
+      const response = await request.json()
+      response ?  plsWait(false) : ''
+      response.vendor.forEach(vendor =>{
+
+        data.push({id:vendor._id,Name:vendor.Name,Telephone:vendor.vendor_tel,Email:vendor.email,Address:vendor.Address,Balance:vendor.Balance,Account_name:vendor.Account_name,Account_num:vendor.Account_num,Bank_name:vendor.Bank_name,Deactivated:vendor.block_vendor}) // for excel download
+      })
+      
+      const search = document.getElementById("search")
+                search.addEventListener('change',async(event)=>{
+                  plsWait(true)
+                  const searched = response.vendor.filter(vendor =>{return vendor.Name.toLowerCase().includes(event.target.value.toLowerCase())})
+
+                  const serchedCustomer = searched.map(element =>{
+                    return `
+                    <div class="card2 m-1 mb-3 shadow-sm" style="width:13rem;" title=${element.Name} >
+                            <div class="card-img-top justify-content-center d-flex p-2">
+                                <img src="${element.image ? element.image : " https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701_640.png"}" alt="No Photo uploaded"  width=100 height="100">
+                            </div>
+                        
+                            <div class="card-body" style="overflow:hidden;
+                            white-space:nowrap;
+                            text-overflow:ellipsis;
+                            max-width:150px;">
+                                <h6 class="card-title">${element.Name.toUpperCase()}</h6> 
+                                <a href="mailto:${element.email}">@${element.email}</a>
+                            </div>
+                            
+                            <a href='/api/v1/vendor/${element._id}/edit' class="go-corner">
+                                <div class="go-arrow">
+                                    →
+                                </div>
+                            </a>
+                        </div>
+                    `
+
+                  })
+                  document.getElementById('profiles').innerHTML = serchedCustomer
+                  plsWait(false)
+                })
+
+        // excel and pdf download
+         const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        const EXCEL_EXTENSION = '.xlsx';
+        const XLSXDOWNLOAD = document.getElementById('XLSX')
+        
+        const  DownloadXLSX = async(data)=>{
+        const worksheet = XLSX.utils.json_to_sheet(data);
+            const workbook = {
+                Sheets: {
+                    'data' : worksheet
+                },
+                SheetNames: ['data']
+            };
+            const excelBuffer = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
+            saveAsExcel(excelBuffer, '');
+        }
+    
+
+        XLSXDOWNLOAD.addEventListener('click',  async ()=>{
+           await DownloadXLSX(data)
+        })
+
+        const saveAsExcel = (Buffer,filename)=>{
+        const data = new Blob([Buffer],{type:EXCEL_TYPE})
+        saveAs(data,filename+'Vendor List' + EXCEL_EXTENSION)
+        }
+  }
+
+</script>
+<script  >
+ 
+// create vendor
+let vendorForm = document.getElementById('vendorForm')
+vendorForm.addEventListener('submit',async (e)=>{
+    e.preventDefault()
+    plsWait(true)
+    const Name = vendorForm.Name.value;
+    const Categories = vendorForm.Categories.value;
+    const image =document.querySelector('input#imageLoader').value;
+    const vendor_tel = vendorForm.vendor_tel.value;
+    const email = vendorForm.email.value;
+    const Address = vendorForm.Address.value;
+    const block_vendor = vendorForm.block_vendor.checked;
+    const Account_name = vendorForm.Account_name.value;
+    const Account_num = vendorForm.Account_num.value;
+    const Bank_name = vendorForm.Bank_name.value;
+    
+
+    const endPoint =`/api/v1/Sales/Register-Vendor/${ActiveUser}`
+    const res = await fetch(endPoint,{
+        method:'POST',
+        body:JSON.stringify({Name,
+        Categories,
+        image,
+        vendor_tel,
+        email,
+        Address,
+        block_vendor,
+        Account_num,
+        Account_name,
+        Bank_name,
+        Balance:0
+        }),
+        headers:{'Content-Type': 'application/json'}
+    })
+
+    const data = await res.json()
+    if(data.Message){
+      ShowServerResponse(data.Message)
+        vendorForm.reset()
+        location.reload()
+    }
+
+    if(data.error){
+      serverError(data.error)
+        plsWait(true)
+    }
+})
+</script>
+
+</body>
+
+</html>

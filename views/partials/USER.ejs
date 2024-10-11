@@ -1,0 +1,36 @@
+<li class="nav-item dropdown">
+    <a
+    class="nav-link dropdown-toggle "
+    href="#"
+    id="dropdownId"
+    data-bs-toggle="dropdown"
+    aria-haspopup="true"
+    aria-expanded="false"
+    title="<%= user.firstName %> <%= user.lastName %>"
+    ><img width="30" height="30" src="<%=user.image ? user.image :" https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701_640.png"%>" alt="" srcset=""></a
+>
+      <div
+          class="dropdown-menu bg-dark text-light "
+          aria-labelledby="dropdownId"
+      >
+          <a class="dropdown-item badge " href="/api/v1/employee/<%= user._id %>/user"
+              >My Profile</a
+          >
+          <!-- <a class="dropdown-item badge  " href="#"
+              >Chats</a
+          > -->
+          <a class="dropdown-item badge  " href="/api/v1/Notifications/<%= user._id %>"
+              >Notifications
+              
+              <span
+                class="badge bg-danger"
+                ><%= user.Notification.length %></span
+              >
+              
+              
+            </a> 
+            <a class="dropdown-item badge " href="/api/v1/logout/<%= user._id %>"
+            >Log-out</a
+            >  
+      </div>
+  </li>

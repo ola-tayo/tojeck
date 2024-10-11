@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <!-- for loaders -->
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/metronome.js"
+    ></script>
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/lineSpinner.js"
+    ></script>
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/quantum.js"
+    ></script>
+  </head>
+  <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-0TXFE4GJ4V"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-0TXFE4GJ4V");
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-PV2M7DL6");
+  </script>
+  <!-- End Google Tag Manager -->
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-PV2M7DL6"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <input
+      type="hidden"
+      name=""
+      id="ActiveUser"
+      readonly
+      disabled
+      hidden
+      value="<%= user._id %>"
+    />
+    <input
+      type="hidden"
+      name=""
+      id="ActiveUserName"
+      readonly
+      disabled
+      hidden
+      value="<%= user.firstName %> <%= user.lastName %>"
+    />
+
+    <!-- for pls wait  -->
+    <div
+      id="loader"
+      class="modal flex items-center flex-col justify-center align-content-center gap-3 animate__animated animate__backInLeft"
+    >
+      <div class="modal-body d-flex justify-content-center container">
+        <div class="d-flex flex-column align-content-center">
+          <l-line-spinner
+            size="50"
+            stroke="5"
+            speed="1"
+            color="#e2f9f9"
+          ></l-line-spinner>
+
+          <!-- <l-quantum
+          size="45"
+          speed="1.75"
+          color="black" 
+        ></l-quantum> -->
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const ActiveUser = document.getElementById("ActiveUser").value;
+    const ActiveUserName = document.getElementById("ActiveUserName").value;
+
+    // pls wait modal
+    const plsWait = (boolean) => {
+      if (boolean === true) {
+        document.getElementById("loader").style.display = "block";
+      } else {
+        document.getElementById("loader").style.display = "none";
+      }
+    };
+
+    const ShowServerResponse = function (respose) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: respose,
+      });
+    };
+
+    const serverError = (respose) => {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "error",
+        title: respose,
+      });
+    };
+
+    // show question befor fire
+
+    const opscodeRequest = () => {
+      (async () => {
+        const inputValue = ""; //set the input filed to defualt character
+        const { value: userInput } = await Swal.fire({
+          title: "Enter your Operational Code",
+          input: "password",
+          inputLabel: "Ensure to keep this code private at all times",
+          inputPlaceholder: "Provide OPS CODE",
+          inputValue,
+          inputAutoFocus: true,
+          showCancelButton: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return "You need to Enter your code!";
+            }
+          },
+        });
+
+        if (userInput) {
+          const API = `/api/v1/users/${ActiveUser}/${userInput}`;
+          const response = await fetch(API);
+          const data = await response.json();
+
+          if (data.signature) {
+            const appendSignature = document.getElementById("signature");
+            appendSignature.src = data.signature;
+            BillProducts.signatureUrl = data.signature;
+            saveToLocalStorage(BillProducts);
+            submitBtn.style.display = "block";
+            submitBtn.classList.remove("d-none");
+            // show ammount in words
+            // convert integer for grad total to word count
+            function test(n) {
+              if (n < 0) return false;
+              let single_digit = [
+                "",
+                "One",
+                "Two",
+                "Three",
+                "Four",
+                "Five",
+                "Six",
+                "Seven",
+                "Eight",
+                "Nine",
+              ];
+              let double_digit = [
+                "Ten",
+                "Eleven",
+                "Twelve",
+                "Thirteen",
+                "Fourteen",
+                "Fifteen",
+                "Sixteen",
+                "Seventeen",
+                "Eighteen",
+                "Nineteen",
+              ];
+              let below_hundred = [
+                "Twenty",
+                "Thirty",
+                "Forty",
+                "Fifty",
+                "Sixty",
+                "Seventy",
+                "Eighty",
+                "Ninety",
+              ];
+              if (n === 0) return "Zero";
+              function translate(n) {
+                let word = "";
+                if (n < 10) {
+                  word = single_digit[n] + " ";
+                } else if (n < 20) {
+                  word = double_digit[n - 10] + " ";
+                } else if (n < 100) {
+                  let rem = translate(n % 10);
+                  word = below_hundred[(n - (n % 10)) / 10 - 2] + " " + rem;
+                } else if (n < 1000) {
+                  word =
+                    single_digit[Math.trunc(n / 100)] +
+                    " Hundred " +
+                    translate(n % 100);
+                } else if (n < 1000000) {
+                  word =
+                    translate(parseInt(n / 1000)).trim() +
+                    " Thousand " +
+                    translate(n % 1000);
+                } else if (n < 1000000000) {
+                  word =
+                    translate(parseInt(n / 1000000)).trim() +
+                    " Million " +
+                    translate(n % 1000000);
+                }
+                // else {
+                // 	word = translate(parseInt(n / 1000000000)).trim() + ' Billion ' + translate(n % 1000000000)
+                // }
+                return word;
+              }
+              let result = translate(n);
+              return result.trim() + ".";
+            }
+            document.getElementById("words").innerHTML = `${test(
+              parseInt(BillProducts.grandTotal)
+            )} Naira only.`;
+            Swal.fire(`Code match, Access granted`);
+            setTimeout(() => {
+              ShowServerResponse(
+                `Total for this Order is ${test(
+                  parseInt(BillProducts.grandTotal)
+                )} Naira only.`
+              );
+            }, 3000);
+          } else {
+            Swal.fire(`${data.error}`);
+          }
+        }
+      })();
+    };
+
+    // display ask before fire
+    const RequestDelete = (productId) => {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          });
+          setTimeout(() => {
+            location.assign(`/api/v1/Delete/${productId}`);
+          }, 2000);
+        }
+      });
+    };
+
+    // delete expense category
+    const RequestDeleteexpenseCat = (Id) => {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          });
+          plsWait(true);
+          location.assign(
+            `/api/v1/expenseCategory/delete?id=${Id}&userId=${ActiveUser}`
+          );
+        }
+      });
+    };
+
+    // double input fields for product roll and crtn
+    const Handling = async (crtn, roll, id) => {
+      const { value: formValues } = await Swal.fire({
+        title:
+          "Adjust the value of the field with the specified CARTON Number and Roll Number",
+        html: `
+        <p>Carton input</p>
+        <input id="swal-input1" type="number" placeholder="Edit CRTN QTY" value=${crtn} class="swal2-input">
+        <p>Rolls input</p>
+        <input id="swal-input2" type="number" placeholder="Edit CRTN QTY" value=${roll} class="swal2-input">
+      `,
+        focusConfirm: false,
+        preConfirm: () => {
+          return [
+            document.getElementById("swal-input1").value,
+            document.getElementById("swal-input2").value,
+          ];
+        },
+      });
+      if (formValues) {
+        // send the request here
+        plsWait(true);
+        //for batch identifier
+        const currentQty = document.getElementById("swal-input1").value;
+        const Rolls = document.getElementById("swal-input2").value;
+        const url = `/api/v1/warehouse/Product/${id}`; //sends product id
+
+        const update = { currentQty, Rolls };
+        const request = await fetch(url, {
+          method: "PATCH",
+          body: JSON.stringify({
+            update,
+            message: `Carton Qty was re-Adjusted to ${currentQty}, ${Rolls} Carton on ${moment().format(
+              "l"
+            )}`,
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
+        const respose = await request.json().then((response) => {
+          if (response.message) {
+            ShowServerResponse(response.message);
+            setTimeout(() => {
+              plsWait(false);
+              location.reload();
+            }, 3000);
+          } else if (response.error) {
+            serverError(response.error);
+            plsWait(false);
+          }
+        });
+        Swal.fire(`Updated confirmed to ${JSON.stringify(formValues)}`);
+      }
+    };
+
+    //add amount recived from customer
+    const addAmountReceived = async () => {
+      const { value: formValues } = await Swal.fire({
+        title: "Add Amount Received From Customer",
+        html: `
+        <input id="swal-input1" type="number" value="0" placeholder="Enter Amount Received" class="swal2-input">
+      `,
+        focusConfirm: true,
+        preConfirm: () => {
+          return [parseInt(document.getElementById("swal-input1").value)];
+        },
+      });
+
+      if (formValues[0] !== NaN) {
+        let value = formValues[0];
+        if (value === NaN || value < 0 || value === null) {
+          serverError("Enter a valid amount");
+          addAmountReceived();
+        } else {
+          //send request to server
+          const endPoint = `/api/v1/Vaninvoice?invoice_id=${ref}`;
+          const res = await fetch(endPoint, {
+            method: "POST",
+            body: JSON.stringify({ amount: value }),
+            headers: { "Content-Type": "application/json" },
+          });
+          const data = await res.json();
+          if (data.error) {
+            serverError(data.error);
+            plsWait(false);
+          } else {
+            ShowServerResponse(data.message);
+            location.reload();
+          }
+        }
+      } else {
+        plsWait(false);
+        serverError("Enter a valid");
+      }
+    };
+
+    //modal for cancel invoice button
+    const CancelInvoice = (Id) => {
+      Swal.fire({
+        title: "Are you sure you want to cancel this Invoice?",
+        text: "Proceeding with this action, will also cancel payment journal entry on this invoice.!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Proceed!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Cancelling Invoice!",
+            text: "Please wait.",
+            icon: "success",
+          });
+
+          plsWait(true);
+          const endPoint = `/api/v1/cancel_invoice?invoice=${ref}`;
+          const res = await fetch(endPoint, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+          });
+          const data = await res.json();
+          if (data.error) {
+            serverError(data.error);
+            plsWait(false);
+          } else {
+            ShowServerResponse(data.message);
+            location.reload();
+          }
+        }
+      });
+    };
+
+    //button for payment
+    const paymentFormAction = (Id,action) => {
+      Swal.fire({
+        title: `Confirm to set Payment status to ${action}?`,
+        text: "Proceeding with this action, will also reflect on journal entry in customer's Transaction Ledger.!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Proceed!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: `Payment ${action}!`,
+            text: "Please wait...",
+            icon: "success",
+          });
+
+          plsWait(true);
+          
+          // get datdset value for payment request
+          const request = await fetch(
+            `/api/v1/payment/revoke/${Id}?action=${action}&user=<%=user._id%>`,
+            {
+              method: "PATCH",
+              body: JSON.stringify({ date: moment().format("l") }),
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+          const response = await request.json();
+          try {
+            if (response.message) {
+              ShowServerResponse(response.message);
+              location.reload();
+            } else {
+              throw new Error(response.error);
+            }
+          } catch (error) {
+            ShowServerResponse(error);
+            plsWait(false);
+          }
+        }
+      });
+    };
+  </script>
+</html>

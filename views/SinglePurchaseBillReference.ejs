@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%-include('./partials/head.ejs')%>
+  <%-include('./partials/inactive.ejs')%>
+  <%-include('./partials/Notification.ejs')%>
+  <body>
+    <nav class="dash navbar bg-black">
+      <div class="container-fluid">
+        <span class="navbar-brand" onclick="history.back()" title="Back">
+          <img 
+          width="30"
+          hegith="30"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEgklEQVR4nO2a/U/VVRzH31xEbjxEQmjYAobWUkdYIiYxYYg8c+/9HrqUhAaFbvaE60lnOVzTrRbFMCZjNkmvGV6433NjjY2W1WzrgVHNkq0VtkxXZmqaUwyBTzv0Zd01TO4ZP3zP5b628we8vp/z9P5+DhAkSJAgUw1RyPpWCsN0wOmmUI1TK+Pkzf6IZiCQcbpppqZTO+NEYmicXPX1ZEEgUtpFEYxT97isz2hGoOF0UxTjdGgC2fFKb0Og4HRTLOP0xbVkfcYzUB3NQwmM07eTkCWm0yjj9ChUhXVSisbp2KRk/53aw5pOTqiGndNiptMpf2R9pLdDJRw6ZTBOZ2Rkcxu+PAhAnQuJ5qFcjdNFv2V1Gl2+me8FsBpAJlTAoZNd4zTo9xTWR0bS6/a1GLI2ANEwO4zTGqbTVb9lPcNDd9U2vW7IlgCIgNnROD1pHCl+yTo6hwYXVr60w5AtABAOs6Nx2iSzOdk7rlycX/b0VkN2pfk3KqIQplOjjKyt/dIfibk1zxuyKwCEwuzxjum0R0a27O0LpxMy7Bt9dmNzJ6XCbgpnnDwysqWucyfjFq14zJBNBxACM1PVQ5GM0/sysiV7Tw/EJKetM2TTYHZK3qNZjNNnMrJFu0/0R8xJqTFkF8DsON10i6bTERnZgpZjfdbo+LUAHgQwD2bHzilZ0+kHGdm8nf2fWKyRVQAeAJAIs+P00kJNp5MysrkNfT0WS1glgAoACTA75V5KZzr9LiObveNwl7FeywHEw+yUc8phOv0plXi2dLkMWQ3ALJgdxqlMNvEsrXO1GrJ2JRLPFAmrkXh8CE2rbdro6PhrUGZK29svizuyUtwtpuW84sdfcBwc9H8d/yP+MhQiFECOkE7MrnrW9s6ls1LSnJpVaqFYANwnpOcsKX6qdP952b+PLpWaZSEAlgrpuDsyN5TsO3Nccnq/+3AbWaEQi4V0VOKi2uK2X6WumJpOH9q8pMYxZbBQSEfE31ZduPv4N5JrutehUxwUYr5IPGHRsWvzd33fK1npfpuX5kIhkkTysYRZH1rZeORjSekfHTqZPyb6ICpUAYulMueVzydqbk9m/GLnlAqFmA3gfrGuM7d2H5A8ss5qHroXChErrt5Cetkmz1syP+LHelBeyoNC3Ggko9VLntizS9NHhiXO6Sual0SUVIZI8V5FSKc+0tjg8Fwdkqi0+FDVUAgrgCIhfWdF/XbRM5Ko9CjTqQ4KMRPAKiGdUlr3ot096H+PWMGkNWM8aSXlr99sb798fjo8ebAAyBLSCem2urIDF36bDo9aQgBkjCWtBVkbSl3nfp7sOl72XMcbyvwPm4B7hHRMYuq6krZTA9cTXr6la79Sbzz+P2kl1RS9eeLotWSztn3Qacjmm785fn1uF0krPHZudWHrT1//Vzbn1d4eQ7ZYiWcPkyR5LF5G3LRmVfN3n47L5jUdPWy0ZMoA3IAA41aRtES8zH3tq0MFLQN9RrPNASAKAcrssaRlsVSGWaOrjP6T+VsyU5S0RGfxZkwTYoxqBwkC//gbNIgEXXRi6msAAAAASUVORK5CYII=">
+         </span>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+
+                  <h5>
+                    <a
+                    class="nav-link breadcrumb-item active"
+                    aria-current="page"
+                    href="/"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    style="color: #fff !important"
+                  >
+                  GRN/<%=Singlebill.billReferenceNo.toUpperCase()%>/<%=vendor.Name.substring(0,3).toUpperCase()%>
+                  </a>
+                  </h5>
+                
+                </li>
+          </ul>
+      </div>
+    </nav>
+
+    
+    <main class=" container-fluid   p-3 bg-light " style="height: 100dvh;" >
+      <div  class=" box mt-5 mb-5  "  >
+          <div class="d-flex justify-content-between align-content-center gap-2">
+            <img  height="80" width="80" src="/logo.jpg" class="rounded "/>
+            <b><%= Business.CompayName %></b>
+          </div>
+          <br>
+          <div class="page" style="page-break-after: always" id="id" data-id="">
+    
+              <div class="intro-form">
+                <div class="intro-form-item-border d-flex flex-column gap-3">
+                  
+                  <div class="col-md-6">
+                    <!-- <label for="Customer" class="form-label">Customer</label> -->
+                    <input type="hidden" id="Customer" data-van="" requied value="" disabled list="customerList" name="referenceNo" class="form-control border" placeholder=" Order" required/>
+                  </div>
+                  
+                  <div class="col-md-7  border p-2 rounded bg-dark-subtle shadow">
+                    <label for="AccountNumber" class="form-label">Purchase Information</label><br>
+                    <!-- display customer infomation here -->
+                     <h6><%= vendor.Name.toUpperCase() %></h6>
+                    <small class="text-muted" ><span
+                        class="badge bg-primary"
+                        >Address: </span
+                    >
+                    <%= vendor.Address %></small><br>
+    
+                    <small class="text-muted" id="phone"><span
+                      class="badge bg-primary"
+                      >Tel:</span
+                    >
+                     <%=  vendor.vendor_tel %></small><br>
+
+                     <small class="text-muted" id="phone"><span
+                      class="badge bg-primary"
+                      >Ware House:</span
+                    >
+                     <%=  WH.WHName %></small><br>
+                    <hr>
+                     <span
+                        class="badge bg-success"
+                        >P/O Information</span
+                    >
+                    <br>
+                    <small class="text-muted" ><span
+                      class="badge bg-primary"
+                      >Recieved Date: </span
+                  >
+                  <%= Singlebill.recievedDate %></small><br>
+
+                  <small class="text-muted" ><span
+                    class="badge bg-primary"
+                    >Amount Paid: </span
+                >
+                ₦<%= Singlebill.AmountPaid %></small><br>
+
+                  <small class="text-muted" ><span
+                    class="badge bg-primary"
+                    >Status: </span
+                >
+                <%= Singlebill.status %></small><br>
+
+                <small class="text-muted" ><span
+                  class="badge bg-primary"
+                  >Attachement </span
+              >
+              <a href=" <%= Singlebill.Attachment %>" target="_blank" rel="noopener noreferrer">
+                <img width="30" height="30" src="https://img.icons8.com/color/48/pdf-2--v1.png" alt="pdf-2--v1"/>
+              </a>
+              <br>
+
+             </small><br>
+                     <h5>₦<%=Singlebill.grandTotal %></h5>
+                     <input type="hidden" id="Grandtotal" value="<%=Singlebill.grandTotal  %>">
+                     <small class="text-muted" id="words">
+             </small>  
+
+                  </div> 
+                  <br>
+                </div>
+               
+              </div>
+    
+            <div
+              class="table-responsive"
+            >
+              <table
+                class="table table-striped-columns table-hover table-borderless table-dark align-middle "
+              >
+                <thead class="table-light">
+                  <caption id="Invoice_number" class="d-flex justify-content-between gap-3 align-content-center">
+
+                    <%if(Singlebill.status === 'Pending'){%>
+                          <button title="Accountant Accept" class="btn btn-outline-success <% if ( !user.allowInternalTransfers  ) { %>
+                            d-none
+                           <% } %>" <% if ( !user.allowInternalTransfers  ) { %>
+                           disabled="disabled"
+                          <% } %> onclick="AccountantAccept('Accountant Accept')"> 
+                          <img width="30" height="30" src="https://img.icons8.com/external-flat-icons-inmotus-design/67/external-accept-telegram-flat-icons-inmotus-design.png" alt="external-accept-telegram-flat-icons-inmotus-design"/>
+                        </button>
+                       
+                          <button title="Accountant Reject" class="btn btn-outline-warning <% if ( !user.allowInternalTransfers ) { %>
+                            d-none
+                           <% } %>" <% if ( !user.allowInternalTransfers ) { %>
+                            disabled="disabled" 
+                           <% } %> onclick="AccountantAccept('Accountant Reject')"> 
+                           <img width="30" height="30" src="https://img.icons8.com/fluency/48/delete-sign.png" alt="delete-sign"/>
+                          </button>
+                    <%}%> 
+
+
+                    <%if(Singlebill.status === 'Accountant Accept'){%>
+
+                      <%if(Singlebill.status === 'Accountant Accept' || !Singlebill.StoreKeeperConfirmation){%>
+                       
+                        <%if( user.isCFO || user.isAdmin && Singlebill.status === 'Accountant Accept' ){%>
+                          <button title="CFO ACTION " class="btn btn-outline-dark"  onclick="document.getElementById('myModalc').style.display='block'">
+                            <img width="30" height="30" src="https://img.icons8.com/stickers/50/add-bookmark.png" alt="add-bookmark"/>
+                          </button>
+                        <%}%> 
+                      
+                      <%}%>
+              
+                    <%}%>
+
+
+                    <%if( user._id.toString() === WH.StoreKeeper._id.toString() && Singlebill.status ==="Approved" && !Singlebill.StoreKeeperConfirmation ){%>
+                      <button class="btn btn-success" id="StoreApproveBtn"  onclick="StoreApprove()">STORE KEEPER APPROVAL</button>
+                      <button class="btn btn-danger"  onclick="StoreDeclined()">STORE KEEPER REJECT</button>
+                    <%}%> 
+
+
+
+                  <!-- <% if (user.raiseLpo || user.isAdmin) { %>
+                    <div class="col-md-6 ">
+                      <label for=""></label>                     
+                      <img width="30" height="30" src="https://img.icons8.com/plasticine/100/filled-trash.png" alt="filled-trash"/>
+                  </div> 
+                  <% } %> -->
+
+                  <!-- button to submit po -->
+                  <% if ( user.raiseLpo && Singlebill.status === 'Draft' ) { %>
+                    <div class="col-md-6 ">
+                      <label for=""></label>                     
+                     <button type="button" onclick="submitpoBtn()" class="btn btn-outline-success">Submit</button>
+                  </div> 
+                  <% } %>
+                  <!-- ends here -->
+                   
+                  </caption>
+                  <tr>
+                    <th>product</th>
+                    <th>QTY</th>
+                    <th>Expiration</th>
+                    <th>price</th>
+                    <th>Batch</th>
+                    <th>Total</th>
+                    <th></th>
+                    <% if (Singlebill.status === 'Draft' ) { %>
+                      <th class=""></th>
+                     <% } %>
+                  </tr>
+                </thead>
+                <tbody id="tbody" class="table-group-divider">
+                   <% if (Singlebill.orders.length > 0 ) { %>
+                      <% Singlebill.orders.forEach(element => { %>
+                        <tr>
+                          <td class="text-warning">
+                            <%= element.item.productName ? element.item.productName : element.item.Name %>
+                          </td>
+                          <td>
+                            <% if (Singlebill.status === 'Draft' ) { %>
+                              <input type="number"  id="lineItemQty" data-qty="<%= element._id %>" class="form-control-sm" name="" value="<%= element.Qty %>"
+                              <% if (Singlebill.status !== 'Draft' && !user.raiseLpo ) { %>
+                                disabled
+                              <%}%>
+                              >
+                                <% }else{ %>
+                                  <%= element.Qty %>
+                              <% } %>
+                          </td>
+                          <!-- <td class="text-light"><%= element.item.Status %></td> -->
+                          <td class="text-light">
+                            <% if (Singlebill.status === 'Draft' ) { %>
+                              <input type="date" class="form-control-sm w-75" name="" value="<%= element.ExpDate %>">
+                              <% }else{ %>
+                                <%= element.ExpDate %>
+                            <% } %>
+                          </td>
+                          <td class="text-light">₦<%= element.item.VendorPrice %></td>
+                          <td class="text-light">
+                            <% if (Singlebill.status === 'Draft' ) { %>
+                            <input type="text" class="form-control-sm " name="" placeholder="Enter Batch No:" value="<%= element.BatchNo %>">
+                              <% }else{ %>
+                                <%= element.BatchNo %>
+                            <% } %>
+                          </td>
+                          <td class="text-light">₦<%= Math.ceil(element.total) %></td>
+                          <% if (Singlebill.status === 'Draft' ) { %>
+                            <td title="Click to remove"  onclick="removeLineItem('<%= element._id%>','<%=Singlebill._id%>')">
+                             <a href="javascript:void(0)">
+                              <img width="25" height="25" src="https://img.icons8.com/plasticine/100/filled-trash.png" alt="trash can"/>
+                             </a>
+                            </td>
+                           <% } %>
+                           <td></td>
+                        </tr>
+                      <% }) %>
+                   <% }else{ %>
+                    <tr class="opacity-50 ">
+                      <td class="text-secondary">No product to show </td>
+                      <td class="text-secondary">0</td>
+                      <td class="text-secondary"></td>
+                      <td class="text-secondary">00/00/0000</td>
+                      <td class="text-secondary">₦0.00</td>
+                      <td class="text-secondary">RBC000</td>
+                      <td class="text-secondary">₦0.00</td>
+                    </tr>
+                    <tr class="opacity-50 ">
+                      <td class="text-secondary">No product to show </td>
+                      <td class="text-secondary">0</td>
+                      <td class="text-secondary"></td>
+                      <td class="text-secondary">00/00/0000</td>
+                      <td class="text-secondary">₦0.00</td>
+                      <td class="text-secondary">RBC000</td>
+                      <td class="text-secondary">₦0.00</td>
+                    </tr>
+                    <tr class="">
+                      <td class="text-light">Nothing has been Added</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  <% } %>
+                  <tr>
+                    <th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <td>Sub Total</td>
+                      <td class="text-danger">
+                        <h6>₦<%= Singlebill.discount +  Singlebill.grandTotal %></h6>
+                      </td>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <td>- Discount</td>
+                      <td class="text-danger">
+                        <% if (Singlebill.status === 'Draft' ) { %>
+                          <input type="number" class="form-control-sm " id="discount" value="<%= Singlebill.discount %>">
+                          <% }else{ %>
+                            ₦<%= Singlebill.discount %>
+                        <% } %>
+                      </td>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <td>Return Value</td>
+                      <td class="text-danger">
+                        <% if (Singlebill.status === 'Draft' ) { %>
+                          <input type="number" class="form-control-sm " id="ReturnQty" value="<%= Singlebill.ReturnQty %>">
+                          <% }else{ %>
+                            ₦<%= Singlebill.ReturnQty %>
+                        <% } %>
+                      </td>
+                     
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <td>Remark</td>
+                      <td class="text-danger">
+                        <% if (Singlebill.status === 'Draft' ) { %>
+                          <input type="text" class="form-control-sm " id="Remarks" value="<%= Singlebill.Remarks %>">
+                          <% }else{ %>
+                            <%= Singlebill.Remarks %>
+                        <% } %>
+                      </td>
+                     
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <td>Shipping Fee</td>
+                      <td class="text-danger">
+                        <% if (Singlebill.status === 'Draft' ) { %>
+                          <input type="number" class="form-control-sm " id="shippingFee" value="<%= Singlebill.shippingFee %>">
+                          <% }else{ %>
+                            ₦<%= Singlebill.shippingFee %>
+                        <% } %>
+                      </td>
+                     
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <td>Grand Total:</td>
+                      <td class="text-danger">
+                       <h5> ₦<%= Singlebill.grandTotal %></h5>
+                      </td>
+                     
+                    </th>
+                  </tr>
+                </tbody>
+
+                <tfoot>
+                 <span
+                  class="badge bg-success m-2"
+                  > <%= Singlebill.orders.length %> Line Items </span
+                 >
+                
+                </tfoot>
+                <br>
+              </table>
+              <!-- datalist product -->
+            
+
+            <div class="col-md-4 mb-5 border shadow p-2 rounded bg-dark-subtle ">
+                <label for="products" class="form-label"><b>Product List</b></label>
+                <select id="products" class="form-select" 
+                >
+                 <option selected disabled >choose...</option>
+                <% if (Products.length > 0 && Singlebill.status === 'Draft') { %>
+                 <% Products.forEach(element => { %>
+                  <option value="<%= element._id %>"><%= element.productName %></option>
+                 <% }) %>
+                <% } %>
+                </select>
+            </div>
+            <!-- ends here -->
+        </div>
+            
+
+        </div>
+            
+          </div>
+         
+        <!-- ends here for template -->
+         
+      </div>
+    </main>
+     
+  </footer>
+
+     <!-- The Modal -->
+     <div id="myModalc" class="modal flex items-center flex-col justify-center gap-3 shadow overflow-hidden ">
+      <!-- Modal content -->
+        <div id="modal_body" class="modal-body d-flex justify-content-center container ">
+          <div>
+          </div>
+          <div class="bg-light gap-3 p-3 rounded shadow  flex-column d-flex" id="opsCode" >
+           <span onclick="document.getElementById('myModalc').style.display='none'" title="close payment Modal">
+            <i class="bi bi-x-square-fill"></i>
+           </span> 
+            <label for="opsCodes" class="form-label">The Operation you are about to process is sensitive</label>
+            <form  id="Approve" data-user="<%=user.firstName%> <%=user.lastName%>">
+              <div class="col-md-12 ">
+                <label for="AccountNumber" class="form-label">Amount Paid to vendor (₦)</label>
+                <input
+                  type="number"
+                  class="form-control border"
+                  id="RecievedDate"
+                  name="Amount"
+                  aria-describedby="validationServer05Feedback"
+                  placeholder="Record Payment"
+                  required
+                  value="<%=Singlebill.grandTotal%>"
+                />
+              </div>
+
+              <div class="col-md-12 bg">
+                <label for="bankAccount" class="form-label">Bank Journal</label>
+                <select required id="AccountNumber" class="form-select" name="bankAccount" >
+                  <%if(Acconuts.length > 0){%>
+                    <option value="">Choose...</option>
+                    <%Acconuts.forEach((account)=>{%>
+                      <option value="<%=account.bankCode%>"><%=account.bankCode%> ₦<%=account.Balance%></option>
+                    <%})%>
+                    <%}%>
+                 </select>
+              </div>
+
+              <div class="col-md-12 ">
+                <label for="PaymentDate" class="form-label">Payment Date</label>
+                <input
+                  type="date"
+                  class="form-control border"
+                  id="PaymentDate"
+                  aria-describedby="validationServer05Feedback"
+                  name="PaymentDate"
+                  required
+                  
+                />
+              </div>
+
+              <div class="col-md-12 ">
+                <label for="PaymentRef" class="form-label">Payment RefNo</label>
+                <input
+                  type="text"
+                  class="form-control border"
+                  id="PaymentRef"
+                  aria-describedby="validationServer05Feedback"
+                  name="PaymentRef"
+                  required
+                  placeholder="Enter Payment referenceNo"
+                />
+              </div>
+              <button type="submit"  id="CfOBtn" class="btn btn-success mt-1 col-md-12">APPROVE REQUEST</button>
+
+            </form>
+            <button type="button" id="Decline" data-user="<%=user._id%>" class="btn btn-danger  mt-1 col-md-12">REJECT / DELETE REQUEST</button>
+          </div>
+         
+        </div>
+      </div>
+      <!-- the end -->
+
+  </body>
+    <script>
+  //get product form dropdown
+  const products = document.getElementById('products')
+    products.addEventListener('change',async (e)=>{
+    plsWait(true)
+    //send request to back end to create and add to ordered list 
+    const request = await fetch(`/api/v1/VendorProduct/lpo?product=${e.target.value}&po=<%=Singlebill._id%>`,{
+      method:'PUT',
+      headers:{'content-type': 'application/json'},
+    })
+    const response = await request.json()
+    if(response.message){
+      ShowServerResponse(response.message)
+      location.reload()
+    }else{
+      plsWait(false)
+      serverError(response.error)
+      e.target.value = ''
+    }
+  })
+
+
+  //remove item form invoice 
+  const removeLineItem = async (id,po)=>{
+    plsWait(true);
+      const url = `/api/v1/RemoveLinePo/?po=${po}&items=${id}`;
+      const request = await fetch(url,{
+        method: 'DELETE',
+        headers:{'content-type': 'application/json'},
+      })
+
+      const response = await request.json();
+      response.message ?  ShowServerResponse(response.message) : serverError(response.error);
+      response.message ? location.reload() : plsWait(false);
+  }
+
+  //update line item on lpo
+    const lineItem = document.querySelectorAll('#lineItemQty')
+    for (let index = 0; index < lineItem.length; index++) {
+      
+      lineItem[index].addEventListener('change',async (e)=>{
+        plsWait(true);
+        const id = lineItem[index].dataset.qty
+        const url = `/api/v1/updateLinePo/?po=${'<%=Singlebill._id%>'}&value=${e.target.value}&lineId=${id}&update=QTY`;
+        const request = await fetch(url,{
+          method: 'PATCH',
+          headers:{'content-type': 'application/json'},
+        })
+
+        const response = await request.json()
+        response.message ?  ShowServerResponse(response.message) : serverError(response.error)
+        response.message ? location.reload() : plsWait(false);
+      })
+
+      
+    }
+      
+    
+    const submitpoBtn =  async (e)=>{
+      plsWait(true);
+      const url =`/api/v1/VendorBillPost?po=${'<%=Singlebill._id%>'}`
+      const request = await fetch(url,{
+        method: 'PATCH',
+        body:JSON.stringify({
+          discount:document.getElementById('discount').value,
+          status:'Pending',
+          remark:document.getElementById('Remarks').value,
+          shippingfee:document.getElementById('shippingFee').value,
+          ReturnValue:document.getElementById('ReturnQty').value,
+        }),
+        headers:{'content-type': 'application/json'},
+      })
+      const response = await request.json()
+      response.message ?  ShowServerResponse(response.message) : serverError(response.error)
+      response.message ? location.reload() : plsWait(false);
+    }
+   
+
+
+  // get form elements
+      const ApproveForm = document.getElementById('Approve')
+      ApproveForm.addEventListener('submit',async (event) => {
+        event.preventDefault();
+        document.getElementById('CfOBtn').setAttribute('disabled',true);
+        const url =`/api/v1/Vendor/Bill/${'<%=Singlebill._id%>'}`
+        const request = await fetch(url,{
+          method: 'PATCH',
+          body:JSON.stringify({
+            AmountPaid:ApproveForm.Amount.value,
+            CFO:ApproveForm.dataset.user,
+            PaymentDate:ApproveForm.PaymentDate.value, 
+            bankAccount:ApproveForm.bankAccount.value,
+            status:'Approved',
+            paymentStatus:'Paid',
+            PaymentRef:ApproveForm.PaymentRef.value
+          }),
+          headers:{'content-type': 'application/json'},
+        })
+
+        const response = await request.json()
+        response.message ?  ShowServerResponse(response.message ) : serverError( response.error)
+        location.reload()
+      },{once: true})
+
+
+
+  const Decline = document.getElementById('Decline')
+  Decline.addEventListener('click',async (e)=>{
+   display =  document.getElementById('opsCode')
+   display.innerHTML = ''
+   const textArea = document.createElement('textarea')
+   textArea.classList.add('is-invalid')
+   const submitBtn = document.createElement('button')
+   const CloseBtn = document.createElement('button')
+
+   submitBtn.innerText = 'Submit'
+   submitBtn.classList.add('btn')
+   submitBtn.classList.add('btn-warning')
+
+   CloseBtn.innerText = 'Cancel'
+   CloseBtn.classList.add('btn')
+   CloseBtn.classList.add('btn-outline-info')
+   
+
+
+   textArea.placeholder = 'Describe Rejection Reason Here'
+   textArea.classList.add("form-control")
+   textArea.rows="4"
+   textArea. cols="50"
+   display.append(textArea)
+   display.append(submitBtn)
+   display.append(CloseBtn)
+
+
+   submitBtn.addEventListener("click", async ()=>{
+    submitBtn.disabled = true
+    const userId = Decline.dataset.user
+    const request = await fetch(`/api/v1/Vendor/Bill/${'<%=Singlebill._id%>'}`,{
+      method:'PATCH',
+      body: JSON.stringify({
+        status:'Declined',
+        RejectionReason:textArea.value
+      }),
+      headers:{"content-type": "application/json"}
+    },{once: true})
+
+    const response = await request.json()
+    response.deleteMessage  ?  ShowServerResponse(response.deleteMessage  ) : serverError( response.error)
+        if(response.deleteMessage){
+          location.assign(`/api/v1/404`)
+          location.reload()
+        }
+   },{once: true})
+
+   CloseBtn.addEventListener('click',()=>{
+    document.getElementById('myModal').style.display='none'
+   },{once: true})
+    
+    
+  });
+
+
+
+  async function StoreApprove(){
+   BTN = document.getElementById('StoreApproveBtn').disabled = true;
+   plsWait(true);
+    const request = await fetch(`/api/v1/Vendor/Bill/${'<%=Singlebill._id%>'}`,{
+      method:'PATCH',
+      body:JSON.stringify({StoreKeeperConfirmation:true,status:'POSTED TO WAREHOUSE'}),
+      headers:{'Content-Type':'application/json'}
+    },{once: true})
+
+    const response = await request.json()
+    response.message ?  ShowServerResponse(response.message ) : serverError( response.error)
+    location.reload()
+  }
+
+
+
+  const StoreDeclined = async()=>{
+    plsWait(true);
+    const request = await fetch(`/api/v1/Vendor/Bill/${'<%=Singlebill._id%>'}`,{
+      method:'PATCH',
+      body:JSON.stringify({StoreKeeperConfirmation:false,status:'Declined By StoreKeeper'}),
+      headers:{'Content-Type':'application/json'}
+    })
+
+    const response = await request.json()
+    response.message ?  ShowServerResponse(response.message ) : serverError( response.error)
+    location.reload()
+  }
+
+  const AccountantAccept = async (params)=>{
+    plsWait(true);
+    const request = await fetch(`/api/v1/bill/${'<%=Singlebill._id%>'}/approved`,{
+      method:'PATCH',
+      body:JSON.stringify({status:params}),
+      headers:{'Content-Type':'application/json'}
+    })
+
+    const response = await request.json()
+    response.message ?  ShowServerResponse(response.message ) : serverError( response.error)
+    location.reload()
+  }
+    </script>
+</html>
